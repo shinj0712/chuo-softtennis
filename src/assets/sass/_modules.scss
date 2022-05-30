@@ -1,0 +1,221 @@
+/**
+ * sass関数
+ */
+@use "sass:math";
+@use "./variables" as *;
+
+// color
+@function color($key) {
+  @return map-get($color, $key);
+}
+
+// breakpoint
+@function breakpoint($key) {
+  @return map-get($grid-breakpoints, $key);
+}
+
+/**
+ * font size
+ * @param 指定したいピクセル数を入力
+ * @return 単位をremに変換し出力
+ */
+@function font($pixel) {
+  @return (math.div($pixel, $base-font)) * 1rem;
+}
+
+// aspect ratio
+@function aspect($key) {
+  @return map-get($aspectRatio, $key);
+}
+
+// radius (円形)
+@function radius($key) {
+  @return map-get($radius, $key);
+}
+
+// interval (間隔)
+@function interval($pixel) {
+  @return $base-rem * $pixel; // 1/2rem × $pixel
+}
+
+// pixel (固定値)
+@function pixel($pixel) {
+  @return $base-pixel * $pixel; // 8px × $pixel
+}
+
+// デバイス幅 (displayマップ)
+@function device($key) {
+  @return map-get($display, $key);
+}
+
+// パーツ固定値
+@function width($key) {
+  @return map-get($width, $key);
+}
+
+
+/**
+ * アニメーション keyframes
+ */
+
+@keyframes loading {
+  0% {
+    height: 0;
+  }
+
+  50% {
+    height: 80%;
+  }
+
+  100% {
+    height: 0;
+  }
+}
+
+@keyframes fadeoutTop {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-30%);
+  }
+}
+
+@keyframes load-bar {
+  50% {
+    width: 3%;
+    opacity: .1;
+  }
+}
+
+
+/**
+ * common mixin (サイト内でどこでも使う可能性がある)
+ */
+
+@mixin mq($breakpoint: md) {
+  @media #{map-get($media, $breakpoint)} {
+    @content;
+  }
+}
+
+@mixin hover {
+  &:hover {
+    @include mq(md) {
+      @content;
+    }
+  }
+}
+
+// flexbox
+@mixin flex($flow: row nowrap, $justify-content: flex-start, $align-items: stretch, $gap: 0) {
+  display: flex;
+  flex-flow: $flow;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  gap: $gap;
+}
+
+// フォント
+@mixin fonts($size: font(16), $weight: normal, $family: Arial, $height: normal, $spacing: normal) {
+  font-size: $size;
+  font-weight: $weight;
+  font-family: $family, Helvetica, sans-serif;
+  line-height: $height;
+  letter-spacing: $spacing;
+}
+
+// position 一括指定
+@mixin position($type: static, $t: auto, $r: auto, $b: auto, $l: auto, $z: auto) {
+  position: $type;
+
+  @if $type ==absolute or $type ==fixed or $type ==sticky {
+    top: $t;
+    bottom: $b;
+    left: $l;
+    right: $r;
+    z-index: $z;
+  }
+}
+
+// ぼかし
+@mixin blur($blur, $background: transparent, $before-background-color: inherit) {
+  position: relative;
+  background: $background;
+  overflow: hidden;
+  z-index: 0;
+
+  &::before {
+    content: '';
+    display: block;
+    background: $before-background-color;
+    width: 100%;
+    height: 100%;
+    @include position(absolute);
+    filter: blur($blur);
+    z-index: -1;
+  }
+}
+
+// image trimming (imgタグの一つ親のタグに指定する)
+@mixin trimming($aspect) {
+  position: relative;
+
+  &::before {
+    content: '';
+    display: block;
+    padding-bottom: $aspect;
+  }
+
+  & > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// グラデーション
+@mixin gradient($start-color: #091e2f, $end-color: #030A10, $orientation: default) {
+  background: $start-color;
+
+  // 垂直グラデーションの場合
+  @if $orientation ==vertical {
+    background: -moz-linear-gradient(top, $start-color 0%, $end-color 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $start-color), color-stop(100%, $end-color));
+    background: -webkit-linear-gradient(top, $start-color 0%, $end-color 100%);
+    background: -o-linear-gradient(top, $start-color 0%, $end-color 100%);
+    background: linear-gradient(to bottom, $start-color 0%, $end-color 100%);
+  }
+
+  // 水平グラデーションの場合
+  @else if $orientation ==horizontal {
+    background: -moz-linear-gradient(left, $start-color 0%, $end-color 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, $start-color), color-stop(100%, $end-color));
+    background: -webkit-linear-gradient(left, $start-color 0%, $end-color 100%);
+    background: -o-linear-gradient(left, $start-color 0%, $end-color 100%);
+    background: linear-gradient(to right, $start-color 0%, $end-color 100%);
+  }
+
+  // 斜め
+  @else if $orientation ==diagonal {
+    background: -moz-linear-gradient(45deg, $start-color 0%, $end-color 100%);
+    background: -webkit-gradient(linear, right top, left bottom, color-stop(0%, $start-color), color-stop(100%, $end-color));
+    background: -webkit-linear-gradient(45deg, $start-color 0%, $end-color 100%);
+    background: -o-linear-gradient(45deg, $start-color 0%, $end-color 100%);
+    background: linear-gradient(to top right, $start-color 0%, $end-color 100%);
+  }
+
+  @else {
+    background: -moz-radial-gradient(center, ellipse cover, $start-color 0%, $end-color 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, $start-color), color-stop(100%, $end-color));
+    background: -webkit-radial-gradient(center, ellipse cover, $start-color 0%, $end-color 100%);
+    background: -o-radial-gradient(center, ellipse cover, $start-color 0%, $end-color 100%);
+    background: radial-gradient(ellipse at center, $start-color 0%, $end-color 100%);
+  }
+}
