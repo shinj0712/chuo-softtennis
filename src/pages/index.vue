@@ -9,6 +9,10 @@
       TENNIS<br>
     </h1>
   </section>
+
+  <section class="news">
+    <section-title :title="{ ja: 'ニュース', en: 'news' }"/>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -39,6 +43,9 @@
 }
 
 .news {
-
+  background-color: color(lightgray);
+  transform: translateY(- interval(8));
+  max-width: pixel(100);
+  margin: 0 auto;
 }
 </style>
