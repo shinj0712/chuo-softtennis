@@ -1,0 +1,27 @@
+/**
+ * sass変数をVueコンポーネントでグローバルに扱えるようにする
+ */
+@use "variables" as *;
+@use 'modules' as *;
+
+@forward "variables";
+@forward "modules";
+
+@font-face {
+  font-family: 'bangers';
+  src: url('../font/Bangers-Regular.ttf') format("opentype");
+}
+
+body {
+  width: 100vw;
+  color: color(white);
+  @include fonts($size: font(16), $weight:normal, $family: Arial, $height: 1.5);
+  overflow-x: hidden;
+}
+
+.container {
+  width: auto;
+  max-width: none;
+  margin-right: - 5vw;
+  margin-left: - 5vw;
+}

@@ -1,0 +1,95 @@
+/**
+ * サイトで使用するマップを定義します
+ */
+
+@use "sass:math";
+
+// color map
+$color: (
+  darkblue : #091e2f,
+  navy : #10334e,
+  orange : #e56c2c,
+  lightgray : #f2f2f2,
+  darkgray : #C9C9C9,
+  white : #ffffff,
+
+  shadow : #e6e6e6,
+  darkShadow : darken(#e6e6e6, 20%),
+  lightShadow : lighten(#e6e6e6, 10%),
+
+  lightGreen : #56b145,
+  deepYellow : #FDC830,
+  japanRed : #C41A41,
+  blue : #0179D5,
+
+  twitter : #00acee,
+  facebook : #3b5998,
+
+  // bootstrap color
+  primary : #007bff,
+  successful : #28a745,
+  danger : #dc3545,
+  warning : #ffc107,
+  info : #17a2b8,
+  light : #f8f9fa,
+  dark : #343a40,
+  ) !default;
+
+$breakpoints: (
+  xs: 320,
+  sm: 560,
+  md: 1025,
+  lg: 1920,
+  ) !default;
+
+// breakpoint map
+$media: (
+  xs: 'screen and (min-width: #{map-get($breakpoints, xs)}px)',
+  sm: 'screen and (min-width: #{map-get($breakpoints, sm)}px)',
+  md: 'screen and (min-width: #{map-get($breakpoints, md)}px)',
+  lg: 'screen and (min-width: #{map-get($breakpoints, lg)}px)',
+  ) !default;
+
+// display(このサイトが対応するデバイス幅)
+$display: (
+  min: 320px,
+  max: 1600px) !default;
+
+// 固定値で持っておきたい要素幅を指定する（max-width想定）
+$width: (
+  header: 120px,
+  ) !default;
+
+/**
+ * ベースとなるフォントサイズ = 16px
+ * modules.scssでremに変換して出力
+ */
+$base-font: 16;
+
+/**
+ * base pixel (8px)
+ * rem だとフォントサイズに影響するため、pixelで定義
+ */
+$base-pixel: 8px;
+$base-rem: math.div(1rem, 2);
+
+/**
+ * アスペクト比（基準を100%と想定）
+ */
+$aspectRatio: (
+  square : 100%,     // 1  : 1
+  rectangle : 66.7%, // 3  : 2
+  golden : 61.8%,    // 1  : 1.618
+  wide : 56%,        // 16 : 9
+);
+
+/**
+ * radius
+ */
+$radius: (
+  soft: 2px,
+  normal: 4px,
+  hard: 8px,
+
+  circle: 50%
+);
