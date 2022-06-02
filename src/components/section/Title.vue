@@ -24,11 +24,13 @@ const coloring = computed<string | null>(() => (color) ? `title--${color}` : nul
   @include flex(column nowrap, center, center);
 
   &__assistance {
-    @include fonts(font(12), normal, Arial, normal, 2px);
+    font: .75rem arial;
+    letter-spacing: 2px;
   }
 
   &__primary {
-    @include fonts(font(40), bold, 'bangers', 1, 3px);
+    font: bold 3rem/1 'bangers';
+    letter-spacing: 3px;
     text-align: center;
     position: relative;
     margin-top: interval(1);

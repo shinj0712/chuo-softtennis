@@ -12,10 +12,18 @@
   src: url('../font/Bangers-Regular.ttf') format("opentype");
 }
 
+* {
+  font-size: 1rem;
+}
+
+html {
+  font-size: clamp(0.875rem, 0.75vw + 0.5rem, 1.5rem);
+}
+
 body {
   width: 100vw;
   color: color(white);
-  @include fonts($size: font(16), $weight:normal, $family: Arial, $height: 1.5);
+  font: 1rem/1.5 arial;
   overflow-x: hidden;
 }
 

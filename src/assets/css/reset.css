@@ -190,7 +190,7 @@ address {
 
 ol,
 ul {
-  padding-left: 2rem;
+  padding: 0;
 }
 
 ol,
@@ -506,4 +506,7 @@ progress {
   display: none !important;
 }
 
+li {
+  list-style-type: none;
+}
 /*# sourceMappingURL=bootstrap-reboot.css.map */
