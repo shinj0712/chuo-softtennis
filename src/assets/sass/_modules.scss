@@ -120,7 +120,7 @@
 }
 
 // フォント
-@mixin fonts($size: font(16), $weight: normal, $family: Arial, $height: normal, $spacing: normal) {
+@mixin fonts($size: 1rem, $weight: normal, $family: Arial, $height: normal, $spacing: normal) {
   font-size: $size;
   font-weight: $weight;
   font-family: $family, Helvetica, sans-serif;
