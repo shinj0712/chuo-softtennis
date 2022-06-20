@@ -78,6 +78,22 @@
       </p>
     </div>
   </section>
+
+  <!-- スポンサー -->
+  <section class="sponsor">
+    <ul class="sponsor__list">
+      <li class="sponsor__item">
+        <nuxt-link class="sponsor__link" to="#" target="_blank">
+          <img src="@/assets/images/sponsor/yonex.png" alt="ヨネックス" class="sponsor__image">
+        </nuxt-link>
+      </li>
+      <li class="sponsor__item">
+        <nuxt-link class="sponsor__link" to="#" target="_blank">
+          <img src="@/assets/images/sponsor/mizuno.png" alt="ミズノ" class="sponsor__image">
+        </nuxt-link>
+      </li>
+    </ul>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -228,6 +244,45 @@ const { homeMenuPanels } = useConst();
     letter-spacing: 1.2px;
     max-width: pixel(100);
     margin: interval(5) auto;
+  }
+}
+
+// スポンサー
+.sponsor {
+  $this: &;
+  margin: interval(10) 0;
+
+  &__list {
+    @include flex(row nowrap, center, center, interval(4));
+    margin: 0;
+  }
+
+  &__link {
+    display: block;
+    padding: .5rem;
+
+    @include mq(sm) {
+      padding: 1rem;
+    }
+
+    @include hover {
+      #{$this}__image {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  &__image {
+    mix-blend-mode: multiply;
+    object-fit: contain;
+    width: auto;
+    height: 2.5rem;
+    transform: scale(1);
+    transition: transform .3s ease;
+
+    @include mq(sm) {
+      height: 3rem;
+    }
   }
 }
 </style>
