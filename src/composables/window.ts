@@ -36,9 +36,9 @@ export const useWindow = () => {
   onUnmounted(() => window.addEventListener('resize', update));
 
   return {
-    windowWidth,
-    windowHeight,
-    breakpoints,
-    responsiveDevice,
+    windowWidth: readonly(windowWidth),
+    windowHeight: readonly(windowHeight),
+    breakpoints: readonly(breakpoints),
+    responsiveDevice: readonly(responsiveDevice),
   };
 };

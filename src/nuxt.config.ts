@@ -25,6 +25,9 @@ export default defineNuxtConfig({
 		'@/assets/css/reset.css',
 	],
 	head: {
-		link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }],
+		title: '中央大学ソフトテニス部白門会 公式HP',
+		link: [
+			{ rel: 'icon', type: 'image/png', href: '/favicon.png' },
+		],
 	},
 });
