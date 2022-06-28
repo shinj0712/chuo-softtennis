@@ -1,7 +1,7 @@
 <template>
-  <div class="title" :class="coloring">
-    <span class="title__assistance">{{ title.ja }}</span>
-    <h2 class="title__primary">{{ title.en }}</h2>
+  <div class="primary-title" :class="coloring">
+    <span class="primary-title__assistance">{{ title.ja }}</span>
+    <h2 class="primary-title__primary">{{ title.en }}</h2>
   </div>
 </template>
 
@@ -15,11 +15,11 @@ interface Props {
 }
 
 const { title, color='darkblue' } = defineProps<Props>();
-const coloring = computed<string | null>(() => (color) ? `title--${color}` : null);
+const coloring = computed<string | null>(() => (color) ? `primary-title--${color}` : null);
 </script>
 
 <style ${2|scoped,|} lang="scss">
-.title {
+.primary-title {
   padding: interval(5) 0;
   @include flex(column nowrap, center, center);
 

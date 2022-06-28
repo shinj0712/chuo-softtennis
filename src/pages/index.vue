@@ -13,7 +13,7 @@
 
     <!-- ニュース -->
     <section class="news">
-      <section-title :title="{ ja: 'ニュース', en: 'news' }"/>
+      <title-primary :title="{ ja: 'ニュース', en: 'news' }"/>
       <ul class="news__list">
         <!-- TODO:API実装次第、Twitterデータを使う -->
         <li class="news__item">
@@ -72,7 +72,7 @@
     <!-- サポートメッセージ -->
     <section class="support container">
       <div class="support__wrapper">
-        <section-title :title="{ ja: 'サポート', en: 'support' }" color="white"/>
+        <title-primary :title="{ ja: 'サポート', en: 'support' }" color="white"/>
         <p class="support__text">
           中央大学ソフトテニス部は、古くから様々な関係者にご支援をいただいております。<br>
           皆様の手厚いサポートのおかげでソフトテニスに100%コミットできる環境づくりと円滑な部活動運営が可能になっています。各関係者様の多大なサポートと協力に感謝し、ソフトテニスに真摯に向き合い、常に謙虚な姿勢を忘れずに活動して参ります。
