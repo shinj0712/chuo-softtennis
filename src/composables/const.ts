@@ -9,7 +9,6 @@ interface HomeMenuPanel {
   title   : string;
   leadText: string;
 }
-
 const homeMenuPanels: HomeMenuPanel[] = [
   {
     title: 'Teams',
@@ -52,7 +51,6 @@ interface Concept {
   keyword: string;
   text: string;
 }
-
 const concepts: Concept[] = [
   {
     id: 1,
@@ -74,10 +72,30 @@ const concepts: Concept[] = [
   },
 ]
 
+interface TableBody {
+  key: string;
+  value: string;
+}
+interface PracticeTable {
+  title?: String;
+  body: TableBody[];
+}
+const practiceTable: PracticeTable = {
+  title: '練習環境',
+  body: [
+    { key: "練習時間", value: "9:00 ~ 12:00（全体練習）"},
+    { key: "活動期間", value: "2月 - 8月、9月 - 12月" },
+    { key: "オフ",    value: "毎週月曜日・各大会後" },
+    { key: "練習場所", value: "〒192-0393\n東京都八王子市東中野742-1\n中央大学多摩キャンパス第二体育館ソフトテニスコート" }
+  ],
+}
+
+
 // コンポーネントで使用するため
 export const useConst = () => {
   return {
     homeMenuPanels,
     concepts,
+    practiceTable,
   };
 }
