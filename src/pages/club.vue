@@ -25,15 +25,32 @@
 
     <section class="practice">
       <title-primary :title="{ ja: '練習' , en: 'practice' }"/>
+      <!-- 練習情報テーブル -->
       <div class="practice__table">
         <table-primary :table="practiceTable"/>
+      </div>
+      <!-- マップ -->
+      <div class="practice__map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1621.2667723739717!2d139.3969191414313!3d35.63922419623377!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018e3e36092b1eb%3A0xbda5deeac6e07b45!2z5Lit5aSu5aSn5a2mIOWkmuaRqeOCreODo-ODs-ODkeOCuSDjgr3jg5Xjg4jjg4bjg4vjgrnjgrPjg7zjg4g!5e0!3m2!1sja!2sjp!4v1606833350051!5m2!1sja!2sjp"
+          frameborder="0"
+          class="practice__map-iframe"
+          aria-hidden="false"
+          tabindex="0">
+        </iframe>
+        <span class="practice__map-attention">※練習時間・活動期間・オフについては年度や体制、状況によって変動します。</span>
+      </div>
+      <!-- コート写真 -->
+      <div class="practice__images">
+        <div class="practice__image" v-for="image in practiceCourtImages">
+          <Image :src="image.src" :alt="image.alt"/>
+        </div>
       </div>
     </section>
   </div>
 </template>
 
 <script lang="ts" setup>
-const { concepts, practiceTable } = useConst();
+const { concepts, practiceTable, practiceCourtImages } = useConst();
 const TabComponent = ref();
 
 const tabChange = (id: number): void => {
@@ -247,6 +264,56 @@ const tabChange = (id: number): void => {
 
   .practice {
     margin-top: interval(5);
+
+    &__map {
+      padding-top: interval(5);
+
+      &-iframe {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+
+        @include mq(sm) {
+          aspect-ratio: 16 / 9;
+        }
+      }
+
+      &-attention {
+        color: color(darkblue);
+        margin: interval(1) auto 0 auto;
+        display: block;
+        text-align: center;
+        font: normal .8rem/1 arial;
+
+        @include mq(md) {
+          text-align: end;
+        }
+      }
+    }
+
+    &__images {
+      position: relative;
+      margin-top: interval(10);
+    }
+
+    &__image {
+      // width: 100%;
+      // aspect-ratio: 3 / 2;
+      // @include position(absolute, $t: 0, $l: 0);
+
+      // &:nth-of-type(1) {
+      //   transform: perspective(40rem) rotateY(60deg) scale(.5) translate3d(0, 0, 0);
+      // }
+
+      // &:nth-of-type(2) {
+      //   opacity: .8;
+      //   transform: perspective(40rem) rotateY(60deg) scale(.5) translate3d(5rem, 5rem, 10px);
+      // }
+
+      // &:nth-of-type(3) {
+      //   opacity: .6;
+      //   transform: perspective(40rem) rotateY(60deg) scale(.5) translate3d(10rem, 10rem, 20px);
+      // }
+    }
   }
 }
 </style>

@@ -2,6 +2,17 @@
  * このファイルはサイト内で使用する定数をまとめたファイルです
  */
 
+// インターフェイス定義
+interface Image {
+  src: {
+    lg?: string;
+    md?: string;
+    sm?: string;
+    default: string;
+  };
+  alt: string;
+}
+
 // interface定義
 interface HomeMenuPanel {
   img     : string;
@@ -90,6 +101,20 @@ const practiceTable: PracticeTable = {
   ],
 }
 
+const practiceCourtImages: Image[] = [
+  {
+    src: { default: 'court05.jpg' },
+    alt: '多摩キャンパスソフトテニスコート（第二体育館）',
+  },
+  {
+    src: { default: 'court03.jpg' },
+    alt: '多摩キャンパスソフトテニスコート（1,2,3）',
+  },
+  {
+    src: { default: 'court04.jpg' },
+    alt: '多摩キャンパスソフトテニスコート（4,5,6）',
+  },
+]
 
 // コンポーネントで使用するため
 export const useConst = () => {
@@ -97,5 +122,6 @@ export const useConst = () => {
     homeMenuPanels,
     concepts,
     practiceTable,
+    practiceCourtImages,
   };
 }
