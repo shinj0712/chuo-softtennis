@@ -12,14 +12,31 @@ interface Image {
   };
   alt: string;
 }
-
-// interface定義
 interface HomeMenuPanel {
   img     : string;
   alt     : string;
   title   : string;
   leadText: string;
 }
+interface Concept {
+  id: number;
+  title: {
+    ja: string;
+    en: string;
+  },
+  keyword: string;
+  text: string;
+}
+interface TableBody {
+  key: string;
+  value: string;
+}
+interface Table {
+  title?: string;
+  body: TableBody[];
+}
+
+// データ定義
 const homeMenuPanels: HomeMenuPanel[] = [
   {
     title: 'Teams',
@@ -53,15 +70,6 @@ const homeMenuPanels: HomeMenuPanel[] = [
   },
 ];
 
-interface Concept {
-  id: number;
-  title: {
-    ja: string;
-    en: string;
-  },
-  keyword: string;
-  text: string;
-}
 const concepts: Concept[] = [
   {
     id: 1,
@@ -83,15 +91,7 @@ const concepts: Concept[] = [
   },
 ]
 
-interface TableBody {
-  key: string;
-  value: string;
-}
-interface PracticeTable {
-  title?: String;
-  body: TableBody[];
-}
-const practiceTable: PracticeTable = {
+const practiceTable: Table = {
   title: '練習環境',
   body: [
     { key: "練習時間", value: "9:00 ~ 12:00（全体練習）"},
@@ -101,7 +101,7 @@ const practiceTable: PracticeTable = {
   ],
 }
 
-const practiceCourtImages: Image[] = [
+const courtImages: Image[] = [
   {
     src: { default: 'court05.jpg' },
     alt: '多摩キャンパスソフトテニスコート（第二体育館）',
@@ -116,12 +116,49 @@ const practiceCourtImages: Image[] = [
   },
 ]
 
+const scheduleTable: Table = {
+  title: '年間スケジュール',
+  body: [
+    { key: "1月",  value: "オフ" },
+    { key: "2月",  value: "オフ / 練習開始" },
+    { key: "3月",  value: "春合宿" },
+    { key: "4月",  value: "東都リーグ（春）" },
+    { key: "5月",  value: "関東リーグ（春）" },
+    { key: "6月",  value: "定期戦（立命館大学）" },
+    { key: "7月",  value: "東日本インカレ" },
+    { key: "8月",  value: "インカレ" },
+    { key: "9月",  value: "東都リーグ（秋）" },
+    { key: "10月", value: "関東リーグ（秋）" },
+    { key: "11月", value: "大学対抗" },
+    { key: "12月", value: "オフ / 納会"}
+  ]
+}
+
+// swiperオプションは型定義しない（ライブラリ先で型定義されているため）
+const swiperPagination = {
+  clickable: true,
+}
+
+const swiperScrollBar = {
+  draggable: true,
+}
+
+const swiperBreakpoints = {
+  courtImages: {
+    700: { slidesPerView: 2, spaceBetween: 20 },
+  },
+}
+
 // コンポーネントで使用するため
 export const useConst = () => {
   return {
     homeMenuPanels,
     concepts,
     practiceTable,
-    practiceCourtImages,
+    courtImages,
+    swiperPagination,
+    swiperScrollBar,
+    swiperBreakpoints,
+    scheduleTable,
   };
 }

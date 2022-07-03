@@ -81,7 +81,6 @@ const coloring = computed<string | null>(() => {
   &__record {
     font: bold .9rem/1 arial;
     width: 100%;
-    border: 1px solid color(lightgray);
   }
 
   &__key,
@@ -96,12 +95,14 @@ const coloring = computed<string | null>(() => {
     width: 30%;
     background-color: color(lightgray);
     text-align: center;
+    border-bottom: 1px solid darken(color(lightgray), 5%);
   }
 
   &__value {
     width: 70%;
     background-color: color(white);
     white-space: pre-wrap;
+    border-bottom: 1px solid color(lightgray);
   }
 
   @for $i from 1 to 10 {

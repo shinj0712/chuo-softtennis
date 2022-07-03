@@ -26,9 +26,7 @@
     <section class="practice">
       <title-primary :title="{ ja: '練習' , en: 'practice' }"/>
       <!-- 練習情報テーブル -->
-      <div class="practice__table">
-        <table-primary :table="practiceTable"/>
-      </div>
+      <table-primary :table="practiceTable"/>
       <!-- マップ -->
       <div class="practice__map">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1621.2667723739717!2d139.3969191414313!3d35.63922419623377!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018e3e36092b1eb%3A0xbda5deeac6e07b45!2z5Lit5aSu5aSn5a2mIOWkmuaRqeOCreODo-ODs-ODkeOCuSDjgr3jg5Xjg4jjg4bjg4vjgrnjgrPjg7zjg4g!5e0!3m2!1sja!2sjp!4v1606833350051!5m2!1sja!2sjp"
@@ -41,16 +39,47 @@
       </div>
       <!-- コート写真 -->
       <div class="practice__images">
-        <div class="practice__image" v-for="image in practiceCourtImages">
-          <Image :src="image.src" :alt="image.alt"/>
-        </div>
+        <swiper
+          :modules="[Navigation, Pagination]"
+          :slides-per-view="1"
+          :breakpoints="swiperBreakpoints.courtImages"
+          :loop="true"
+          navigation
+          :pagination="swiperPagination"
+          :scrollbar="swiperScrollBar"
+        >
+          <swiper-slide v-for="item in courtImages">
+            <Image :src="item.src" :alt="item.alt"/>
+            <caption class="practice__caption">{{ item.alt }}</caption>
+          </swiper-slide>
+        </swiper>
+      </div>
+      <!-- スケジュール -->
+      <div class="practice__schedule">
+        <table-primary :table="scheduleTable"/>
       </div>
     </section>
   </div>
 </template>
 
 <script lang="ts" setup>
-const { concepts, practiceTable, practiceCourtImages } = useConst();
+// Swiper import
+import { Navigation, Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+const {
+  concepts,
+  practiceTable,
+  courtImages,
+  swiperPagination,
+  swiperScrollBar,
+  swiperBreakpoints,
+  scheduleTable,
+} = useConst();
+
 const TabComponent = ref();
 
 const tabChange = (id: number): void => {
@@ -293,26 +322,21 @@ const tabChange = (id: number): void => {
     &__images {
       position: relative;
       margin-top: interval(10);
+      @include swiper-button(white);
     }
 
-    &__image {
-      // width: 100%;
-      // aspect-ratio: 3 / 2;
-      // @include position(absolute, $t: 0, $l: 0);
+    &__caption {
+      display: block;
+      width: 100%;
+      background: rgba($color: color(navy), $alpha: .6);
+      color: color(white);
+      font: bold .9rem/1.2 arial;
+      padding: interval(1);
+      @include position(absolute, $b:0, $l: 0);
+    }
 
-      // &:nth-of-type(1) {
-      //   transform: perspective(40rem) rotateY(60deg) scale(.5) translate3d(0, 0, 0);
-      // }
-
-      // &:nth-of-type(2) {
-      //   opacity: .8;
-      //   transform: perspective(40rem) rotateY(60deg) scale(.5) translate3d(5rem, 5rem, 10px);
-      // }
-
-      // &:nth-of-type(3) {
-      //   opacity: .6;
-      //   transform: perspective(40rem) rotateY(60deg) scale(.5) translate3d(10rem, 10rem, 20px);
-      // }
+    &__schedule {
+      margin-top: interval(10);
     }
   }
 }
