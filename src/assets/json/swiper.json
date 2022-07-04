@@ -1,0 +1,15 @@
+{
+  "pagination": {
+    "clickable": true
+  },
+
+  "scrollBar": {
+    "draggable": true
+  },
+
+  "breakpoint": {
+    "courtImages": {
+      "700": { "slidesPerView": 2, "spaceBetween": 20 }
+    }
+  }
+}

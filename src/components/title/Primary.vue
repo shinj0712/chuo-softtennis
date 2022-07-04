@@ -20,6 +20,7 @@ const coloring = computed<string | null>(() => (color) ? `primary-title--${color
 
 <style ${2|scoped,|} lang="scss">
 .primary-title {
+  $this: &;
   padding: interval(5) 0;
   @include flex(column nowrap, center, center);
 
@@ -45,11 +46,11 @@ const coloring = computed<string | null>(() => (color) ? `primary-title--${color
       transform: translateX(-50%);
       background-color: color(darkblue);
 
-      .title--white & {
+      #{$this}--white & {
         background-color: color(white);
       }
 
-      .title--darkblue & {
+      #{$this}--darkblue & {
         background-color: color(darkblue);
       }
     }

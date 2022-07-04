@@ -15,18 +15,18 @@
     <section class="concept">
       <title-primary :title="{ ja: 'コンセプト', en: 'concept' }"/>
       <div class="concept__balls">
-        <div class="concept__ball" v-for="concept in concepts" @click="tabChange(concept.id)">
+        <div class="concept__ball" v-for="concept in contents.concept" @click="tabChange(concept.id)">
           <input type="radio" :value="concept.id" class="concept__radio">
           <label :for="concept.title.en" class="concept__label">{{ concept.title.en.toUpperCase() }}</label>
         </div>
       </div>
-      <tab :items="concepts" ref="TabComponent"/>
+      <tab :items="contents.concept" ref="TabComponent"/>
     </section>
 
     <section class="practice">
       <title-primary :title="{ ja: '練習' , en: 'practice' }"/>
       <!-- 練習情報テーブル -->
-      <table-primary :table="practiceTable"/>
+      <table-primary :table="table.practice"/>
       <!-- マップ -->
       <div class="practice__map">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1621.2667723739717!2d139.3969191414313!3d35.63922419623377!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018e3e36092b1eb%3A0xbda5deeac6e07b45!2z5Lit5aSu5aSn5a2mIOWkmuaRqeOCreODo-ODs-ODkeOCuSDjgr3jg5Xjg4jjg4bjg4vjgrnjgrPjg7zjg4g!5e0!3m2!1sja!2sjp!4v1606833350051!5m2!1sja!2sjp"
@@ -42,13 +42,12 @@
         <swiper
           :modules="[Navigation, Pagination]"
           :slides-per-view="1"
-          :breakpoints="swiperBreakpoints.courtImages"
+          :breakpoints="swiperOptions.breakpoint.courtImages"
           :loop="true"
           navigation
-          :pagination="swiperPagination"
-          :scrollbar="swiperScrollBar"
+          :pagination="swiperOptions.pagination"
         >
-          <swiper-slide v-for="item in courtImages">
+          <swiper-slide v-for="item in image.court">
             <Image :src="item.src" :alt="item.alt"/>
             <caption class="practice__caption">{{ item.alt }}</caption>
           </swiper-slide>
@@ -56,7 +55,14 @@
       </div>
       <!-- スケジュール -->
       <div class="practice__schedule">
-        <table-primary :table="scheduleTable"/>
+        <table-primary :table="table.schedule"/>
+      </div>
+    </section>
+
+    <section class="dormitory">
+      <title-primary :title="{ ja: '寮生活' , en: 'dormitory' }"/>
+      <div class="dormitory__lead">
+
       </div>
     </section>
   </div>
@@ -70,15 +76,11 @@ import "swiper/css";
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-const {
-  concepts,
-  practiceTable,
-  courtImages,
-  swiperPagination,
-  swiperScrollBar,
-  swiperBreakpoints,
-  scheduleTable,
-} = useConst();
+// json data
+import table from "@/assets/json/table.json";
+import image from "@/assets/json/image.json";
+import contents from "@/assets/json/contents.json";
+import swiperOptions from "@/assets/json/swiper.json";
 
 const TabComponent = ref();
 
@@ -336,8 +338,12 @@ const tabChange = (id: number): void => {
     }
 
     &__schedule {
-      margin-top: interval(10);
+      margin-top: interval(5);
     }
+  }
+
+  .dormitory {
+    margin-top: interval(5);
   }
 }
 </style>

@@ -56,7 +56,7 @@
     <!-- メニューパネル -->
     <section class="panel container">
       <ul class="panel__list">
-        <li class="panel__item" v-for="menu in homeMenuPanels">
+        <li class="panel__item" v-for="menu in contents.panels">
           <Image :src="{ default: menu.img }" :alt="menu.alt" aspect="square"/>
           <div class="panel__content">
             <h3 class="panel__title">{{ menu.title }}</h3>
@@ -99,7 +99,7 @@
 </template>
 
 <script setup lang="ts">
-const { homeMenuPanels } = useConst();
+import contents from "@/assets/json/contents.json";
 </script>
 
 <style ${2|scoped,|} lang="scss">
