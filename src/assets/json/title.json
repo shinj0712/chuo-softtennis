@@ -1,0 +1,18 @@
+{
+  "concept": {
+    "ja": "コンセプト",
+    "en": "concept"
+  },
+  "practice": {
+    "ja": "練習",
+    "en": "practice"
+  },
+  "dormitory": {
+    "ja": "寮生活",
+    "en": "dormitory"
+  },
+  "member": {
+    "ja": "メンバー",
+    "en": "member"
+  }
+}

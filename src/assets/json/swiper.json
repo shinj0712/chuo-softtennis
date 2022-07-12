@@ -10,6 +10,9 @@
   "breakpoint": {
     "courtImages": {
       "700": { "slidesPerView": 2, "spaceBetween": 20 }
+    },
+    "dormitory": {
+      "700": { "slidesPerView": 2, "spaceBetween": 20 }
     }
   }
 }
