@@ -13,7 +13,7 @@
     </section>
 
     <section class="concept">
-      <title-primary :title="{ ja: 'コンセプト', en: 'concept' }"/>
+      <title-primary :title="title.concept"/>
       <div class="concept__balls">
         <div class="concept__ball" v-for="concept in contents.concept" @click="tabChange(concept.id)">
           <input type="radio" :value="concept.id" class="concept__radio">
@@ -24,7 +24,7 @@
     </section>
 
     <section class="practice">
-      <title-primary :title="{ ja: '練習' , en: 'practice' }"/>
+      <title-primary :title="title.practice"/>
       <!-- 練習情報テーブル -->
       <table-primary :table="table.practice"/>
       <!-- マップ -->
@@ -60,9 +60,64 @@
     </section>
 
     <section class="dormitory">
-      <title-primary :title="{ ja: '寮生活' , en: 'dormitory' }"/>
-      <div class="dormitory__lead">
+      <title-primary :title="title.dormitory"/>
+      <p class="dormitory__lead">
+        スポーツ推薦入学者は、原則、南平寮にてチームメイトと寝食を共にします。<br>
+        生活を共有することでよりチームとして動きやすく、理解しあえる関係を構築するためです。<br><br>
+        寮生活を経験することは、社会人で基本となる「自由」と「責任」を体感し、自立心を育む手助けにもなります。<br>
+        南平寮では部活動と学業に専念できる生活環境が整っており、思い出に残る充実した大学生活を送ることができます。
+      </p>
+      <card :items="contents.dormitory" :column="dormitoryTicketColumn">
+        <template v-slot:content="dormitory">
+          <!-- アイコン -->
+          <div class="dormitory__ticket-icon">
+            <nuxt-svg :name="dormitory.item.icon"/>
+          </div>
+          <!-- テキスト -->
+          <div class="dormitory__ticket-text-container">
+            <p class="dormitory__ticket-text">
+              {{ dormitory.item.text }}
+            </p>
+            <div class="dormitory__ticket-complement-container" v-if="dormitory.item.complements.length !== 0">
+              <span class="dormitory__ticket-complement" v-for="complement in dormitory.item.complements">
+                {{ complement }}
+              </span>
+            </div>
+          </div>
+        </template>
+      </card>
+      <div class="dormitory__images">
+        <swiper
+          :modules="[Navigation, Pagination]"
+          :slides-per-view="1"
+          :breakpoints="swiperOptions.breakpoint.dormitory"
+          :loop="true"
+          navigation
+          :pagination="swiperOptions.pagination"
+        >
+          <swiper-slide v-for="item in image.dormitory">
+            <Image :src="item.src" :alt="item.alt"/>
+            <caption class="practice__caption">{{ item.alt }}</caption>
+          </swiper-slide>
+        </swiper>
+      </div>
+    </section>
 
+    <section class="member container">
+      <title-primary :title="title.member" color="white"/>
+      <div class="member__slider">
+        <swiper
+          :modules="[Navigation, Pagination]"
+          :slides-per-view="1"
+          :breakpoints="swiperOptions.breakpoint.memberCard"
+          :loop="true"
+          navigation
+          :pagination="swiperOptions.dynamicPagination"
+        >
+          <swiper-slide v-for="player in member.players">
+            <card-user :item="player"/>
+          </swiper-slide>
+        </swiper>
       </div>
     </section>
   </div>
@@ -80,13 +135,18 @@ import 'swiper/css/pagination';
 import table from "@/assets/json/table.json";
 import image from "@/assets/json/image.json";
 import contents from "@/assets/json/contents.json";
+import title from "@/assets/json/title.json";
 import swiperOptions from "@/assets/json/swiper.json";
+import member from "@/assets/json/mock/member.json";
 
 const TabComponent = ref();
+const { responsiveDevice } = useWindow();
 
 const tabChange = (id: number): void => {
   TabComponent.value.change(id);
 }
+
+const dormitoryTicketColumn: number = (responsiveDevice.value === 'pc') ? 2 : 1;
 </script>
 
 <style ${2|scoped,|} lang="scss">
@@ -106,7 +166,6 @@ const tabChange = (id: number): void => {
       @include position(absolute, 0, 0, 0, 0, 11);
       margin: auto;
     }
-
     &::after {
       content: '@ 2022 CHUO UNIVERSITY SOFT TENNIS TEAM';
       @include flex(row nowrap, flex-end, flex-end);
@@ -117,7 +176,6 @@ const tabChange = (id: number): void => {
       margin: auto;
       color: color(navy);
     }
-
     &__item {
       width: 100%;
       height: 100%;
@@ -138,7 +196,6 @@ const tabChange = (id: number): void => {
           left: 15%;
         }
       }
-
       &:nth-of-type(2) {
         animation-delay: 6s;
         background: url('@/assets/images/support_sp.jpg') no-repeat center center/cover;
@@ -148,7 +205,6 @@ const tabChange = (id: number): void => {
           left: 30%;
         }
       }
-
       &:nth-of-type(3) {
         animation-delay: 12s;
         background: url('@/assets/images/hakumon02.jpg') no-repeat center center/cover;
@@ -159,7 +215,6 @@ const tabChange = (id: number): void => {
         }
       }
     }
-
     &__caption {
       @include position(absolute, $z: 11);
       font: bold 5rem/1 arial;
@@ -183,11 +238,9 @@ const tabChange = (id: number): void => {
     @include mq(sm) {
       --boll-size: 8rem;
     }
-
     @include mq(md) {
       --boll-size: 10rem;
     }
-
     &__balls {
       @include flex(row nowrap, center, center);
       margin-bottom: interval(5);
@@ -198,7 +251,6 @@ const tabChange = (id: number): void => {
         margin-right: interval(1);
       }
     }
-
     &__ball {
       width: var(--boll-size);
       height: var(--boll-size);
@@ -211,7 +263,6 @@ const tabChange = (id: number): void => {
       @include mq(md) {
         cursor: pointer;
       }
-
       &:nth-child(1) {
         transform: rotate(10deg);
         margin-right: interval(1);
@@ -220,7 +271,6 @@ const tabChange = (id: number): void => {
           transform: rotate(-10deg) translateX(10px);
         }
       }
-
       &:nth-child(2) {
         margin-right: interval(.5);
         transform: rotate(-8deg);
@@ -229,7 +279,6 @@ const tabChange = (id: number): void => {
           transform: rotate(8deg) translateX(-8px);
         }
       }
-
       &:last-child {
         transform: rotate(12deg);
         margin-right: 0;
@@ -238,7 +287,6 @@ const tabChange = (id: number): void => {
           transform: rotate(-12deg) translateX(5px);
         }
       }
-
       &::before {
         display: block;
         content: '';
@@ -249,7 +297,6 @@ const tabChange = (id: number): void => {
         background-color: darken($color: blue, $amount: 10%);
         border-radius: radius(circle);
       }
-
       &::after {
         content: '';
         display: block;
@@ -263,7 +310,6 @@ const tabChange = (id: number): void => {
         opacity: .9;
         transition: transform .3s ease-in;
       }
-
       @include hover {
         transform: rotate(0);
 
@@ -272,11 +318,9 @@ const tabChange = (id: number): void => {
         }
       }
     }
-
     &__radio {
       display: none;
     }
-
     &__label {
       font: bold .7rem/1 arial;
       color: darken($color: red, $amount: .4);
@@ -307,7 +351,6 @@ const tabChange = (id: number): void => {
           aspect-ratio: 16 / 9;
         }
       }
-
       &-attention {
         color: color(darkblue);
         margin: interval(1) auto 0 auto;
@@ -320,13 +363,11 @@ const tabChange = (id: number): void => {
         }
       }
     }
-
     &__images {
       position: relative;
       margin-top: interval(10);
       @include swiper-button(white);
     }
-
     &__caption {
       display: block;
       width: 100%;
@@ -336,7 +377,6 @@ const tabChange = (id: number): void => {
       padding: interval(1);
       @include position(absolute, $b:0, $l: 0);
     }
-
     &__schedule {
       margin-top: interval(5);
     }
@@ -344,6 +384,61 @@ const tabChange = (id: number): void => {
 
   .dormitory {
     margin-top: interval(5);
+
+    &__lead {
+      color: color(darkblue);
+      padding-bottom: interval(5);
+
+      @include mq(sm) {
+        max-width: pixel(100);
+        margin: 0 auto;
+      }
+      @include mq(md) {
+        max-width: pixel(120);
+      }
+    }
+
+    &__ticket {
+      &-icon {
+        width: 5rem;
+        margin: interval(1) auto;
+      }
+      &-text-container {
+        padding: interval(1);
+      }
+      &-text {
+        color: color(darkblue);
+        margin: 0;
+        max-width: 50rem;
+      }
+      &-complement-container {
+        @include flex(row wrap, flex-start, center, interval(1));
+        padding: interval(1) 0;
+      }
+      &-complement {
+        padding: interval(1) interval(1);
+        background-color: color(lightgray);
+        color: color(darkblue);
+        border-radius: 1000px;
+        border: 1px solid color(darkblue);
+        font: bold .8rem/1 arial;
+      }
+    }
+
+    &__images {
+      margin-top: interval(10);
+      @include swiper-button(white);
+    }
+  }
+
+  .member {
+    @include gradient(color(navy), color(darkblue));
+    margin-top: interval(10);
+
+    &__slider {
+      padding: 0 5vw interval(5);
+      @include swiper-button(darkblue);
+    }
   }
 }
 </style>

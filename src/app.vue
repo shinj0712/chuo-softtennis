@@ -69,6 +69,7 @@
   }
 
   &-pagination {
+    $this: &;
     counter-reset: num;
 
     &-bullet {
@@ -112,6 +113,12 @@
       opacity: 1;
       transform: scale(1.1);
       animation: rotate-scale 3s linear normal infinite;
+    }
+
+    &-bullets-dynamic {
+      #{$this}-bullet-active {
+        animation: rotate-scale-small 3s linear normal infinite;
+      }
     }
   }
 }

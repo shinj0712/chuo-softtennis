@@ -125,6 +125,20 @@
   }
 }
 
+@keyframes rotate-scale-small {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  50% {
+    transform: scale(0.9) rotate(180deg);
+  }
+
+  100% {
+    transform: scale(1.0) rotate(360deg);
+  }
+}
+
 
 /**
  * common mixin (サイト内でどこでも使う可能性がある)
