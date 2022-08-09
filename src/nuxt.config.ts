@@ -30,4 +30,7 @@ export default defineNuxtConfig({
 			{ rel: 'icon', type: 'image/png', href: '/favicon.png' },
 		],
 	},
+	runtimeConfig: {
+		GoogleSheetsId : process.env.SHEETS_ID,
+	}
 });

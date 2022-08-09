@@ -114,7 +114,7 @@
           navigation
           :pagination="swiperOptions.dynamicPagination"
         >
-          <swiper-slide v-for="player in member.players">
+          <swiper-slide v-for="player in players">
             <card-user :item="player"/>
           </swiper-slide>
         </swiper>
@@ -137,7 +137,7 @@ import image from "@/assets/json/image.json";
 import contents from "@/assets/json/contents.json";
 import title from "@/assets/json/title.json";
 import swiperOptions from "@/assets/json/swiper.json";
-import member from "@/assets/json/mock/member.json";
+// import member from "@/assets/json/mock/member.json";
 
 const TabComponent = ref();
 const { responsiveDevice } = useWindow();
@@ -147,6 +147,12 @@ const tabChange = (id: number): void => {
 }
 
 const dormitoryTicketColumn: number = (responsiveDevice.value === 'pc') ? 2 : 1;
+
+// メンバー情報を取得
+const { data: players } = useFetch('/api/players', {
+  method: 'GET',
+  params: { grade: 4 },
+});
 </script>
 
 <style ${2|scoped,|} lang="scss">

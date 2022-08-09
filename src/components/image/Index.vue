@@ -7,6 +7,7 @@
           class="image__img"
           :media="`(min-width: ${breakpoints.lg}px)`"
           :srcset="`/_nuxt/assets/images/${src.lg}`"
+          @error="imgError"
         >
       </template>
 
@@ -16,6 +17,7 @@
           class="image__img"
           :media="`(min-width: ${breakpoints.md}px)`"
           :srcset="`/_nuxt/assets/images/${src.md}`"
+          @error="imgError"
         >
       </template>
 
@@ -25,6 +27,7 @@
           class="image__img"
           :media="`(min-width: ${breakpoints.sm}px)`"
           :srcset="`/_nuxt/assets/images/${src.sm}`"
+          @error="imgError"
         >
       </template>
 
@@ -34,6 +37,7 @@
         :alt="alt"
         class="image__img"
         :class="radiusClass"
+        @error="imgError"
       >
     </picture>
   </figure>
@@ -60,6 +64,12 @@ interface Props {
 const { src, alt, aspect='rectangle', radius='soft' } = defineProps<Props>();
 const aspectClass = computed<string | null>(() => (aspect) ? `image__picture--${aspect}` : null);
 const radiusClass = computed<string | null>(() => (radius) ? `image__img--${radius}` : null);
+
+// imgのエラーハンドリング
+// TODO：動作するか確認する
+const imgError = (e: any): void => {
+  e.target.src = '/_nuxt/assets/images/noimage.png';
+}
 </script>
 
 <style ${2|scoped,|} lang="scss">

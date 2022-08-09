@@ -1,7 +1,7 @@
 <template>
   <div class="user-card">
     <figure class="user-card__image">
-      <Image :src="{ default: item.img.src }" :alt="item.img.alt" radius="normal" aspect="square"/>
+      <Image :src="{ default: `users/${item.img.src}` }" :alt="item.img.alt" radius="normal" aspect="square"/>
     </figure>
     <div class="user-card__contents">
       <div class="user-card__name">
@@ -10,7 +10,7 @@
       </div>
       <div class="user-card__tags">
         <div class="user-card__tag" v-for="tag in item.tags">
-          {{ tag.name_ja }}
+          {{ tag }}
         </div>
       </div>
     </div>
@@ -18,41 +18,10 @@
 </template>
 
 <script lang="ts" setup>
-interface Image {
-  src: string;
-  alt: string;
-}
-interface Position {
-  name_ja: string;
-  name_en: string;
-  color: string;
-}
-interface Prefecture {
-  name_ja: string;
-  name_en: string;
-}
-interface Tag {
-  id: number;
-  name_ja: string;
-  name_en: string;
-}
-interface User {
-  id           : number;
-  name_ja      : string;
-  name_en      : string;
-  graduate_date: null|number;
-  alma_mater   : null|string;
-  affiliation  : null|string;
-  grade        : null|number;
-  achievement  : null|string;
-  img          : Image,
-  prefecture   : Prefecture;
-  position     : Position;
-  tags         : Tag[]
-}
+import { Members } from "@/types/interface";
 
 interface Props {
-  item: User;
+  item: Members;
 }
 
 const { item } = defineProps<Props>();
