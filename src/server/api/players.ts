@@ -32,10 +32,6 @@ export default defineEventHandler(async (event) => {
   // 絞り込み
   if (grade) {
     members = members.filter((e: Members, i: number): boolean => {
-      console.log(typeof grade);
-      console.log(grade);
-      console.log(typeof e.grade);
-      console.log(e.grade);
       return e.grade === grade;
     });
   }

@@ -105,8 +105,11 @@
 
     <section class="member container">
       <title-primary :title="title.member" color="white"/>
+
+      <!-- スライダー or ロード -->
       <div class="member__slider">
         <swiper
+          v-if="players"
           :modules="[Navigation, Pagination]"
           :slides-per-view="1"
           :breakpoints="swiperOptions.breakpoint.memberCard"
@@ -118,6 +121,10 @@
             <card-user :item="player"/>
           </swiper-slide>
         </swiper>
+
+        <div class="member__load" v-else>
+          <Load color="white"/>
+        </div>
       </div>
     </section>
   </div>
@@ -137,6 +144,7 @@ import image from "@/assets/json/image.json";
 import contents from "@/assets/json/contents.json";
 import title from "@/assets/json/title.json";
 import swiperOptions from "@/assets/json/swiper.json";
+import Load1 from '~~/components/load/Index.vue';
 // import member from "@/assets/json/mock/member.json";
 
 const TabComponent = ref();
@@ -444,6 +452,10 @@ const { data: players } = useFetch('/api/players', {
     &__slider {
       padding: 0 5vw interval(5);
       @include swiper-button(darkblue);
+    }
+
+    &__load {
+      height: 5rem;
     }
   }
 }
