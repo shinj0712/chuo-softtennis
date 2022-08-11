@@ -36,12 +36,8 @@ interface Props {
 const { table, ratio, color } = defineProps<Props>();
 
 // 動的クラス
-const cellRatio = computed<string | null>(() => {
-  return (ratio) ? `primary-table--${ratio}` : null;
-});
-const coloring = computed<string | null>(() => {
-  return (color) ? `primary-table__title--${color}` : null;
-});
+const cellRatio = computed<string | null>(() => (ratio) ? `primary-table--${ratio}` : null);
+const coloring = computed<string | null>(() => (color) ? `primary-table__title--${color}` : null);
 </script>
 
 <style ${2|scoped,|} lang="scss">
