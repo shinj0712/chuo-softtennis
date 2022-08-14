@@ -117,7 +117,7 @@
           navigation
           :pagination="swiperOptions.dynamicPagination"
         >
-          <swiper-slide v-for="player in players">
+          <swiper-slide v-for="player in players.filter(e => e.grade == 4)">
             <card-user :item="player"/>
           </swiper-slide>
         </swiper>
@@ -125,6 +125,10 @@
         <div class="member__load" v-else>
           <Load color="white"/>
         </div>
+      </div>
+
+      <div class="member__count">
+        <table-primary :table="playersCountTable" color="white"/>
       </div>
     </section>
   </div>
@@ -144,22 +148,37 @@ import image from "@/assets/json/image.json";
 import contents from "@/assets/json/contents.json";
 import title from "@/assets/json/title.json";
 import swiperOptions from "@/assets/json/swiper.json";
-import Load1 from '~~/components/load/Index.vue';
 // import member from "@/assets/json/mock/member.json";
 
-const TabComponent = ref();
-const { responsiveDevice } = useWindow();
+// api
+import { Members, Table } from "@/types/interface";
 
+// タブの遷移処理
+const TabComponent = ref();
 const tabChange = (id: number): void => {
   TabComponent.value.change(id);
 }
 
+// 寮カードのカラム数
+const { responsiveDevice } = useWindow();
 const dormitoryTicketColumn: number = (responsiveDevice.value === 'pc') ? 2 : 1;
 
 // メンバー情報を取得
-const { data: players } = useFetch('/api/players', {
+const { data: players } = useFetch<Members[]>('/api/players', {
   method: 'GET',
-  params: { grade: 4 },
+});
+
+// 部員数テーブルの生成
+const playersCountTable = computed<Table>(() => {
+  return {
+    title: '部員数',
+    body: [
+      { key: '1年生', value: (players.value) ? `${players.value.filter(e => e.grade == 1).length}名` : '0名' },
+      { key: '2年生', value: (players.value) ? `${players.value.filter(e => e.grade == 2).length}名` : '0名' },
+      { key: '3年生', value: (players.value) ? `${players.value.filter(e => e.grade == 3).length}名` : '0名' },
+      { key: '4年生', value: (players.value) ? `${players.value.filter(e => e.grade == 4).length}名` : '0名' },
+    ],
+  }
 });
 </script>
 
@@ -456,6 +475,10 @@ const { data: players } = useFetch('/api/players', {
 
     &__load {
       height: 5rem;
+    }
+
+    &__count {
+      padding: 0 5vw interval(5);
     }
   }
 }

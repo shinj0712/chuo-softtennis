@@ -17,15 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-interface TableBody {
-  key: string;
-  value: string;
-}
-
-interface Table {
-  title?: String;
-  body: TableBody[];
-}
+import { Table } from "@/types/interface";
 
 interface Props {
   table: Table;

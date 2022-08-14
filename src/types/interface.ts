@@ -1,12 +1,12 @@
+/**
+ * メンバーAPI
+ */
 export interface Position {
   id      : number;
   name_ja : string;
   name_en : string;
   color   : string | null;
 }
-
-type EmptyObject = {[key: string]: never}
-
 export interface Members {
   id             : number;
   name_ja        : string;
@@ -26,10 +26,24 @@ export interface Members {
     alt: string;
   }
 }
-
 export interface Category {
   all: string;
   players: string;
   staff: string;
   ob: string;
+}
+export interface MembersParams {
+  grade?: null | 1 | 2 | 3 | 4;
+}
+
+/**
+ * コンポーネント
+ */
+interface TableBody {
+  key: string;
+  value: string | number;
+}
+export interface Table {
+  title?: String;
+  body: TableBody[];
 }

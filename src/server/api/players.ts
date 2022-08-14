@@ -1,11 +1,8 @@
 import type { IncomingMessage, ServerResponse } from "http";
 
-import { Members } from "@/types/interface";
+import { Members, MembersParams } from "@/types/interface";
 import { SheetRepository } from "../Repository/SheetRepository";
-
-interface Params {
-  grade?: null | 1 | 2 | 3 | 4;
-}
+import { sendErrorResponse, successResponse } from "../global";
 
 /**
  * 部員取得
@@ -15,7 +12,7 @@ interface Params {
  */
 export default defineEventHandler(async (event) => {
   const { res, req }: { res: ServerResponse, req: IncomingMessage } = event;
-  const { grade = null }: Params = useQuery(event);
+  const { grade = null }: MembersParams = useQuery(event);
   const method = useMethod(event).toUpperCase();
   const url = req.url;
 
@@ -38,29 +35,3 @@ export default defineEventHandler(async (event) => {
 
   successResponse(res, members);
 })
-
-/**
- * 成功のHttpレスポンスを返します。
- *
- * @param {ServerResponse} res レスポンス
- * @param {Any} data レスポンスボディに含めるデータ
- */
-const successResponse = (res: ServerResponse, data: any) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify(data));
-}
-
-/**
- * Httpエラーレスポンスを返します。
- *
- * @param {ServerResponse} res レスポンス
- * @param {number} code ステータスコード
- * @param {string} message ステータスメッセージ
- * @return {void}
- */
-const sendErrorResponse = (res: ServerResponse, code: number, message: string) => {
-  res.statusCode = code;
-  res.statusMessage = message;
-  res.end();
-}
