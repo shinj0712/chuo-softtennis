@@ -40,6 +40,12 @@ const positioning = computed<string | null>(() => (position) ? `link--${position
     @include flex(column, flex-end, flex-end);
   }
 
+  &--center {
+    height: 100%;
+    text-align: center;
+    @include flex(column, center, center);
+  }
+
   @include hover {
     #{$this}__button::before {
       left: 50%;

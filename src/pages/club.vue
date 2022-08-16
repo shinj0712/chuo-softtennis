@@ -121,15 +121,14 @@
             <card-user :item="player"/>
           </swiper-slide>
         </swiper>
-
         <div class="member__load" v-else>
           <Load color="white"/>
         </div>
       </div>
-
       <div class="member__count">
         <table-primary :table="playersCountTable" color="white"/>
       </div>
+      <button-link label="view more" :link="'#'" position="center"/>
     </section>
   </div>
 </template>
@@ -467,6 +466,7 @@ const playersCountTable = computed<Table>(() => {
   .member {
     @include gradient(color(navy), color(darkblue));
     margin-top: interval(10);
+    padding: interval(5) 0 interval(10);
 
     &__slider {
       padding: 0 5vw interval(5);
