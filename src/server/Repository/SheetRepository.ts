@@ -6,7 +6,7 @@ import type {
 } from "google-spreadsheet";
 
 // 型情報
-import { Position, Members, Category } from "@/types/interface";
+import { Position, Member, Category } from "@/types/interface";
 
 // 環境変数と認証情報
 import { private_key, client_email } from "@/credential/service_account.json";
@@ -21,7 +21,7 @@ const env: any = useRuntimeConfig();
 interface SheetRepositoryInterface {
   readonly membersIndex: number;
   readonly positionsIndex: number;
-  getMembers(): Promise<Members[]>;
+  getMembers(): Promise<Member[]>;
   getPositions(): Promise<Position[]>
 }
 
@@ -56,9 +56,9 @@ export class SheetRepository extends SpreadsheetService implements SheetReposito
   /**
    * メンバーズシートを取得します
    *
-   * @return {Promise<Members[]>} メンバー配列
+   * @return {Promise<Member[]>} メンバー配列
    */
-  public async getMembers(category: keyof Category = 'all'): Promise<Members[]>
+  public async getMembers(category: keyof Category = 'all'): Promise<Member[]>
   {
     const sheetName: string = 'メンバーズシート';
     const spreadsheet: GoogleSpreadsheetWorksheetType = super.getSheets(this.membersIndex);
@@ -83,7 +83,7 @@ export class SheetRepository extends SpreadsheetService implements SheetReposito
       return [];
     }
 
-    return sheetRows.map((row: GoogleSpreadsheetRowType, index: number): Members => {
+    return sheetRows.map((row: GoogleSpreadsheetRowType, index: number): Member => {
       return {
         id              : row.id as number,
         name_ja         : `${row.last_name_ja} ${row.first_name_ja}`,
@@ -103,7 +103,7 @@ export class SheetRepository extends SpreadsheetService implements SheetReposito
           alt: `${row.last_name_ja} ${row.first_name_ja}の写真`
         }
       }
-    }).filter((e: Members, i: number): boolean => {
+    }).filter((e: Member, i: number): boolean => {
       return (category !== 'all') ? (i !== 0) && e.category.includes(this.category[category]) : i !== 0;
     });
   }
