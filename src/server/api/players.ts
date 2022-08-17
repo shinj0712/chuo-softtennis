@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from "http";
 
-import { Members, MembersParams } from "@/types/interface";
+import { Member, MembersParams } from "@/types/interface";
 import { SheetRepository } from "../Repository/SheetRepository";
 import { sendErrorResponse, successResponse } from "../global";
 
@@ -23,12 +23,12 @@ export default defineEventHandler(async (event) => {
 
   // リポジトリをインスタンス化してメンバーズを取得
   const instance = await SheetRepository.instance();
-  let members: Members[] = [];
+  let members: Member[] = [];
   await instance.getMembers('players').then(res => members = res);
 
   // 絞り込み
   if (grade) {
-    members = members.filter((e: Members, i: number): boolean => {
+    members = members.filter((e: Member, i: number): boolean => {
       return e.grade === grade;
     });
   }

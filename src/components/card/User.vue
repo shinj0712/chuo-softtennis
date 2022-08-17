@@ -18,10 +18,10 @@
 </template>
 
 <script lang="ts" setup>
-import { Members } from "@/types/interface";
+import { Member } from "@/types/interface";
 
 interface Props {
-  item: Members;
+  item: Member;
 }
 
 const { item } = defineProps<Props>();

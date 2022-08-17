@@ -150,7 +150,7 @@ import swiperOptions from "@/assets/json/swiper.json";
 // import member from "@/assets/json/mock/member.json";
 
 // api
-import { Members, Table } from "@/types/interface";
+import { Member, Table } from "@/types/interface";
 
 // タブの遷移処理
 const TabComponent = ref();
@@ -163,7 +163,7 @@ const { responsiveDevice } = useWindow();
 const dormitoryTicketColumn: number = (responsiveDevice.value === 'pc') ? 2 : 1;
 
 // メンバー情報を取得
-const { data: players } = useFetch<Members[]>('/api/players', {
+const { data: players } = useFetch<Member[]>('/api/players', {
   method: 'GET',
 });
 

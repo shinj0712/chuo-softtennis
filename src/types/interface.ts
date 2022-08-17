@@ -7,7 +7,7 @@ export interface Position {
   name_en : string;
   color   : string | null;
 }
-export interface Members {
+export interface Member {
   id             : number;
   name_ja        : string;
   name_en        : string;
