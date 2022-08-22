@@ -5,7 +5,7 @@ export interface Position {
   id      : number;
   name_ja : string;
   name_en : string;
-  color   : string | null;
+  color   : string;
 }
 export interface Member {
   id             : number;

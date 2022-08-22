@@ -135,7 +135,7 @@ export class SheetRepository extends SpreadsheetService implements SheetReposito
         id      : row.id as number,
         name_ja : row.name_ja,
         name_en : row.name_en,
-        color   : (row.color) ? row.color : null
+        color   : row.color,
       }
     }).filter((e, i) => i !== 0);
   }
