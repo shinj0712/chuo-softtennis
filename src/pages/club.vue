@@ -108,8 +108,11 @@
 
       <!-- スライダー or ロード -->
       <div class="member__slider">
+        <div class="member__load" v-if="players.pending.value">
+          <Load color="white"/>
+        </div>
         <swiper
-          v-if="players"
+          v-else
           :modules="[Navigation, Pagination]"
           :slides-per-view="1"
           :breakpoints="swiperOptions.breakpoint.memberCard"
@@ -117,13 +120,10 @@
           navigation
           :pagination="swiperOptions.dynamicPagination"
         >
-          <swiper-slide v-for="player in players.filter(e => e.grade == 4)">
+          <swiper-slide v-for="player in highestPlayers(players.data.value)">
             <card-user :item="player"/>
           </swiper-slide>
         </swiper>
-        <div class="member__load" v-else>
-          <Load color="white"/>
-        </div>
       </div>
       <div class="member__count">
         <table-primary :table="playersCountTable" color="white"/>
@@ -149,8 +149,9 @@ import title from "@/assets/json/title.json";
 import swiperOptions from "@/assets/json/swiper.json";
 // import member from "@/assets/json/mock/member.json";
 
-// api
+// type
 import { Member, Table } from "@/types/interface";
+import { ComputedRef } from 'vue';
 
 // タブの遷移処理
 const TabComponent = ref();
@@ -162,23 +163,31 @@ const tabChange = (id: number): void => {
 const { responsiveDevice } = useWindow();
 const dormitoryTicketColumn: number = (responsiveDevice.value === 'pc') ? 2 : 1;
 
-// メンバー情報を取得
-const { data: players } = useFetch<Member[]>('/api/players', {
-  method: 'GET',
-});
+// 選手情報を取得
+const { players } = useMemberStore();
 
-// 部員数テーブルの生成
-const playersCountTable = computed<Table>(() => {
+// 取得した選手情報から学年毎の人数を算出
+const playersCountTable: ComputedRef<Table> = computed(() => {
   return {
     title: '部員数',
     body: [
-      { key: '1年生', value: (players.value) ? `${players.value.filter(e => e.grade == 1).length}名` : '0名' },
-      { key: '2年生', value: (players.value) ? `${players.value.filter(e => e.grade == 2).length}名` : '0名' },
-      { key: '3年生', value: (players.value) ? `${players.value.filter(e => e.grade == 3).length}名` : '0名' },
-      { key: '4年生', value: (players.value) ? `${players.value.filter(e => e.grade == 4).length}名` : '0名' },
+      { key: '1年生', value: (players.value.pending.value) ? 0 : `${players.value.data.value.filter(e => e.grade == 1).length}名` },
+      { key: '2年生', value: (players.value.pending.value) ? 0 : `${players.value.data.value.filter(e => e.grade == 2).length}名` },
+      { key: '3年生', value: (players.value.pending.value) ? 0 : `${players.value.data.value.filter(e => e.grade == 3).length}名` },
+      { key: '4年生', value: (players.value.pending.value) ? 0 : `${players.value.data.value.filter(e => e.grade == 4).length}名` },
     ],
   }
-});
+})
+
+/**
+ * 最も高い学年の選手を返します
+ *
+ * @param {Member[]} data メンバー配列
+ * @return {Member[]} 4年生のみのメンバー配列
+ */
+const highestPlayers = (data: Member[]): Member[] => {
+  return data.filter(e => e.grade == 4);
+}
 </script>
 
 <style ${2|scoped,|} lang="scss">

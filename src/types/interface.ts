@@ -27,23 +27,25 @@ export interface Member {
   }
 }
 export interface Category {
-  all: string;
+  all    : null;
   players: string;
-  staff: string;
-  ob: string;
+  staff  : string;
+  ob     : string;
+  none   : string;
 }
 export interface MembersParams {
-  grade?: null | 1 | 2 | 3 | 4;
+  category?: 'all' | 'players' | 'staff' | 'ob' | 'none';
+  grade   ?: null | 1 | 2 | 3 | 4;
 }
 
 /**
  * コンポーネント
  */
 interface TableBody {
-  key: string;
+  key  : string;
   value: string | number;
 }
 export interface Table {
   title?: String;
-  body: TableBody[];
+  body  : TableBody[];
 }

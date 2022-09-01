@@ -6,7 +6,7 @@ import type {
 } from "google-spreadsheet";
 
 // 型情報
-import { Position, Member, Category } from "@/types/interface";
+import { Position, Member, Category, MembersParams } from "@/types/interface";
 
 // 環境変数と認証情報
 import { private_key, client_email } from "@/credential/service_account.json";
@@ -21,7 +21,7 @@ const env: any = useRuntimeConfig();
 interface SheetRepositoryInterface {
   readonly membersIndex: number;
   readonly positionsIndex: number;
-  getMembers(): Promise<Member[]>;
+  getMembers(params: MembersParams): Promise<Member[]>;
   getPositions(): Promise<Position[]>
 }
 
@@ -30,10 +30,11 @@ export class SheetRepository extends SpreadsheetService implements SheetReposito
   readonly positionsIndex: number = 1;
 
   protected readonly category: Category = {
-    all    : '',
+    all    : null,
     players: '部員',
     staff  : 'スタッフ',
     ob     : 'OB',
+    none   : '',
   }
 
   private constructor() {
@@ -58,7 +59,7 @@ export class SheetRepository extends SpreadsheetService implements SheetReposito
    *
    * @return {Promise<Member[]>} メンバー配列
    */
-  public async getMembers(category: keyof Category = 'all'): Promise<Member[]>
+  public async getMembers(params: MembersParams): Promise<Member[]>
   {
     const sheetName: string = 'メンバーズシート';
     const spreadsheet: GoogleSpreadsheetWorksheetType = super.getSheets(this.membersIndex);
@@ -79,6 +80,7 @@ export class SheetRepository extends SpreadsheetService implements SheetReposito
     let positionsSheets: Position[] = [];
     await this.getPositions().then(positions => positionsSheets = positions);
 
+    // ポジションシートの結果が0件だったら空廃列を返す
     if (positionsSheets.length === 0) {
       return [];
     }
@@ -104,7 +106,10 @@ export class SheetRepository extends SpreadsheetService implements SheetReposito
         }
       }
     }).filter((e: Member, i: number): boolean => {
-      return (category !== 'all') ? (i !== 0) && e.category.includes(this.category[category]) : i !== 0;
+      // ヘッダー行はスキップ
+      if (i === 0) return false;
+      const { category = 'all', grade = null } = params;
+      return this.categoryFilter(e, category) && this.gradeFilter(e, grade);
     });
   }
 
@@ -138,5 +143,29 @@ export class SheetRepository extends SpreadsheetService implements SheetReposito
         color   : row.color,
       }
     }).filter((e, i) => i !== 0);
+  }
+
+  /**
+   * カテゴリーで絞り込む
+   *
+   * @param {Member}         member   メンバーレコード
+   * @param {keyof Category} category カテゴリー
+   * @return {boolean}
+   */
+  public categoryFilter(member: Member, category: keyof Category = 'all')
+  {
+    if (category === 'all') return true;
+    return member.category.includes(this.category[category]);
+  }
+
+  /**
+   * 学年で絞り込む
+   *
+   * @param {Member} member メンバーレコード
+   * @param {number} grade  学年
+   */
+  public gradeFilter(member: Member, grade: null | 1 | 2 | 3 | 4)
+  {
+    return (grade === null) ? true : member.grade === grade;
   }
 }

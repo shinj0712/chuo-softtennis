@@ -5,14 +5,12 @@ import { SheetRepository } from "../Repository/SheetRepository";
 import { sendErrorResponse, successResponse } from "../global";
 
 /**
- * 部員取得
- * TODO：パラメータによる並び替えを行えるようにする
+ * メンバー情報取得
  *
  * @param event イベント
  */
 export default defineEventHandler(async (event) => {
   const { res, req }: { res: ServerResponse, req: IncomingMessage } = event;
-  const { grade = null }: MembersParams = useQuery(event);
   const method = useMethod(event).toUpperCase();
   const url = req.url;
 
@@ -21,17 +19,13 @@ export default defineEventHandler(async (event) => {
     sendErrorResponse(res, 400, 'bad method, only GET method');
   }
 
+  // クエリパラメータ取得
+  const params: MembersParams = useQuery(event);
+
   // リポジトリをインスタンス化してメンバーズを取得
   const instance = await SheetRepository.instance();
   let members: Member[] = [];
-  await instance.getMembers('players').then(res => members = res);
-
-  // 絞り込み
-  if (grade) {
-    members = members.filter((e: Member, i: number): boolean => {
-      return e.grade === grade;
-    });
-  }
+  await instance.getMembers(params).then(res => members = res);
 
   successResponse(res, members);
 })

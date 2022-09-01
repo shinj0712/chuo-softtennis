@@ -14,5 +14,13 @@
   "member": {
     "ja": "メンバー",
     "en": "member"
+  },
+  "players": {
+    "ja": "選手",
+    "en": "players"
+  },
+  "staff": {
+    "ja": "スタッフ",
+    "en": "staff"
   }
 }
