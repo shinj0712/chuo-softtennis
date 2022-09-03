@@ -71,7 +71,7 @@
         <template v-slot:content="dormitory">
           <!-- アイコン -->
           <div class="dormitory__ticket-icon">
-            <nuxt-svg :name="dormitory.item.icon"/>
+            <nuxt-svg :svg="getSvg(dormitory.item.icon)" color="darkblue"/>
           </div>
           <!-- テキスト -->
           <div class="dormitory__ticket-text-container">
@@ -141,17 +141,18 @@ import "swiper/css";
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-// json data
-import table from "@/assets/json/table.json";
-import image from "@/assets/json/image.json";
-import contents from "@/assets/json/contents.json";
-import title from "@/assets/json/title.json";
-import swiperOptions from "@/assets/json/swiper.json";
-// import member from "@/assets/json/mock/member.json";
-
 // type
 import { Member, Table } from "@/types/interface";
 import { ComputedRef } from 'vue';
+
+// svg
+import Dining from "@/assets/svg/dining.svg?component";
+import Bath from "@/assets/svg/bath.svg?component";
+import Hotel from "@/assets/svg/hotel.svg?component";
+import Laundry from "@/assets/svg/laundry.svg?component";
+
+// json data
+const { table, image, contents, title, swiper: swiperOptions } = useJson();
 
 // タブの遷移処理
 const TabComponent = ref();
@@ -162,6 +163,14 @@ const tabChange = (id: number): void => {
 // 寮カードのカラム数
 const { responsiveDevice } = useWindow();
 const dormitoryTicketColumn: number = (responsiveDevice.value === 'pc') ? 2 : 1;
+
+// アイコンコンポーネントを返します
+const getSvg = (name: 'dining' | 'bath' | 'hotel' | 'laundry') => {
+  if (name === 'dining') return Dining;
+  if (name === 'bath') return Bath;
+  if (name === 'hotel') return Hotel;
+  if (name === 'laundry') return Laundry;
+}
 
 // 選手情報を取得
 const { players } = useMemberStore();
@@ -177,7 +186,7 @@ const playersCountTable: ComputedRef<Table> = computed(() => {
       { key: '4年生', value: (players.value.pending.value) ? 0 : `${players.value.data.value.filter(e => e.grade == 4).length}名` },
     ],
   }
-})
+});
 
 /**
  * 最も高い学年の選手を返します
@@ -207,6 +216,7 @@ const highestPlayers = (data: Member[]): Member[] => {
       @include position(absolute, 0, 0, 0, 0, 11);
       margin: auto;
     }
+
     &::after {
       content: '@ 2022 CHUO UNIVERSITY SOFT TENNIS TEAM';
       @include flex(row nowrap, flex-end, flex-end);
@@ -217,6 +227,7 @@ const highestPlayers = (data: Member[]): Member[] => {
       margin: auto;
       color: color(navy);
     }
+
     &__item {
       width: 100%;
       height: 100%;
@@ -237,6 +248,7 @@ const highestPlayers = (data: Member[]): Member[] => {
           left: 15%;
         }
       }
+
       &:nth-of-type(2) {
         animation-delay: 6s;
         background: url('@/assets/images/support_sp.jpg') no-repeat center center/cover;
@@ -246,6 +258,7 @@ const highestPlayers = (data: Member[]): Member[] => {
           left: 30%;
         }
       }
+
       &:nth-of-type(3) {
         animation-delay: 12s;
         background: url('@/assets/images/hakumon02.jpg') no-repeat center center/cover;
@@ -256,6 +269,7 @@ const highestPlayers = (data: Member[]): Member[] => {
         }
       }
     }
+
     &__caption {
       @include position(absolute, $z: 11);
       font: bold 5rem/1 arial;
@@ -274,14 +288,15 @@ const highestPlayers = (data: Member[]): Member[] => {
 
   .concept {
     margin-top: interval(5);
-    --boll-size: 6rem;
+    --ball-size: 6rem;
 
     @include mq(sm) {
-      --boll-size: 8rem;
+      --ball-size: 8rem;
     }
     @include mq(md) {
-      --boll-size: 10rem;
+      --ball-size: 10rem;
     }
+
     &__balls {
       @include flex(row nowrap, center, center);
       margin-bottom: interval(5);
@@ -292,9 +307,10 @@ const highestPlayers = (data: Member[]): Member[] => {
         margin-right: interval(1);
       }
     }
+
     &__ball {
-      width: var(--boll-size);
-      height: var(--boll-size);
+      width: var(--ball-size);
+      height: var(--ball-size);
       background-color: color(white);
       box-shadow: inset -1rem -1rem 3rem color(darkShadow);
       border-radius: radius(circle);
@@ -304,6 +320,7 @@ const highestPlayers = (data: Member[]): Member[] => {
       @include mq(md) {
         cursor: pointer;
       }
+
       &:nth-child(1) {
         transform: rotate(10deg);
         margin-right: interval(1);
@@ -312,6 +329,7 @@ const highestPlayers = (data: Member[]): Member[] => {
           transform: rotate(-10deg) translateX(10px);
         }
       }
+
       &:nth-child(2) {
         margin-right: interval(.5);
         transform: rotate(-8deg);
@@ -320,6 +338,7 @@ const highestPlayers = (data: Member[]): Member[] => {
           transform: rotate(8deg) translateX(-8px);
         }
       }
+
       &:last-child {
         transform: rotate(12deg);
         margin-right: 0;
@@ -328,16 +347,20 @@ const highestPlayers = (data: Member[]): Member[] => {
           transform: rotate(-12deg) translateX(5px);
         }
       }
+
+      // ボール空気穴
       &::before {
         display: block;
         content: '';
-        @include position(absolute, $t: calc(var(--boll-size) / 4), $l: 50%);
+        @include position(absolute, $t: calc(var(--ball-size) / 4), $l: 50%);
         transform: translateX(-50%);
-        width: calc(var(--boll-size) / 25);
-        height: calc(var(--boll-size) / 25);
+        width: calc(var(--ball-size) / 25);
+        height: calc(var(--ball-size) / 25);
         background-color: darken($color: blue, $amount: 10%);
         border-radius: radius(circle);
       }
+
+      // 影
       &::after {
         content: '';
         display: block;
@@ -351,6 +374,7 @@ const highestPlayers = (data: Member[]): Member[] => {
         opacity: .9;
         transition: transform .3s ease-in;
       }
+
       @include hover {
         transform: rotate(0);
 
@@ -359,9 +383,11 @@ const highestPlayers = (data: Member[]): Member[] => {
         }
       }
     }
+
     &__radio {
       display: none;
     }
+
     &__label {
       font: bold .7rem/1 arial;
       color: darken($color: red, $amount: .4);
@@ -392,6 +418,7 @@ const highestPlayers = (data: Member[]): Member[] => {
           aspect-ratio: 16 / 9;
         }
       }
+
       &-attention {
         color: color(darkblue);
         margin: interval(1) auto 0 auto;
@@ -404,11 +431,13 @@ const highestPlayers = (data: Member[]): Member[] => {
         }
       }
     }
+
     &__images {
       position: relative;
       margin-top: interval(10);
       @include swiper-button(white);
     }
+
     &__caption {
       display: block;
       width: 100%;
@@ -418,6 +447,7 @@ const highestPlayers = (data: Member[]): Member[] => {
       padding: interval(1);
       @include position(absolute, $b:0, $l: 0);
     }
+
     &__schedule {
       margin-top: interval(5);
     }
@@ -444,18 +474,22 @@ const highestPlayers = (data: Member[]): Member[] => {
         width: 5rem;
         margin: interval(1) auto;
       }
+
       &-text-container {
         padding: interval(1);
       }
+
       &-text {
         color: color(darkblue);
         margin: 0;
         max-width: 50rem;
       }
+
       &-complement-container {
         @include flex(row wrap, flex-start, center, interval(1));
         padding: interval(1) 0;
       }
+
       &-complement {
         padding: interval(1) interval(1);
         background-color: color(lightgray);

@@ -1,19 +1,43 @@
 <template>
-  <img :src="svgPath" :alt="`${name}のアイコン`" class="svg">
+  <div class="nuxt-svg" :class="coloring">
+    <component :is="svg"/>
+  </div>
 </template>
 
 <script lang="ts" setup>
-// TODO:Nuxt3が正式リリースされてSVGの便利なライブラリがでてきたら当該コンポーネントの構成を見直す
 interface Props {
-  name: string;
+  svg: any;
+  color?: string;
 }
-const { name } = defineProps<Props>();
 
-const svgPath = computed<string>(() => `_nuxt/assets/svg/${name}.svg`);
+const { svg, color = "white" } = defineProps<Props>();
+const coloring = computed<string>(() => `nuxt-svg--${color}`)
 </script>
 
 <style ${2|scoped,|} lang="scss">
-.svg {
+.nuxt-svg {
   width: 100%;
+
+  & > svg {
+    transition: fill .3s ease-out, transform .3s ease-out;
+  }
+
+  &--white {
+    & > svg {
+      fill: color(white);
+    }
+  }
+
+  &--darkblue {
+    & > svg {
+      fill: color(darkblue);
+    }
+  }
+
+  &--navy {
+    & > svg {
+      fill: color(navy);
+    }
+  }
 }
 </style>
