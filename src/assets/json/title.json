@@ -1,0 +1,30 @@
+{
+  "concept": {
+    "ja": "コンセプト",
+    "en": "concept"
+  },
+  "practice": {
+    "ja": "練習",
+    "en": "practice"
+  },
+  "dormitory": {
+    "ja": "寮生活",
+    "en": "dormitory"
+  },
+  "member": {
+    "ja": "メンバー",
+    "en": "member"
+  },
+  "players": {
+    "ja": "選手",
+    "en": "players"
+  },
+  "staff": {
+    "ja": "スタッフ",
+    "en": "staff"
+  },
+  "ob": {
+    "ja": "白門会役員",
+    "en": "hakumonkai"
+  }
+}

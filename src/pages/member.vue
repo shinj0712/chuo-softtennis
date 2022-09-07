@@ -1,0 +1,199 @@
+<template>
+  <div class="member">
+    <section class="main-visual container">
+      <div class="main-visual__circle"/>
+      <nuxt-svg :svg="ChuoLogoSvg" class="main-visual__logo"/>
+      <h1 class="main-visual__title">
+        MEMBERS
+      </h1>
+      <NuxtLink to="#players" class="main-visual__button">
+        <nuxt-svg :svg="DoubleArrowSvg" class="main-visual__button-logo"/>
+      </NuxtLink>
+    </section>
+
+    <section class="users" id="players">
+      <title-primary :title="title.players"/>
+      <!-- ロード画面 -->
+      <div class="users__load" v-if="players.pending.value">
+        <Load color="navy"/>
+      </div>
+      <!-- ユーザーチケット -->
+      <template v-else>
+        <div class="users__tickets">
+          <div class="users__ticket" v-for="(player, i) in players.data.value" :key="i">
+            <ticket-user :user="parse(player)"/>
+          </div>
+        </div>
+      </template>
+    </section>
+
+    <section class="users" id="staff">
+      <title-primary :title="title.staff"/>
+      <!-- ロード画面 -->
+      <div class="users__load" v-if="staff.pending.value">
+        <Load color="navy"/>
+      </div>
+      <!-- ユーザーチケット -->
+      <template v-else>
+        <div class="users__tickets">
+          <div class="users__ticket" v-for="(staffItem, i) in staff.data.value" :key="i">
+            <ticket-user :user="parse(staffItem)"/>
+          </div>
+        </div>
+      </template>
+    </section>
+
+    <section class="users" id="ob">
+      <title-primary :title="title.ob"/>
+      <!-- ロード画面 -->
+      <div class="users__load" v-if="staff.pending.value">
+        <Load color="navy"/>
+      </div>
+      <!-- ユーザーチケット -->
+      <template v-else>
+        <div class="users__tickets">
+          <div class="users__ticket" v-for="(ob, i) in filteringOfficer(oldBoys.data.value)" :key="i">
+            <ticket-user :user="parse(ob)"/>
+          </div>
+        </div>
+      </template>
+    </section>
+  </div>
+</template>
+
+<script lang="ts" setup>
+// type
+import { Member } from "@/types/interface";
+// svg
+import DoubleArrowSvg from "@/assets/svg/double_arrow_down.svg?component";
+import ChuoLogoSvg from "@/assets/svg/chuo-logo.svg?component";
+
+// json取得
+const { title, constants } = useJson();
+// メンバー情報を取得
+const { players, staff, oldBoys } = useMemberStore();
+
+/**
+ * 役員でOBを絞り込みます
+ *
+ * @param {Member[]} data メンバー配列
+ */
+const filteringOfficer = (data: Member[] | null) => {
+  const officers = constants.officers;
+  // 役員で絞り込み
+  const ob = data?.filter(e => e.tags.some(c => officers.includes(c)));
+  // 役員配列のインデックス番号を参照して並び替え
+  ob?.sort((first, second): number => {
+    const firstTag = getOfficerTags(first);
+    const secondTag = getOfficerTags(second);
+    return officers.indexOf(firstTag) - officers.indexOf(secondTag);
+  });
+  return ob;
+}
+
+/**
+ * 役員タグを取得します
+ *
+ * @param {Member} e メンバー単一オブジェクト
+ */
+const getOfficerTags = (e: Member): string => {
+  const mergeTagsList = [...constants.officers, ...e.tags];
+  const duplicatedArr = mergeTagsList.filter(tag => constants.officers.includes(tag) && e.tags.includes(tag));
+  return [...new Set(duplicatedArr)][0];
+}
+
+/**
+ * Proxyオブジェクトから生データを返します
+ *
+ * @param {Any} data Member
+ */
+const parse = (data: any) => {
+  return JSON.parse(JSON.stringify(data));
+}
+</script>
+
+<style ${2|scoped,|} lang="scss">
+.log {
+  color: color(darkblue);
+}
+.member {
+  .main-visual {
+    height: 100vh;
+    position: relative;
+    @include gradient(color(navy), color(darkblue));
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    // ボールサイズ
+    --ball-size: 7rem;
+
+    &__circle {
+      width: pixel(30);
+      height: pixel(30);
+      background: radial-gradient(circle, color(lightgray), rgba(color(navy), 0));
+      filter: blur(pixel(20));
+      @include position(absolute, $t: 30%, $l: 25%);
+    }
+
+    &__logo {
+      width: 50rem;
+      @include position(absolute, $t: 50%, $l: 20%);
+      opacity: .05;
+
+      @include mq(sm) {
+        width: 60rem;
+        @include position(absolute, $t: 40%, $l: 40%);
+      }
+
+      @include mq(md) {
+        width: 80rem;
+        @include position(absolute, $t: 40%, $l: 40%);
+      }
+    }
+
+    &__title {
+      font: bold 3rem/1 arial;
+      letter-spacing: 1.5px;
+      text-shadow: 3px 3px 0px color(orange);
+    }
+
+    &__button {
+      --width: 5rem;
+      width: var(--width);
+      cursor: pointer;
+      @include position(absolute, $b: 5%, $l: calc(50% - (var(--width) / 2)));
+      animation: float-up-down 3s linear infinite normal;
+
+      @include hover {
+        & svg {
+          fill: color(orange);
+        }
+      }
+    }
+  }
+
+  .users {
+    &__tickets {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-rows: repeat(1, 1fr);
+      grid-column-gap: interval(2);
+      grid-row-gap: interval(2);
+
+      @include mq(sm) {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+      }
+
+      @include mq(md) {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+      }
+    }
+
+    &__load {
+      height: 5rem;
+    }
+  }
+}
+</style>

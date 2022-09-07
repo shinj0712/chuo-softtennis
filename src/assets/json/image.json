@@ -1,0 +1,30 @@
+{
+  "court": [
+    {
+      "src": { "default": "court05.jpg" },
+      "alt": "多摩キャンパスソフトテニスコート（第二体育館）"
+    },
+    {
+      "src": { "default": "court03.jpg" },
+      "alt": "多摩キャンパスソフトテニスコート（1,2,3）"
+    },
+    {
+      "src": { "default": "court04.jpg" },
+      "alt": "多摩キャンパスソフトテニスコート（4,5,6）"
+    }
+  ],
+  "dormitory": [
+    {
+      "src": { "default": "room01.jpg" },
+      "alt": "南平寮4人部屋"
+    },
+    {
+      "src": { "default": "room02.jpg" },
+      "alt": "南平寮4人部屋"
+    },
+    {
+      "src": { "default": "room03.jpg" },
+      "alt": "南平寮3人部屋"
+    }
+  ]
+}

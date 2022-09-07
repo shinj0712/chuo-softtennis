@@ -7,9 +7,14 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
-    "nuxt": "3.0.0-rc.3"
+    "@types/google-spreadsheet": "^3.3.0",
+    "nuxt": "3.0.0-rc.3",
+    "vite-svg-loader": "^3.5.1"
   },
   "dependencies": {
-    "sass": "^1.52.1"
+    "axios": "^0.27.2",
+    "google-spreadsheet": "^3.3.0",
+    "sass": "^1.52.1",
+    "swiper": "^8.2.6"
   }
 }
