@@ -1,7 +1,7 @@
 <template>
   <div class="thumbnail" :class="coloring">
     <picture class="thumbnail__picture">
-      <img class="thumbnail__img" :src="img.src" :alt="img.alt" @error="noImage">
+      <img class="thumbnail__img" :src="`/_nuxt/assets/images/users/${img.src}`" :alt="img.alt" @error="handleError">
     </picture>
   </div>
 </template>
@@ -17,10 +17,13 @@ interface Props {
   color: string;
 }
 
-const { img, color="blue" } = defineProps<Props>();
+const { img, color = "blue" } = defineProps<Props>();
+
 const coloring = computed<string>(() => `thumbnail--${color}`);
-const noImage = (el: any) => {
-  el.target.src = '/_nuxt/assets/images/noimage.png';
+
+// イメージが見つからない場合の処理
+const handleError = (e: any) => {
+  e.target.src = '/_nuxt/assets/images/noimage.png';
 }
 </script>
 
