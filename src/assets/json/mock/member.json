@@ -1,0 +1,171 @@
+{
+  "players": [
+    {
+      "id"           : 1,
+      "name_ja"      : "坂本 信治",
+      "name_en"      : "Sakamoto Shinji",
+      "graduate_date": null,
+      "alma_mater"   : "北海道科学大学高等学校",
+      "affiliation"  : "経済学部",
+      "grade"        : 4,
+      "achievement"  : "2016全日本高校選抜 第3位",
+      "img": {
+        "src": "player31.jpg",
+        "alt": "坂本信治の写真"
+      },
+      "position": {
+        "name_ja": "前衛",
+        "name_en": "front",
+        "color"  : "orange"
+      },
+      "prefecture": {
+        "name_ja": "北海道",
+        "name_en": "hokkaido"
+      },
+      "tags": [
+        { "id": 1, "name_ja": "部員", "name_en": "club_member" },
+        { "id": 3, "name_ja": "主務", "name_en": "competent" }
+      ]
+    },
+
+    {
+      "id"           : 2,
+      "name_ja"      : "宮崎 悠登",
+      "name_en"      : "Miyazaki Yuto",
+      "graduate_date": null,
+      "alma_mater"   : "山形県羽黒高等学校",
+      "affiliation"  : "経済学部",
+      "grade"        : 4,
+      "achievement"  : "2016年ハイスクールジャパンカップ ダブルス準優勝",
+      "img": {
+        "src": "player31.jpg",
+        "alt": "宮崎悠登の写真"
+      },
+      "position": {
+        "name_ja": "後衛",
+        "name_en": "back",
+        "color"  : "lightgreen"
+      },
+      "prefecture": {
+        "name_ja": "山形県",
+        "name_en": "yamagata"
+      },
+      "tags": [
+        { "id": 1, "name_ja": "部員", "name_en": "club_member" },
+        { "id": 2, "name_ja": "主将", "name_en": "captain" }
+      ]
+    },
+
+    {
+      "id"           : 3,
+      "name_ja"      : "田邉 雅人",
+      "name_en"      : "Tanabe Masato",
+      "graduate_date": null,
+      "alma_mater"   : "三重県三重高等学校",
+      "affiliation"  : "法学部",
+      "grade"        : 4,
+      "achievement"  : "2016年国民体育大会 少年の部 優勝",
+      "img": {
+        "src": "player31.jpg",
+        "alt": "田邉雅人の写真"
+      },
+      "position": {
+        "name_ja": "前衛",
+        "name_en": "front",
+        "color"  : "orange"
+      },
+      "prefecture": {
+        "name_ja": "福島県",
+        "name_en": "fukushima"
+      },
+      "tags": [
+        { "id": 1, "name_ja": "部員", "name_en": "club_member" },
+        { "id": 4, "name_ja": "副主将", "name_en": "vice_captain" }
+      ]
+    },
+
+    {
+      "id"           : 4,
+      "name_ja"      : "丸山 章",
+      "name_en"      : "Maruyama Akira",
+      "graduate_date": null,
+      "alma_mater"   : "広島県尾道高等学校",
+      "affiliation"  : "文学部",
+      "grade"        : 3,
+      "achievement"  : "2017ハイスクールジャパンカップ ダブルス 第3位",
+      "img": {
+        "src": "player31.jpg",
+        "alt": "丸山章の写真"
+      },
+      "position": {
+        "name_ja": "後衛",
+        "name_en": "back",
+        "color"  : "lightgreen"
+      },
+      "prefecture": {
+        "name_ja": "広島県",
+        "name_en": "hiroshima"
+      },
+      "tags": [
+        { "id": 1, "name_ja": "部員", "name_en": "club_member" },
+        { "id": 5, "name_ja": "会計", "name_en": "treasurer" }
+      ]
+    },
+
+    {
+      "id"           : 5,
+      "name_ja"      : "斎藤 利貴",
+      "name_en"      : "Saito Riki",
+      "graduate_date": null,
+      "alma_mater"   : "千葉県昭和学院高等学校",
+      "affiliation"  : "経済学部",
+      "grade"        : 4,
+      "achievement"  : "2016ハイスクールジャパンカップ ダブルス ベスト8",
+      "img": {
+        "src": "player31.jpg",
+        "alt": "斎藤利貴の写真"
+      },
+      "position": {
+        "name_ja": "後衛",
+        "name_en": "back",
+        "color"  : "lightgreen"
+      },
+      "prefecture": {
+        "name_ja": "千葉県",
+        "name_en": "chiba"
+      },
+      "tags": [
+        { "id": 1, "name_ja": "部員", "name_en": "club_member" },
+        { "id": 6, "name_ja": "寮長", "name_en": "dormitory_leader" }
+      ]
+    },
+
+    {
+      "id"           : 6,
+      "name_ja"      : "橋本 誠人",
+      "name_en"      : "Hashimoto Masato",
+      "graduate_date": null,
+      "alma_mater"   : "千葉県昭和学院高等学校",
+      "affiliation"  : "理工学部",
+      "grade"        : 3,
+      "achievement"  : "2016ハイスクールジャパンカップ ダブルス ベスト8",
+      "img": {
+        "src": "player31.jpg",
+        "alt": "橋本誠人の写真"
+      },
+      "position": {
+        "name_ja": "前衛",
+        "name_en": "front",
+        "color"  : "orange"
+      },
+      "prefecture": {
+        "name_ja": "茨城県",
+        "name_en": "ibaraki"
+      },
+      "tags": [
+        { "id": 1, "name_ja": "部員", "name_en": "club_member" },
+        { "id": 4, "name_ja": "副主将", "name_en": "vice_captain" }
+      ]
+    }
+  ]
+}

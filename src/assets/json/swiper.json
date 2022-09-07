@@ -1,0 +1,27 @@
+{
+  "pagination": {
+    "clickable": true
+  },
+
+  "dynamicPagination": {
+    "clickable"     : true,
+    "dynamicBullets": true
+  },
+
+  "scrollBar": {
+    "draggable": true
+  },
+
+  "breakpoint": {
+    "courtImages": {
+      "700": { "slidesPerView": 2, "spaceBetween": 20 }
+    },
+    "dormitory": {
+      "700": { "slidesPerView": 2, "spaceBetween": 20 }
+    },
+    "memberCard": {
+      "600" : { "slidesPerView": 2, "spaceBetween": 20 },
+      "1025": { "slidesPerView": 3, "spaceBetween": 20 }
+    }
+  }
+}
