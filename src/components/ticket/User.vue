@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Member, Position } from "@/types/interface";
+import { Member, Position } from "@/types/members";
 interface Props {
   user: Member;
 }

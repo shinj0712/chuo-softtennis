@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from "http";
 
-import { Member, MembersParams } from "@/types/interface";
+import { Member, Params } from "@/types/members";
 import { SheetRepository } from "../Repository/SheetRepository";
 import { sendErrorResponse, successResponse } from "../global";
 
@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // クエリパラメータ取得
-  const params: MembersParams = useQuery(event);
+  const params: Params = useQuery(event);
 
   // リポジトリをインスタンス化してメンバーズを取得
   const instance = await SheetRepository.instance();

@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Table } from "@/types/interface";
+import { Table } from "@/types/utility";
 
 interface Props {
   table: Table;

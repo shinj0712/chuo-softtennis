@@ -6,7 +6,7 @@ import type {
 } from "google-spreadsheet";
 
 // 型情報
-import { Position, Member, Category, MembersParams } from "@/types/interface";
+import { Position, Member, Category, Params } from "@/types/members";
 
 // 環境変数と認証情報
 import { private_key, client_email } from "@/credential/service_account.json";
@@ -21,7 +21,7 @@ const env: any = useRuntimeConfig();
 interface SheetRepositoryInterface {
   readonly membersIndex: number;
   readonly positionsIndex: number;
-  getMembers(params: MembersParams): Promise<Member[]>;
+  getMembers(params: Params): Promise<Member[]>;
   getPositions(): Promise<Position[]>
 }
 
@@ -59,7 +59,7 @@ export class SheetRepository extends SpreadsheetService implements SheetReposito
    *
    * @return {Promise<Member[]>} メンバー配列
    */
-  public async getMembers(params: MembersParams): Promise<Member[]>
+  public async getMembers(params: Params): Promise<Member[]>
   {
     const sheetName: string = 'メンバーズシート';
     const spreadsheet: GoogleSpreadsheetWorksheetType = super.getSheets(this.membersIndex);
