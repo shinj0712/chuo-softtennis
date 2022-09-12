@@ -12,58 +12,56 @@
     </section>
 
     <section class="users" id="players">
+      <!-- title -->
       <title-primary :title="title.players"/>
-      <!-- ロード画面 -->
+      <!-- loading -->
       <div class="users__load" v-if="players.pending.value">
         <Load color="navy"/>
       </div>
-      <!-- ユーザーチケット -->
-      <template v-else>
-        <div class="users__tickets">
-          <div class="users__ticket" v-for="(player, i) in players.data.value" :key="i">
-            <ticket-user :user="parse(player)"/>
-          </div>
+      <!-- tickets -->
+      <div class="users__tickets" v-else>
+        <div class="users__ticket" v-for="(player, i) in players.data.value" :key="i">
+          <ticket-user :user="parse(player)"/>
         </div>
-      </template>
+      </div>
     </section>
 
     <section class="users" id="staff">
+      <!-- title -->
       <title-primary :title="title.staff"/>
-      <!-- ロード画面 -->
+      <!-- loading -->
       <div class="users__load" v-if="staff.pending.value">
         <Load color="navy"/>
       </div>
-      <!-- ユーザーチケット -->
-      <template v-else>
-        <div class="users__tickets">
-          <div class="users__ticket" v-for="(staffItem, i) in staff.data.value" :key="i">
-            <ticket-user :user="parse(staffItem)"/>
-          </div>
+      <!-- tickets -->
+      <div class="users__tickets" v-else>
+        <div class="users__ticket" v-for="(staffItem, i) in staff.data.value" :key="i">
+          <ticket-user :user="parse(staffItem)"/>
         </div>
-      </template>
+      </div>
     </section>
 
     <section class="users" id="ob">
+      <!-- title -->
       <title-primary :title="title.ob"/>
-      <!-- ロード画面 -->
+      <!-- loading -->
       <div class="users__load" v-if="staff.pending.value">
         <Load color="navy"/>
       </div>
-      <!-- ユーザーチケット -->
-      <template v-else>
-        <div class="users__tickets">
-          <div class="users__ticket" v-for="(ob, i) in filteringOfficer(oldBoys.data.value)" :key="i">
-            <ticket-user :user="parse(ob)"/>
-          </div>
+      <!-- tickets -->
+      <div class="users__tickets" v-else>
+        <div class="users__ticket" v-for="(ob, i) in filteringOfficer(oldBoys.data.value)" :key="i">
+          <!-- ticket -->
+          <ticket-user :user="parse(ob)"/>
         </div>
-      </template>
+      </div>
     </section>
   </div>
 </template>
 
 <script lang="ts" setup>
 // type
-import { Member } from "@/types/interface";
+import { Member } from "@/types/members";
 // svg
 import DoubleArrowSvg from "@/assets/svg/double_arrow_down.svg?component";
 import ChuoLogoSvg from "@/assets/svg/chuo-logo.svg?component";

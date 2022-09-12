@@ -1,7 +1,7 @@
 <template>
-  <div class="user-ticket">
+  <div class="user-ticket" @click="openModal()">
     <div class="user-ticket__thumbnail">
-      <image-thumbnail :img="user.img" :color="getBorderColor(user.position)"/>
+      <image-thumbnail :img="user.img" :color="user.position?.color ?? 'blue'"/>
     </div>
 
     <div class="user-ticket__content">
@@ -17,16 +17,26 @@
         </div>
       </slot>
     </div>
+
+    <!-- modal -->
+    <modal-member v-if="isShowRef" :member="user" @close="closeModal"/>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { Member, Position } from "@/types/members";
+// types
+import { Member } from "@/types/members";
+
+// interface
 interface Props {
   user: Member;
 }
+
+// props
 const { user } = defineProps<Props>();
-const getBorderColor = (position: Position | null): string => (position != null) ? position.color : 'blue';
+
+// modal composable
+const { openModal, closeModal, isShowRef } = useModal();
 </script>
 
 <style ${2|scoped,|} lang="scss">
