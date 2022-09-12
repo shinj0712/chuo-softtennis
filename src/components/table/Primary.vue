@@ -21,7 +21,7 @@ import { Table } from "@/types/utility";
 
 interface Props {
   table: Table;
-  ratio?: Number;
+  ratio?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
   color?: String;
 }
 
@@ -64,11 +64,14 @@ const coloring = computed<string | null>(() => (color) ? `primary-table__title--
 
   &__table {
     width: 100%;
+    border: 1px solid color(lightgray);
+    border-bottom: 1px solid color(lightgray);
   }
 
   &__record {
     font: bold .9rem/1 arial;
     width: 100%;
+    border-bottom: 1px solid color(lightgray);
   }
 
   &__key,
@@ -83,14 +86,12 @@ const coloring = computed<string | null>(() => (color) ? `primary-table__title--
     width: 30%;
     background-color: color(lightgray);
     text-align: center;
-    border-bottom: 1px solid darken(color(lightgray), 5%);
   }
 
   &__value {
     width: 70%;
     background-color: color(white);
     white-space: pre-wrap;
-    border-bottom: 1px solid color(lightgray);
   }
 
   @for $i from 1 to 10 {

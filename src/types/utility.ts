@@ -6,7 +6,7 @@
 export type Color = 'white' | 'darkblue' | 'navy' | 'orange' | 'lightgray';
 
 // テーブル
-interface TableBody {
+export interface TableBody {
   key  : string;
   value: string | number;
 }
