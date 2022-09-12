@@ -142,7 +142,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 // type
-import { Member, Table } from "@/types/interface";
+import { Member } from "@/types/members";
+import { Table } from "@/types/utility";
 import { ComputedRef } from 'vue';
 
 // svg
