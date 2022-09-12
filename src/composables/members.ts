@@ -1,5 +1,5 @@
 
-import { Member } from "@/types/interface";
+import { Member } from "@/types/members";
 
 /**
  * メンバー情報を取得してストアに格納

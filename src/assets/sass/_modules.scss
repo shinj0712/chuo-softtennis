@@ -179,13 +179,13 @@
 // position 一括指定
 @mixin position($type: static, $t: auto, $r: auto, $b: auto, $l: auto, $z: auto) {
   position: $type;
+  z-index: $z;
 
-  @if $type ==absolute or $type ==fixed or $type ==sticky {
+  @if $type == absolute or $type == fixed or $type == sticky {
     top: $t;
     bottom: $b;
     left: $l;
     right: $r;
-    z-index: $z;
   }
 }
 

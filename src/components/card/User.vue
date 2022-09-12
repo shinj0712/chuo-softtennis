@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Member } from "@/types/interface";
+import { Member } from "@/types/members";
 
 interface Props {
   item: Member;

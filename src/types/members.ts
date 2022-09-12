@@ -1,12 +1,31 @@
 /**
- * メンバーAPI
+ * members API interface & types
  */
+
+// ポジション
 export interface Position {
   id      : number;
   name_ja : string;
   name_en : string;
   color   : string;
 }
+
+// カテゴリー
+export interface Category {
+  all    : null;
+  players: string;
+  staff  : string;
+  ob     : string;
+  none   : string;
+}
+
+// パラメータ
+export interface Params {
+  category?: 'all' | 'players' | 'staff' | 'ob' | 'none';
+  grade   ?: null | 1 | 2 | 3 | 4;
+}
+
+// メンバーデータ
 export interface Member {
   id             : number;
   name_ja        : string;
@@ -25,27 +44,4 @@ export interface Member {
     src: string;
     alt: string;
   }
-}
-export interface Category {
-  all    : null;
-  players: string;
-  staff  : string;
-  ob     : string;
-  none   : string;
-}
-export interface MembersParams {
-  category?: 'all' | 'players' | 'staff' | 'ob' | 'none';
-  grade   ?: null | 1 | 2 | 3 | 4;
-}
-
-/**
- * コンポーネント
- */
-interface TableBody {
-  key  : string;
-  value: string | number;
-}
-export interface Table {
-  title?: String;
-  body  : TableBody[];
 }
