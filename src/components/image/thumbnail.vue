@@ -22,7 +22,7 @@ const { img, color = "blue" } = defineProps<Props>();
 const coloring = computed<string>(() => `thumbnail--${color}`);
 
 // イメージが見つからない場合の処理
-const handleError = (e: any) => {
+const handleError = (e: any): void => {
   e.target.src = '/_nuxt/assets/images/noimage.png';
 }
 </script>
@@ -54,6 +54,7 @@ const handleError = (e: any) => {
 
   &__img {
     border-radius: radius(circle);
+    transition: transform .3s ease-out;
   }
 }
 </style>

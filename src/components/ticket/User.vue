@@ -1,5 +1,5 @@
 <template>
-  <div class="user-ticket" @click="openModal()">
+  <div class="user-ticket" @click="openModal">
     <div class="user-ticket__thumbnail">
       <image-thumbnail :img="user.img" :color="user.position?.color ?? 'blue'"/>
     </div>
@@ -41,6 +41,7 @@ const { openModal, closeModal, isShowRef } = useModal();
 
 <style ${2|scoped,|} lang="scss">
 .user-ticket {
+  $this: &;
   @include flex(row nowrap, flex-start, center, interval(4));
   background-color: color(white);
   box-shadow: 0 1px 3px 1px color(darkShadow);
@@ -53,8 +54,15 @@ const { openModal, closeModal, isShowRef } = useModal();
   }
 
   @include hover {
-    box-shadow: 0 3px 5px 3px color(shadow);
+    box-shadow: 0 2px 5px 1px color(darkShadow);
     transform: translateY(-2px);
+
+    #{$this}__thumbnail {
+      img {
+        overflow: hidden;
+        transform: scale(1.2);
+      }
+    }
   }
 
   &__thumbnail {
