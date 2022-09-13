@@ -7,9 +7,9 @@
     <!-- テーブル -->
     <table class="primary-table__table">
       <tbody>
-        <tr class="primary-table__record" :class="cellRatio" v-for="body in table.body">
-          <th class="primary-table__key">{{ body.key }}</th>
-          <td class="primary-table__value">{{ body.value }}</td>
+        <tr :class="cellRatio" v-for="body in table.body">
+          <th>{{ body.key }}</th>
+          <td>{{ body.value }}</td>
         </tr>
       </tbody>
     </table>
@@ -66,41 +66,47 @@ const coloring = computed<string | null>(() => (color) ? `primary-table__title--
     width: 100%;
     border: 1px solid color(lightgray);
     border-bottom: 1px solid color(lightgray);
-  }
 
-  &__record {
-    font: bold .9rem/1 arial;
-    width: 100%;
-    border-bottom: 1px solid color(lightgray);
-  }
+    tr {
+      font: bold .9rem/1 arial;
+      width: 100%;
 
-  &__key,
-  &__value {
-    font: bold .9rem/1.2 arial;
-    letter-spacing: 1.1px;
-    padding: interval(1.5) interval(2);
-    vertical-align: middle;
-  }
-
-  &__key {
-    width: 30%;
-    background-color: color(lightgray);
-    text-align: center;
-  }
-
-  &__value {
-    width: 70%;
-    background-color: color(white);
-    white-space: pre-wrap;
-  }
-
-  @for $i from 1 to 10 {
-    #{$this}--#{$i} {
-      #{$this}__key {
-        width: calc(#{$i} * 10%);
+      &:last-of-type {
+        th,td {
+          border-bottom: none;
+        }
       }
-      #{$this}__value {
-        width: calc(100% - (#{$i} * 10%));
+    }
+
+    th,td {
+      font: bold .9rem/1.2 arial;
+      letter-spacing: 1.1px;
+      padding: interval(1.5) interval(2);
+      vertical-align: middle;
+    }
+
+    th {
+      width: 30%;
+      background-color: color(lightgray);
+      text-align: center;
+      border-bottom: 1px solid darken($color: color(lightgray), $amount: 5%);
+    }
+
+    td {
+      width: 70%;
+      background-color: color(white);
+      white-space: pre-wrap;
+      border-bottom: 1px solid color(lightgray);
+    }
+
+    @for $i from 1 to 10 {
+      #{$this}--#{$i} {
+        th {
+          width: calc(#{$i} * 10%);
+        }
+        td {
+          width: calc(100% - (#{$i} * 10%));
+        }
       }
     }
   }

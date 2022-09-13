@@ -24,6 +24,12 @@
       <div class="member-modal__profile">
         <table-primary :table="getProfile" :ratio="4"/>
       </div>
+
+      <ul class="member-modal__tags">
+        <li class="member-modal__tag" v-for="tag in member.tags">
+          <tag :text="tag" size="md"/>
+        </li>
+      </ul>
     </article>
   </modal>
 </template>
@@ -171,6 +177,11 @@ const getProfile = computed<Table>(() => {
 
   &__profile {
     margin-top: interval(5);
+  }
+
+  &__tags {
+    margin-top: interval(5);
+    @include flex(row wrap, flex-start, stretch, interval(1));
   }
 }
 </style>

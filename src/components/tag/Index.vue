@@ -1,5 +1,5 @@
 <template>
-  <div class="tag" :class="coloring">
+  <div class="tag" :class="[coloring, sizing]">
     <slot name="text">
       <span class="tag__text" :class="{ 'tag__text-en': isAlphanumeric(text) }">
         {{ text }}
@@ -12,9 +12,11 @@
 interface Props {
   text: string;
   color?: string;
+  size?: 'sm' | 'md' | 'lg';
 }
-const { text, color='darkblue' } = defineProps<Props>();
+const { text, color='darkblue', size = 'sm' } = defineProps<Props>();
 const coloring = computed<string>(() => `tag--${color}`);
+const sizing = computed<string>(() => `tag--${size}`);
 
 /**
  * 半角英数字の場合、trueを返す
@@ -27,6 +29,7 @@ const isAlphanumeric = (str: string): boolean => /^[A-Za-z0-9]*$/.test(str);
 
 <style ${2|scoped,|} lang="scss">
 .tag {
+  $this: &;
   @include flex(row wrap, center, center);
   color: color(white);
   padding: 0 interval(1.5);
@@ -59,8 +62,25 @@ const isAlphanumeric = (str: string): boolean => /^[A-Za-z0-9]*$/.test(str);
     background-color: color(twitter);
   }
 
+  &--sm {
+    #{$this}__text {
+      font: bold .8rem/2 arial;
+    }
+  }
+
+  &--md {
+    #{$this}__text {
+      font: bold 1rem/2 arial;
+    }
+  }
+
+  &--lg {
+    #{$this}__text {
+      font: bold 1.2rem/2 arial;
+    }
+  }
+
   &__text {
-    font: bold .8rem/2 arial;
     letter-spacing: 1.8px;
 
     &-en {
