@@ -7,7 +7,7 @@
           class="image__img"
           :media="`(min-width: ${breakpoints.lg}px)`"
           :srcset="`/_nuxt/assets/images/${src.lg}`"
-          @error="imgError"
+          @error="handleError"
         >
       </template>
 
@@ -17,7 +17,7 @@
           class="image__img"
           :media="`(min-width: ${breakpoints.md}px)`"
           :srcset="`/_nuxt/assets/images/${src.md}`"
-          @error="imgError"
+          @error="handleError"
         >
       </template>
 
@@ -27,7 +27,7 @@
           class="image__img"
           :media="`(min-width: ${breakpoints.sm}px)`"
           :srcset="`/_nuxt/assets/images/${src.sm}`"
-          @error="imgError"
+          @error="handleError"
         >
       </template>
 
@@ -37,7 +37,7 @@
         :alt="alt"
         class="image__img"
         :class="radiusClass"
-        @error="imgError"
+        @error="handleError"
       >
     </picture>
   </figure>
@@ -66,8 +66,7 @@ const aspectClass = computed<string | null>(() => (aspect) ? `image__picture--${
 const radiusClass = computed<string | null>(() => (radius) ? `image__img--${radius}` : null);
 
 // imgのエラーハンドリング
-// TODO：動作するか確認する
-const imgError = (e: any): void => {
+const handleError = (e: any): void => {
   e.target.src = '/_nuxt/assets/images/noimage.png';
 }
 </script>
@@ -79,6 +78,7 @@ const imgError = (e: any): void => {
   &__picture {
     display: block;
     width: 100%;
+    overflow: hidden;
 
     &--square {
       @include trimming(aspect(square));
@@ -94,6 +94,7 @@ const imgError = (e: any): void => {
   }
 
   &__img {
+    transition: transform .3s ease-out;
 
     &--hard {
       border-radius: radius(hard);

@@ -121,7 +121,7 @@
           :pagination="swiperOptions.dynamicPagination"
         >
           <swiper-slide v-for="player in highestPlayers(players.data.value)">
-            <card-user :item="player"/>
+            <card-user :user="player"/>
           </swiper-slide>
         </swiper>
       </div>

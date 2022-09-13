@@ -1,6 +1,6 @@
 <template>
   <teleport to="body">
-    <transition name="modal" appear>
+    <transition name="fade" appear>
       <div class="modal" @click.self="$emit('close')" :class="backgroundColoring">
         <div class="modal__window" @click.self="$emit('close')" :class="scrollClass">
           <!-- 閉じるボタン -->
@@ -138,24 +138,39 @@ onBeforeUnmount(() => {
 }
 
 // 開閉アニメーション
-.modal-enter-active, .modal-leave-active {
-  transition: opacity 0.4s;
+.fade {
+  &-enter-active,
+  &-leave-active {
+    transition: .3s opacity cubic-bezier(0.39, 0.575, 0.565, 1), .5s transform cubic-bezier(0.39, 0.575, 0.565, 1);
 
-  // オーバーレイに包含されているモーダルウィンドウのトランジション
-  .modal-window {
-    transition: opacity 0.4s, transform 0.4s;
+    // オーバーレイに包含されているモーダルウィンドウのトランジション
+    .modal-window {
+      transition: .6s opacity cubic-bezier(0.39, 0.575, 0.565, 1), .8s transform cubic-bezier(0.39, 0.575, 0.565, 1);
+    }
   }
-}
 
-.modal-leave-active {
-  transition: opacity 0.6s ease 0.4s;
-}
+  &-leave-active {
+    transition: opacity 0.6s ease 0.4s;
+  }
 
-.modal-enter, .modal-leave-to {
-  opacity: 0;
-
-  .modal-window {
+  &-enter-from, &-leave-to {
     opacity: 0;
+    transform: translate3d(0, 10px, 0);
+
+    .modal-window {
+      opacity: 0;
+      transform: translate3d(0, 10px, 0);
+    }
+  }
+
+  &-enter-to, &-leave-from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+
+    .modal-window {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
   }
 }
 </style>

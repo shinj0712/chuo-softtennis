@@ -24,7 +24,7 @@ import { useWindow } from '../../composables/window';
 // ウィンドウ共通情報
 const { responsiveDevice } = useWindow();
 
-interface Items {
+interface Item {
   id: number;
   keyword: String;
   text: String;
@@ -35,7 +35,7 @@ interface Items {
 }
 
 interface Props {
-  items: Items[],
+  items: Item[],
 }
 
 const { items } = defineProps<Props>();
@@ -43,7 +43,11 @@ const currentId = ref<number>(1);
 const transition = ref<string>('');
 
 // itemsから{currentId}番目の要素を返す
-const current = computed(() => items.find(el => el.id === currentId.value));
+const current = computed<Item>(() => {
+  const item = items.find(el => el.id === currentId.value);
+  if (item == null) throw new Error("Failed to get tab content");
+  return item;
+});
 
 // タブ押下でコンテンツを切り替えます
 const change = (id: number): void => {
