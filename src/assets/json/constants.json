@@ -11,5 +11,16 @@
     "会計"
   ],
 
-  "memberTypes": [ "players", "staff", "ob" ]
+  "memberTypes": [ "players", "staff", "ob" ],
+
+  "twitter": {
+    "name": "twitter",
+    "to": "https://twitter.com/chuosofttennis"
+  },
+
+  "routeNameConvertList": [
+    { "name": "index", "name_ja": "ホーム" },
+    { "name": "club", "name_ja": "クラブ" },
+    { "name": "member", "name_ja": "白門会メンバー" }
+  ]
 }
