@@ -352,7 +352,12 @@ label {
 }
 
 button {
-  border-radius: 0;
+  background: none;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 button:focus:not(:focus-visible) {
