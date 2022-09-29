@@ -4,9 +4,9 @@
  */
 export const useRouteList = () => {
   const { constants } = useJson();
-  const app = useNuxtApp();
+  const router = useRouter();
   const routeListConst = constants.routeNameConvertList;
-  const list = app.$router.options.routes;
+  const list = router.getRoutes();
   list.sort((first: any, second: any) => routeListConst.findIndex(e => e.name === first.name) > routeListConst.findIndex(e => e.name === second.name) ? 1 : -1);
   return list;
 }
