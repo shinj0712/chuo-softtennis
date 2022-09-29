@@ -56,7 +56,7 @@ onBeforeUnmount(() => {
 
 <style ${2|scoped,|} lang="scss">
 .modal {
-  @include position(fixed, 0, 0, 0, 0, 910);
+  @include position(fixed, 0, 0, 0, 0, z-index(modal));
   @include flex(column nowrap);
 
   &--darkblue {
@@ -88,7 +88,7 @@ onBeforeUnmount(() => {
   }
 
   &__close-button {
-    @include position(fixed, $t: 0, $r: 0, $z: 10);
+    @include position(fixed, $t: 0, $r: 0);
     width: 4rem;
     padding: interval(2);
     border: none;

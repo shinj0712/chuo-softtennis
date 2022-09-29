@@ -147,12 +147,12 @@ const getProfile = computed<Table>(() => {
 
     &::before {
       width: 50%;
-      @include position(absolute, $t: 1.5rem, $l: 0, $z: 0);
+      @include position(absolute, $t: 1.5rem, $l: 0, $z: z-index(none));
     }
 
     &::after {
       width: 45%;
-      @include position(absolute, $b: 1.5rem, $r: 5%, $z: 0);
+      @include position(absolute, $b: 1.5rem, $r: 5%, $z: z-index(none));
       border-radius: 0 1000px 1000px 0;
     }
   }
@@ -160,7 +160,7 @@ const getProfile = computed<Table>(() => {
 
   &__thumbnail {
     width: 15rem;
-    @include position(relative, $z: 10);
+    @include position(relative, $z: z-index(over));
   }
 
   &__name {

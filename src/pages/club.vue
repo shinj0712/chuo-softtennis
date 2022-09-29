@@ -214,7 +214,7 @@ const highestPlayers = (data: Member[]): Member[] => {
       width: 90%;
       height: 90%;
       border: 2px solid color(navy);
-      @include position(absolute, 0, 0, 0, 0, 11);
+      @include position(absolute, 0, 0, 0, 0, z-index(max));
       margin: auto;
     }
 
@@ -222,7 +222,7 @@ const highestPlayers = (data: Member[]): Member[] => {
       content: '@ 2022 CHUO UNIVERSITY SOFT TENNIS TEAM';
       @include flex(row nowrap, flex-end, flex-end);
       font: normal .8rem/1 arial;
-      @include position(absolute, 0, 0, 0, 0, 11);
+      @include position(absolute, 0, 0, 0, 0, z-index(max));
       width: 88%;
       height: 88%;
       margin: auto;
@@ -232,7 +232,7 @@ const highestPlayers = (data: Member[]): Member[] => {
     &__item {
       width: 100%;
       height: 100%;
-      @include position(absolute, $t: 0, $l: 0, $z: 10);
+      @include position(absolute, $t: 0, $l: 0, $z: z-index(high));
       // 背景設定
       background-position: center center;
       background-repeat: no-repeat;
@@ -272,7 +272,7 @@ const highestPlayers = (data: Member[]): Member[] => {
     }
 
     &__caption {
-      @include position(absolute, $z: 11);
+      @include position(absolute, $z: z-index(max));
       font: bold 5rem/1 arial;
       color: transparent;
       -webkit-text-stroke: 1px color(white);
@@ -302,7 +302,7 @@ const highestPlayers = (data: Member[]): Member[] => {
       @include flex(row nowrap, center, center);
       margin-bottom: interval(5);
       position: relative;
-      z-index: 2;
+      z-index: z-index(over);
 
       @include mq(sm) {
         margin-right: interval(1);

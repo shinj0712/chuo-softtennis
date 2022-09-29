@@ -6,41 +6,41 @@
 
 // color map
 $color: (
-  darkblue : #091e2f,
-  navy : #10334e,
-  orange : #e56c2c,
+  darkblue  : #091e2f,
+  navy      : #10334e,
+  orange    : #e56c2c,
   lightgray : #f2f2f2,
-  darkgray : #C9C9C9,
-  white : #ffffff,
+  darkgray  : #C9C9C9,
+  white     : #ffffff,
 
-  shadow : #e6e6e6,
-  darkShadow : darken(#e6e6e6, 20%),
+  shadow      : #e6e6e6,
+  darkShadow  : darken(#e6e6e6, 20%),
   lightShadow : lighten(#e6e6e6, 10%),
 
-  lightGreen : #56b145,
-  deepYellow : #FDC830,
-  japanRed : #C41A41,
-  blue : #0179D5,
+  lightGreen  : #56b145,
+  deepYellow  : #FDC830,
+  japanRed    : #C41A41,
+  blue        : #0179D5,
 
-  twitter : #00acee,
+  twitter  : #00acee,
   facebook : #3b5998,
 
   // bootstrap color
-  primary : #007bff,
+  primary    : #007bff,
   successful : #28a745,
-  danger : #dc3545,
-  warning : #ffc107,
-  info : #17a2b8,
-  light : #f8f9fa,
-  dark : #343a40,
-  ) !default;
+  danger     : #dc3545,
+  warning    : #ffc107,
+  info       : #17a2b8,
+  light      : #f8f9fa,
+  dark       : #343a40,
+) !default;
 
 $breakpoints: (
   xs: 320,
   sm: 560,
   md: 1025,
   lg: 1920,
-  ) !default;
+) !default;
 
 // breakpoint map
 $media: (
@@ -48,17 +48,18 @@ $media: (
   sm: 'screen and (min-width: #{map-get($breakpoints, sm)}px)',
   md: 'screen and (min-width: #{map-get($breakpoints, md)}px)',
   lg: 'screen and (min-width: #{map-get($breakpoints, lg)}px)',
-  ) !default;
+) !default;
 
 // display(このサイトが対応するデバイス幅)
 $display: (
   min: 320px,
-  max: 1600px) !default;
+  max: 1600px
+) !default;
 
 // 固定値で持っておきたい要素幅を指定する（max-width想定）
 $width: (
   header: 120px,
-  ) !default;
+) !default;
 
 /**
  * ベースとなるフォントサイズ = 16px
@@ -77,20 +78,33 @@ $base-rem: math.div(1rem, 2);
  * アスペクト比（基準を100%と想定）
  */
 $aspectRatio: (
-  square : 100%,        // 1  : 1
-  rectangle : 66.7%,    // 3  : 2
-  golden : 61.8%,       // 1  : 1.618
-  wide : 56%,           // 16 : 9
-  vertical : 177.7777%, // 9 : 16
+  square    : 100%,      // 1  : 1
+  rectangle : 66.7%,     // 3  : 2
+  golden    : 61.8%,     // 1  : 1.618
+  wide      : 56%,       // 16 : 9
+  vertical  : 177.7777%, // 9 : 16
 );
 
 /**
  * radius
  */
 $radius: (
-  soft: 2px,
-  normal: 4px,
-  hard: 8px,
+  soft   : 2px,
+  normal : 4px,
+  hard   : 8px,
+  circle : 50%
+);
 
-  circle: 50%
+/**
+ * z-index
+ */
+$z-index: (
+  min     : -1,
+  none    : 0,
+  default : 1,
+  over    : 5,
+  high    : 10,
+  max     : 15,
+  header  : 100,
+  modal   : 150,
 );
