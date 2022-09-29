@@ -39,7 +39,10 @@ const firstUpperCase = (string: string): string => string.replace(/^./, string[0
  * @param {string} name route name
  * @return {string} name_ja
  */
-const convertRouteNameJa = (name: string): string => constants.routeNameConvertList.find(e => e.name === name)?.name_ja || name;
+const convertRouteNameJa = (name: any): string => {
+  if (typeof name !== 'string') return '';
+  return constants.routeNameConvertList.find(e => e.name === name)?.name_ja || '';
+}
 </script>
 
 <style ${2|scoped,|} lang="scss">
