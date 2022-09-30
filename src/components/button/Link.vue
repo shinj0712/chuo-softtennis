@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link class="link" :to="link" :class="positioning">
+  <nuxt-link class="link" :to="link" :class="positioning" :external="isExternal" :target="(isExternal) ? '_blank' : ''">
     <button class="link__button">
       <span class="link__label">{{ label }}</span>
       <svg viewBox="0 0 13 10" class="link__svg">
@@ -19,6 +19,9 @@ interface Props {
 
 const { label, link, position } = defineProps<Props>();
 const positioning = computed<string | null>(() => (position) ? `link--${position}` : null);
+
+// http でスタートするリンクは外部リンクにする
+const isExternal = computed<boolean>(() => link.startsWith('http'));
 </script>
 
 <style ${2|scoped,|} lang="scss">

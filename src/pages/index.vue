@@ -63,7 +63,7 @@
             <h4 class="panel__lead">{{ menu.leadText }}</h4>
           </div>
           <div class="panel__button">
-            <button-link label="view more" :link="'#'" position="right-bottom"/>
+            <button-link label="view more" :link="menu.link" position="right-bottom"/>
           </div>
         </li>
       </ul>

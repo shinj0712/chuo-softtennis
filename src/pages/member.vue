@@ -192,6 +192,10 @@ const parse = (data: any) => {
     &__load {
       height: 5rem;
     }
+
+    &:last-child {
+      margin-bottom: interval(10);
+    }
   }
 }
 </style>
