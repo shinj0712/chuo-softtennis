@@ -128,7 +128,7 @@
       <div class="member__count">
         <table-primary :table="playersCountTable" color="white"/>
       </div>
-      <button-link label="view more" :link="'#'" position="center"/>
+      <button-link label="view more" link="/member" position="center"/>
     </section>
   </div>
 </template>

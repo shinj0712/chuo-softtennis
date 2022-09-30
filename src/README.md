@@ -1,8 +1,11 @@
-# Nuxt 3 Minimal Starter
-
+# 中央大学ソフトテニス部公式ホームページ
+## Nuxt3
 Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
 
-## Setup
+### Setup
+1. リポジトリをクローンする
+2. Docker立ち上げ
+3. Dockerコンテナの中に入り、yarn install
 
 Make sure to install the dependencies:
 
@@ -17,15 +20,15 @@ npm install
 pnpm install --shamefully-hoist
 ```
 
-## Development Server
+### Development Server
 
 Start the development server on http://localhost:3000
 
 ```bash
-npm run dev
+nuxi dev
 ```
 
-## Production
+### Production
 
 Build the application for production:
 

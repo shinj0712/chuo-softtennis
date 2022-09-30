@@ -22,5 +22,10 @@
     { "name": "index", "name_ja": "ホーム" },
     { "name": "club", "name_ja": "クラブ" },
     { "name": "member", "name_ja": "白門会メンバー" }
-  ]
+  ],
+
+  "link": {
+    "mizuno": "https://www.mizuno.jp/",
+    "yonex" : "https://www.yonex.co.jp/"
+  }
 }

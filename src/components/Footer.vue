@@ -16,7 +16,7 @@
       </div>
       <div class="footer__item">
         <h5 class="footer__title">CONTACT</h5>
-        <NuxtLink :to="constants.twitter.to" class="footer__link footer__link--twitter">
+        <NuxtLink :to="constants.twitter.to" class="footer__link footer__link--twitter" :external="true" target="_blank">
           <span class="footer__link-text">{{ firstUpperCase(constants.twitter.name) }}</span>
         </NuxtLink>
       </div>

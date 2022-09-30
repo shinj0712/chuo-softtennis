@@ -84,13 +84,13 @@
     <section class="sponsor">
       <ul class="sponsor__list">
         <li class="sponsor__item">
-          <nuxt-link class="sponsor__link" to="#" target="_blank">
-            <img src="@/assets/images/sponsor/yonex.png" alt="ヨネックス" class="sponsor__image">
+          <nuxt-link class="sponsor__link" :to="constants.link.yonex" target="_blank" :external="true">
+            <img src="@/assets/images/sponsor/yonex.png" alt="ヨネックス株式会社" class="sponsor__image">
           </nuxt-link>
         </li>
         <li class="sponsor__item">
-          <nuxt-link class="sponsor__link" to="#" target="_blank">
-            <img src="@/assets/images/sponsor/mizuno.png" alt="ミズノ" class="sponsor__image">
+          <nuxt-link class="sponsor__link" :to="constants.link.mizuno" target="_blank" :external="true">
+            <img src="@/assets/images/sponsor/mizuno.png" alt="美津濃株式会社" class="sponsor__image">
           </nuxt-link>
         </li>
       </ul>
@@ -99,7 +99,7 @@
 </template>
 
 <script setup lang="ts">
-import contents from "@/assets/json/contents.json";
+const { contents, constants } = useJson();
 </script>
 
 <style ${2|scoped,|} lang="scss">

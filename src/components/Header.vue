@@ -50,7 +50,7 @@
       >
         <ul class="header__sitemap-list">
           <li class="header__sitemap-item" v-for="route in routeList">
-            <NuxtLink :to="route.path" class="header__sitemap-link">
+            <NuxtLink :to="route.path" class="header__sitemap-link" @click="next(route.path)">
               {{ (route.name === 'index') ? 'home' : route.name }}
             </NuxtLink>
           </li>
@@ -69,6 +69,7 @@ import Twitter from "@/assets/svg/twitter.svg?component";
 import Panel from "@/assets/svg/panel.svg?component";
 
 const routeList = useRouteList();
+const router = useRouter();
 
 // グロナビ開閉
 const navOpen = ref(false);
@@ -79,6 +80,13 @@ const navToggle = (): void => {
 
 // サイトマップモーダル
 const { isShowRef, closeModal, openModal } = useModal();
+
+const next = (path: string): void => {
+  // モーダルを閉じる
+  closeModal();
+  // ページ遷移
+  router.push(path);
+}
 </script>
 
 <style ${2|scoped,|} lang="scss">
