@@ -15,6 +15,21 @@
 </script>
 
 <style ${2|scoped,|} lang="scss">
+* {
+  font-size: 1rem;
+}
+
+html {
+  font-size: clamp(0.875rem, 0.75vw + 0.5rem, 1.5rem);
+}
+
+body {
+  width: 100%;
+  color: color(white);
+  font: 1rem/1.5 arial;
+  overflow-x: hidden;
+}
+
 .site-wrapper {
   display: flex;
   flex-direction: column;

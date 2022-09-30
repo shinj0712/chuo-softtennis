@@ -80,12 +80,12 @@ const getProfile = computed<Table>(() => {
   color: color(darkblue);
   background-color: color(white);
   padding: interval(2);
-  margin: interval(2);
+  margin: 0 interval(2) interval(2);
 
   // tablet
   @include mq(sm) {
     padding: interval(3);
-    margin: interval(5);
+    margin: 0 interval(5) interval(5);
 
     #{$this}__header {
       margin-right: - interval(3);
@@ -96,7 +96,7 @@ const getProfile = computed<Table>(() => {
   // pc
   @include mq(md) {
     padding: interval(5);
-    margin: interval(8);
+    margin: 0 interval(8) interval(8);
 
     #{$this}__header {
       margin-right: - interval(5);

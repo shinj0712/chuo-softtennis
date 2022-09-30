@@ -4,9 +4,11 @@
       <div class="modal" @click.self="$emit('close')" :class="backgroundColoring">
         <div class="modal__window" @click.self="$emit('close')" :class="scrollClass">
           <!-- 閉じるボタン -->
-          <button class="modal__close-button" @click="$emit('close')" :class="closeBtnColoring">
-            <nuxt-svg :svg="closeIcon" :color="color"/>
-          </button>
+          <header class="modal__header">
+            <button class="modal__close-button" @click="$emit('close')" :class="closeBtnColoring">
+              <nuxt-svg :svg="closeIcon" :color="color"/>
+            </button>
+          </header>
           <slot><!-- コンテンツ --></slot>
         </div>
       </div>
@@ -56,6 +58,7 @@ onBeforeUnmount(() => {
 
 <style ${2|scoped,|} lang="scss">
 .modal {
+  width: 100%;
   @include position(fixed, 0, 0, 0, 0, z-index(modal));
   @include flex(column nowrap);
 
@@ -76,22 +79,31 @@ onBeforeUnmount(() => {
   }
 
   &__window {
+    width: 100%;
     height: 100%;
     position: relative;
     max-height: 100%;
     overflow-y: auto;
 
     &--disable-scroll {
-      overflow-y: visible;
+      overflow-y: scroll;
       max-height: none;
     }
   }
 
+  &__header {
+    width: 100%;
+    @include position(sticky, $t: 0);
+    text-align: end;
+    pointer-events: none;
+  }
+
   &__close-button {
-    @include position(fixed, $t: 0, $r: 0);
     width: 4rem;
     padding: interval(2);
     border: none;
+    pointer-events: auto;
+    cursor: pointer;
 
     &--white {
       background: rgba($color: color(darkblue), $alpha: .9);
@@ -139,18 +151,13 @@ onBeforeUnmount(() => {
 
 // 開閉アニメーション
 .fade {
-  &-enter-active,
-  &-leave-active {
+  &-enter-active, &-leave-active {
     transition: .3s opacity cubic-bezier(0.39, 0.575, 0.565, 1), .5s transform cubic-bezier(0.39, 0.575, 0.565, 1);
 
     // オーバーレイに包含されているモーダルウィンドウのトランジション
     .modal-window {
       transition: .6s opacity cubic-bezier(0.39, 0.575, 0.565, 1), .8s transform cubic-bezier(0.39, 0.575, 0.565, 1);
     }
-  }
-
-  &-leave-active {
-    transition: opacity 0.6s ease 0.4s;
   }
 
   &-enter-from, &-leave-to {
