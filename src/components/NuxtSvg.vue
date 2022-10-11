@@ -46,5 +46,11 @@ const coloring = computed<string>(() => `nuxt-svg--${color}`)
       fill: color(orange);
     }
   }
+
+  &--twitter {
+    & > svg {
+      fill: color(twitter);
+    }
+  }
 }
 </style>
