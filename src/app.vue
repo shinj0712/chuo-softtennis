@@ -4,6 +4,44 @@
 
     <main class="main">
       <NuxtPage />
+
+      <!-- Twitterボタン -->
+      <transition name="fade-x">
+        <button class="tweet-button__button" @click="toggleTwitter" v-show="!showTwitter">
+          <span class="tweet-button__text">投稿を見る</span>
+          <div class="tweet-button__logo">
+            <nuxt-svg :svg="TwitterLogo" color="twitter"/>
+          </div>
+        </button>
+      </transition>
+
+      <!-- コンテンツ -->
+      <transition name="fade-y">
+        <article class="tweet-contents__container" v-show="showTwitter">
+          <header class="tweet-contents__header">
+            <h5 class="tweet-contents__title">直近の3投稿</h5>
+            <button class="tweet-contents__close" @click="toggleTwitter">
+              <nuxt-svg :svg="closeIcon" color="navy"/>
+            </button>
+          </header>
+          <div class="tweet-contents__wrapper">
+            <!-- 埋め込みタグ -->
+            <a
+              class="twitter-timeline"
+              data-lang="ja"
+              data-theme="light"
+              data-tweet-limit="3"
+              data-chrome="noheader nofooter transparent noborders"
+              href="https://twitter.com/chuosofttennis?ref_src=twsrc%5Etfw"
+            />
+          </div>
+          <footer>
+            <NuxtLink :to="constants.twitter.home" class="tweet-contents__link" :external="true" target="_blank">
+              <span class="twitter__link-text">もっと見る</span>
+            </NuxtLink>
+          </footer>
+        </article>
+      </transition>
     </main>
 
     <Footer />
@@ -11,7 +49,15 @@
 </template>
 
 <script setup lang="ts">
+import TwitterLogo from "@/assets/svg/twitter.svg?component";
+import closeIcon from "@/assets/svg/close.svg?component";
 
+const { constants } = useJson();
+
+const showTwitter = ref(false);
+const toggleTwitter = (): void => {
+  showTwitter.value = !showTwitter.value;
+}
 </script>
 
 <style ${2|scoped,|} lang="scss">
@@ -135,6 +181,174 @@ body {
         animation: rotate-scale-small 3s linear normal infinite;
       }
     }
+  }
+}
+
+.tweet-button {
+  $button: &;
+
+  &__button {
+    @include flex(row nowrap, center, center, interval(1));
+    @include position(fixed, $b: 5%, $l: -5.5rem, $z: z-index(max));
+    background-color: color(twitter);
+    border-radius: 0 1000px 1000px 0;
+    padding: interval(1) interval(1) interval(1) interval(5);
+    transition: left .3s ease-out;
+
+    @include hover {
+      left: 0;
+
+      .tweet-button__text {
+        color: color(white);
+        transform: translate3d(0, 0, 0);
+      }
+    }
+  }
+
+  &__text {
+    color: color(twitter);
+    font: bold 1rem/1.2 arial;
+    transform: translate3d(- interval(2), 0, interval(2));
+    transition: color .3s ease-out, transform .3s ease-out;
+  }
+
+  &__logo {
+    background-color: color(white);
+    border-radius: radius(circle);
+    padding: interval(1.5);
+    width: 3rem;
+  }
+}
+
+.tweet-contents {
+  &__container {
+    width: 21rem;
+    @include position(fixed, $b: 5%, $l: 2.5%, $z: z-index(max));
+    background-color: color(white);
+
+    @include mq(sm) {
+      width: 25rem;
+      left: 5%;
+    }
+
+    @include mq(md) {
+      width: 25rem;
+    }
+  }
+
+  &__header {
+    @include flex(row nowrap, space-between, center);
+    pointer-events: none;
+    border-bottom: 1px solid darken($color: color(lightgray), $amount: 5%);
+    background-color: color(lightgray);
+  }
+
+  &__title {
+    color: color(darkblue);
+    font: bold 1.2rem/1.2 arial;
+    margin: 0 interval(2);
+  }
+
+  &__close {
+    width: 3rem;
+    padding: interval(1.5);
+    border: none;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  &__wrapper {
+    width: 100%;
+    max-height: 30rem;
+    overflow: hidden scroll;
+    margin: 0 auto;
+  }
+
+  &__link {
+    display: block;
+    position: relative;
+    text-align: center;
+    font: bold 1rem/1.5 arial;
+    letter-spacing: 1.2px;
+    text-decoration: none;
+    padding: interval(2) interval(5);
+    background-color: color(twitter);
+    transition: background-color .3s ease-out;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      background: url('@/assets/svg/twitter-white.svg') center/contain no-repeat;
+      width: 2rem;
+      height: 2rem;
+      @include position(absolute, $t: calc(50% - 1rem), $l: calc(50% - 1rem));
+      transform: translate(- 5rem);
+      opacity: 0;
+      transition: transform .3s ease-out, opacity .3s ease-out;
+    }
+
+    span {
+      color: color(white);
+      transition: opacity .3s ease-out;
+    }
+
+    @include hover {
+      color: color(white);
+
+      span {
+        opacity: 0;
+      }
+
+      &::before {
+        transform: translate(0);
+        opacity: 1;
+      }
+    }
+  }
+}
+
+// Vueトランジションクラス
+.fade-x {
+  &-enter-active {
+    transition: transform .5s ease-out .5s, opacity .5s ease-out .5s;
+  }
+
+  &-leave-active {
+    transition: transform .3s ease-out, opacity .3s ease-out;
+  }
+
+  &-enter-from,
+  &-leave-to {
+    transform: translateX(-10%);
+    opacity: 0;
+  }
+
+  &-enter-to,
+  &-leave-from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.fade-y {
+  &-enter-active {
+    transition: transform .5s ease-out .5s, opacity .5s ease-out .5s;
+  }
+
+  &-leave-active {
+    transition: transform .3s ease-out, opacity .3s ease-out;
+  }
+
+  &-enter-from,
+  &-leave-to {
+    transform: translateY(10%);
+    opacity: 0;
+  }
+
+  &-enter-to,
+  &-leave-from {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 </style>
