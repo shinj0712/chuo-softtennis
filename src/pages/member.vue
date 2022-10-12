@@ -71,6 +71,10 @@ const { title, constants } = useJson();
 // メンバー情報を取得
 const { players, staff, oldBoys } = useMemberStore();
 
+useHead({
+  title: '白門会',
+})
+
 /**
  * 役員でOBを絞り込みます
  *

@@ -59,6 +59,7 @@
 <script setup lang="ts">
 // TODO:meta情報
 useHead({
+  title: 'ホーム',
   script: [
     {
       src    : 'https://platform.twitter.com/widgets.js',

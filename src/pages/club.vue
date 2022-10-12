@@ -155,6 +155,10 @@ import Laundry from "@/assets/svg/laundry.svg?component";
 // json data
 const { table, image, contents, title, swiper: swiperOptions } = useJson();
 
+useHead({
+  title: 'クラブ',
+})
+
 // タブの遷移処理
 const TabComponent = ref();
 const tabChange = (id: number): void => {

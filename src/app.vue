@@ -52,6 +52,57 @@
 import TwitterLogo from "@/assets/svg/twitter.svg?component";
 import closeIcon from "@/assets/svg/close.svg?component";
 
+const config = useRuntimeConfig();
+
+const siteDescription = '中央大学ソフトテニス部白門会の公式ホームページです。選手紹介やクラブ紹介をコンテンツとして公開しています。';
+
+useHead({
+  titleTemplate: (title: string) => {
+    return title ? `${title} - ${config.public.appName}` : config.public.appName;
+  },
+  meta: [
+    {
+      name    : 'description',
+      content : siteDescription
+    },
+    {
+      name    : 'keyword',
+      content : '中央大学,ソフトテニス,中央大学ソフトテニス部,ソフトテニス部,日本ソフトテニス連盟,関東ソフトテニス連盟'
+    },
+    {
+      property: 'og:site_name',
+      content : config.public.appName
+    },
+    {
+      property: 'og:type',
+      content : 'website'
+    },
+    {
+      property: 'og:url',
+      content : '/'
+    },
+    {
+      property: 'og:description',
+      content : siteDescription
+    },
+    {
+      property: 'og:image',
+      content : ''
+    },
+    {
+      name    : 'twitter:card',
+      content : 'summary'
+    },
+    {
+      name    : 'twitter:site',
+      content : '@chuosofttennis'
+    },
+  ],
+  link: [
+    { rel: 'icon', type: 'image/png', href: '/favicon.png' },
+  ]
+})
+
 const { constants } = useJson();
 
 const showTwitter = ref(false);
