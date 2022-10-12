@@ -1,5 +1,6 @@
 <template>
   <modal
+    :open="open"
     :scroll="true"
     color="white"
     background-color="darkblue"
@@ -40,6 +41,7 @@ import { Table } from "@/types/utility";
 
 interface Props {
   member: Member;
+  open: boolean;
 }
 interface Emits {
   (e: 'close'): void;
@@ -47,8 +49,6 @@ interface Emits {
 
 const { member } = defineProps<Props>();
 const emit = defineEmits<Emits>();
-
-console.log(member);
 
 // custom class
 const getPositionColor = computed<string>(() => (member.position?.color) ? member.position.color : 'blue');

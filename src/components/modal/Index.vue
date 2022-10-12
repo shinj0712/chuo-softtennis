@@ -1,7 +1,7 @@
 <template>
   <teleport to="body">
-    <transition name="fade" appear>
-      <div class="modal" @click.self="$emit('close')" :class="backgroundColoring">
+    <transition name="fade">
+      <div class="modal" @click.self="$emit('close')" :class="backgroundColoring" v-if="open">
         <div class="modal__window" @click.self="$emit('close')" :class="scrollClass">
           <!-- 閉じるボタン -->
           <header class="modal__header">
@@ -22,6 +22,7 @@ import closeIcon from "@/assets/svg/close.svg?component";
 import { Color } from "@/types/utility";
 
 interface Props {
+  open: boolean;
   scroll: boolean;
   color: Color;
   backgroundColor: Color;
@@ -46,14 +47,6 @@ const closeBtnColoring = computed<string>(() => `modal__close-button--${closeBtn
 
 // emit event
 const emit = defineEmits<Emits>();
-
-onMounted(() => {
-  document.body.classList.add('modal-open');
-});
-
-onBeforeUnmount(() => {
-  document.body.classList.remove('modal-open');
-});
 </script>
 
 <style ${2|scoped,|} lang="scss">

@@ -19,7 +19,7 @@
     </div>
 
     <!-- modal -->
-    <modal-member v-if="isShowRef" :member="user" @close="closeModal"/>
+    <modal-member :open="isShowRef" :member="user" @close="closeModal"/>
   </div>
 </template>
 

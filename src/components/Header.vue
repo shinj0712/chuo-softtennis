@@ -14,15 +14,9 @@
             <nuxt-svg :svg="Menu" color="orange"/>
           </button>
         </li>
-        <!-- Twitter -->
-        <li class="header__item">
-          <button class="header__button">
-            <nuxt-svg :svg="Twitter" color="orange"/>
-          </button>
-        </li>
         <!-- ダイレクトメッセージ -->
         <li class="header__item">
-          <NuxtLink :to="''" class="header__link" :external="true">
+          <NuxtLink :to="constants.twitter.dm" class="header__link" target="__blank" :external="true">
             <nuxt-svg :svg="Send" color="orange"/>
           </NuxtLink>
         </li>
@@ -41,7 +35,7 @@
 
       <!-- サイトマップモーダル -->
       <modal
-        v-if="isShowRef"
+        :open="isShowRef"
         @close="closeModal"
         :scroll="true"
         color="white"
@@ -65,11 +59,11 @@ import Menu from "@/assets/svg/menu.svg?component";
 import Send from "@/assets/svg/send.svg?component";
 import Small from "@/assets/svg/south_east.svg?component";
 import Home from "@/assets/svg/home.svg?component";
-import Twitter from "@/assets/svg/twitter.svg?component";
 import Panel from "@/assets/svg/panel.svg?component";
 
 const routeList = useRouteList();
 const router = useRouter();
+const { constants } = useJson();
 
 // グロナビ開閉
 const navOpen = ref(false);
@@ -151,7 +145,7 @@ const next = (path: string): void => {
     #{$this}__item {
       @for $i from 1 to 5 {
         &:nth-of-type(#{$i}) {
-          transform: translateY(calc((interval(2) + 4rem) * (5 - $i)));
+          transform: translateY(calc((interval(2) + 4rem) * (4 - $i)));
         }
       }
     }
