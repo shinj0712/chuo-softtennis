@@ -166,6 +166,27 @@ const next = (path: string): void => {
     @include mq(md) {
       height: 15vw;
     }
+
+    // home button
+    &:nth-of-type(1) {
+      #{$this}__sitemap-link:before {
+        background-image: url('@/assets/images/group02_2017.jpg');
+      }
+    }
+
+    // club button
+    &:nth-of-type(2) {
+      #{$this}__sitemap-link:before {
+        background-image: url('@/assets/images/court02.jpg');
+      }
+    }
+
+    // member button
+    &:nth-of-type(3) {
+      #{$this}__sitemap-link:before {
+        background-image: url('@/assets/images/player11.jpg');
+      }
+    }
   }
 
   &__sitemap-link {
@@ -188,7 +209,6 @@ const next = (path: string): void => {
       content: '';
       @include position(absolute, $t: 50%, $l: 50%, $z: -1);
       transform: translate(-50%, -50%);
-      background-image: url('@/assets/images/group01_2017.jpg');
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover;
