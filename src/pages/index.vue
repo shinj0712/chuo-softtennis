@@ -60,13 +60,6 @@
 // TODO:meta情報
 useHead({
   title: 'ホーム',
-  script: [
-    {
-      src    : 'https://platform.twitter.com/widgets.js',
-      charset: 'utf-8',
-      async  : '',
-    }
-  ]
 })
 
 const { contents, constants } = useJson();
