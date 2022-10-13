@@ -53,6 +53,10 @@
   @return map-get($width, $key);
 }
 
+@function z-index($key) {
+  @return map-get($z-index, $key)
+}
+
 
 /**
  * アニメーション keyframes

@@ -40,5 +40,17 @@ const coloring = computed<string>(() => `nuxt-svg--${color}`)
       fill: color(navy);
     }
   }
+
+  &--orange {
+    & > svg {
+      fill: color(orange);
+    }
+  }
+
+  &--twitter {
+    & > svg {
+      fill: color(twitter);
+    }
+  }
 }
 </style>

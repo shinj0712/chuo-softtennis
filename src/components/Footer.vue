@@ -16,7 +16,7 @@
       </div>
       <div class="footer__item">
         <h5 class="footer__title">CONTACT</h5>
-        <NuxtLink :to="constants.twitter.to" class="footer__link footer__link--twitter">
+        <NuxtLink :to="constants.twitter.home" class="footer__link footer__link--twitter" :external="true" target="_blank">
           <span class="footer__link-text">{{ firstUpperCase(constants.twitter.name) }}</span>
         </NuxtLink>
       </div>
@@ -39,7 +39,10 @@ const firstUpperCase = (string: string): string => string.replace(/^./, string[0
  * @param {string} name route name
  * @return {string} name_ja
  */
-const convertRouteNameJa = (name: string): string => constants.routeNameConvertList.find(e => e.name === name)?.name_ja || name;
+const convertRouteNameJa = (name: any): string => {
+  if (typeof name !== 'string') return '';
+  return constants.routeNameConvertList.find(e => e.name === name)?.name_ja || '';
+}
 </script>
 
 <style ${2|scoped,|} lang="scss">

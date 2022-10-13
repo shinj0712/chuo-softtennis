@@ -5,11 +5,13 @@ export const useModal = () => {
 
   // モーダルを開く
   const openModal = () => {
+    document.body.classList.add('modal-open');
     isShowRef.value = true;
   }
 
   // モーダルを閉じる
   const closeModal = () => {
+    document.body.classList.remove('modal-open');
     isShowRef.value = false;
   }
 

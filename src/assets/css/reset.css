@@ -255,10 +255,6 @@ a {
   text-decoration: underline;
 }
 
-a:hover {
-  color: var(--bs-link-hover-color);
-}
-
 a:not([href]):not([class]),
 a:not([href]):not([class]):hover {
   color: inherit;
@@ -352,7 +348,12 @@ label {
 }
 
 button {
-  border-radius: 0;
+  background: none;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 button:focus:not(:focus-visible) {
