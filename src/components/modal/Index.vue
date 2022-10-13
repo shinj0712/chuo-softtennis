@@ -1,12 +1,14 @@
 <template>
   <teleport to="body">
-    <transition name="modal" appear>
-      <div class="modal" @click.self="$emit('close')" :class="backgroundColoring">
+    <transition name="fade">
+      <div class="modal" @click.self="$emit('close')" :class="backgroundColoring" v-if="open">
         <div class="modal__window" @click.self="$emit('close')" :class="scrollClass">
           <!-- 閉じるボタン -->
-          <button class="modal__close-button" @click="$emit('close')" :class="closeBtnColoring">
-            <nuxt-svg :svg="closeIcon" :color="color"/>
-          </button>
+          <header class="modal__header">
+            <button class="modal__close-button" @click="$emit('close')" :class="closeBtnColoring">
+              <nuxt-svg :svg="closeIcon" :color="color"/>
+            </button>
+          </header>
           <slot><!-- コンテンツ --></slot>
         </div>
       </div>
@@ -20,6 +22,7 @@ import closeIcon from "@/assets/svg/close.svg?component";
 import { Color } from "@/types/utility";
 
 interface Props {
+  open: boolean;
   scroll: boolean;
   color: Color;
   backgroundColor: Color;
@@ -44,19 +47,12 @@ const closeBtnColoring = computed<string>(() => `modal__close-button--${closeBtn
 
 // emit event
 const emit = defineEmits<Emits>();
-
-onMounted(() => {
-  document.body.classList.add('modal-open');
-});
-
-onBeforeUnmount(() => {
-  document.body.classList.remove('modal-open');
-});
 </script>
 
 <style ${2|scoped,|} lang="scss">
 .modal {
-  @include position(fixed, 0, 0, 0, 0, 910);
+  width: 100%;
+  @include position(fixed, 0, 0, 0, 0, z-index(modal));
   @include flex(column nowrap);
 
   &--darkblue {
@@ -76,22 +72,31 @@ onBeforeUnmount(() => {
   }
 
   &__window {
+    width: 100%;
     height: 100%;
     position: relative;
     max-height: 100%;
     overflow-y: auto;
 
     &--disable-scroll {
-      overflow-y: visible;
+      overflow-y: scroll;
       max-height: none;
     }
   }
 
+  &__header {
+    width: 100%;
+    @include position(sticky, $t: 0);
+    text-align: end;
+    pointer-events: none;
+  }
+
   &__close-button {
-    @include position(fixed, $t: 0, $r: 0, $z: 10);
     width: 4rem;
     padding: interval(2);
     border: none;
+    pointer-events: auto;
+    cursor: pointer;
 
     &--white {
       background: rgba($color: color(darkblue), $alpha: .9);
@@ -138,24 +143,34 @@ onBeforeUnmount(() => {
 }
 
 // 開閉アニメーション
-.modal-enter-active, .modal-leave-active {
-  transition: opacity 0.4s;
+.fade {
+  &-enter-active, &-leave-active {
+    transition: .3s opacity cubic-bezier(0.39, 0.575, 0.565, 1), .5s transform cubic-bezier(0.39, 0.575, 0.565, 1);
 
-  // オーバーレイに包含されているモーダルウィンドウのトランジション
-  .modal-window {
-    transition: opacity 0.4s, transform 0.4s;
+    // オーバーレイに包含されているモーダルウィンドウのトランジション
+    .modal-window {
+      transition: .6s opacity cubic-bezier(0.39, 0.575, 0.565, 1), .8s transform cubic-bezier(0.39, 0.575, 0.565, 1);
+    }
   }
-}
 
-.modal-leave-active {
-  transition: opacity 0.6s ease 0.4s;
-}
-
-.modal-enter, .modal-leave-to {
-  opacity: 0;
-
-  .modal-window {
+  &-enter-from, &-leave-to {
     opacity: 0;
+    transform: translate3d(0, 10px, 0);
+
+    .modal-window {
+      opacity: 0;
+      transform: translate3d(0, 10px, 0);
+    }
+  }
+
+  &-enter-to, &-leave-from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+
+    .modal-window {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
   }
 }
 </style>

@@ -11,5 +11,22 @@
     "会計"
   ],
 
-  "memberTypes": [ "players", "staff", "ob" ]
+  "memberTypes": [ "players", "staff", "ob" ],
+
+  "twitter": {
+    "name": "twitter",
+    "home": "https://twitter.com/chuosofttennis",
+    "dm"  : "https://twitter.com/messages/compose?recipient_id=1501397478729347073"
+  },
+
+  "routeNameConvertList": [
+    { "name": "index", "name_ja": "ホーム" },
+    { "name": "club", "name_ja": "クラブ" },
+    { "name": "member", "name_ja": "白門会メンバー" }
+  ],
+
+  "link": {
+    "mizuno": "https://www.mizuno.jp/",
+    "yonex" : "https://www.yonex.co.jp/"
+  }
 }

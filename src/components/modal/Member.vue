@@ -1,5 +1,6 @@
 <template>
   <modal
+    :open="open"
     :scroll="true"
     color="white"
     background-color="darkblue"
@@ -24,6 +25,12 @@
       <div class="member-modal__profile">
         <table-primary :table="getProfile" :ratio="4"/>
       </div>
+
+      <ul class="member-modal__tags">
+        <li class="member-modal__tag" v-for="tag in member.tags">
+          <tag :text="tag" size="md"/>
+        </li>
+      </ul>
     </article>
   </modal>
 </template>
@@ -34,6 +41,7 @@ import { Table } from "@/types/utility";
 
 interface Props {
   member: Member;
+  open: boolean;
 }
 interface Emits {
   (e: 'close'): void;
@@ -41,8 +49,6 @@ interface Emits {
 
 const { member } = defineProps<Props>();
 const emit = defineEmits<Emits>();
-
-console.log(member);
 
 // custom class
 const getPositionColor = computed<string>(() => (member.position?.color) ? member.position.color : 'blue');
@@ -74,12 +80,12 @@ const getProfile = computed<Table>(() => {
   color: color(darkblue);
   background-color: color(white);
   padding: interval(2);
-  margin: interval(2);
+  margin: 0 interval(2) interval(2);
 
   // tablet
   @include mq(sm) {
     padding: interval(3);
-    margin: interval(5);
+    margin: 0 interval(5) interval(5);
 
     #{$this}__header {
       margin-right: - interval(3);
@@ -90,7 +96,7 @@ const getProfile = computed<Table>(() => {
   // pc
   @include mq(md) {
     padding: interval(5);
-    margin: interval(8);
+    margin: 0 interval(8) interval(8);
 
     #{$this}__header {
       margin-right: - interval(5);
@@ -141,12 +147,12 @@ const getProfile = computed<Table>(() => {
 
     &::before {
       width: 50%;
-      @include position(absolute, $t: 1.5rem, $l: 0, $z: 0);
+      @include position(absolute, $t: 1.5rem, $l: 0, $z: z-index(none));
     }
 
     &::after {
       width: 45%;
-      @include position(absolute, $b: 1.5rem, $r: 5%, $z: 0);
+      @include position(absolute, $b: 1.5rem, $r: 5%, $z: z-index(none));
       border-radius: 0 1000px 1000px 0;
     }
   }
@@ -154,7 +160,7 @@ const getProfile = computed<Table>(() => {
 
   &__thumbnail {
     width: 15rem;
-    @include position(relative, $z: 10);
+    @include position(relative, $z: z-index(over));
   }
 
   &__name {
@@ -171,6 +177,11 @@ const getProfile = computed<Table>(() => {
 
   &__profile {
     margin-top: interval(5);
+  }
+
+  &__tags {
+    margin-top: interval(5);
+    @include flex(row wrap, flex-start, stretch, interval(1));
   }
 }
 </style>

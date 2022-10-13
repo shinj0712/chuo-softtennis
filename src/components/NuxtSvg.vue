@@ -1,7 +1,7 @@
 <template>
-  <div class="nuxt-svg" :class="coloring">
+  <i class="nuxt-svg" :class="coloring">
     <component :is="svg"/>
-  </div>
+  </i>
 </template>
 
 <script lang="ts" setup>
@@ -16,6 +16,7 @@ const coloring = computed<string>(() => `nuxt-svg--${color}`)
 
 <style ${2|scoped,|} lang="scss">
 .nuxt-svg {
+  display: block;
   width: 100%;
 
   & > svg {
@@ -37,6 +38,18 @@ const coloring = computed<string>(() => `nuxt-svg--${color}`)
   &--navy {
     & > svg {
       fill: color(navy);
+    }
+  }
+
+  &--orange {
+    & > svg {
+      fill: color(orange);
+    }
+  }
+
+  &--twitter {
+    & > svg {
+      fill: color(twitter);
     }
   }
 }

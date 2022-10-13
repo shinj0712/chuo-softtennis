@@ -11,48 +11,6 @@
       </h1>
     </section>
 
-    <!-- ニュース -->
-    <section class="news">
-      <title-primary :title="{ ja: 'ニュース', en: 'news' }"/>
-      <ul class="news__list">
-        <!-- TODO:API実装次第、Twitterデータを使う -->
-        <li class="news__item">
-          <div class="news__information">
-            <!-- TODO：アイコン入れる -->
-            <span class="news__date">
-              2022.04.01
-            </span>
-            <span class="news__label">
-              NEW
-            </span>
-          </div>
-          <a href="#" class="news__text">
-            テスト投稿です。Webサイトのテストを実施しています。この投稿は、Webサイトが公開される前に削除されます。現在、Webサイトを開発中ですのでしばらくお待ちください。
-          </a>
-        </li>
-        <li class="news__item">
-          <div class="news__information">
-            <span class="news__date">
-              2022.04.01
-            </span>
-          </div>
-          <a href="#" class="news__text">
-            テスト投稿です。Webサイトのテストを実施しています。この投稿は、Webサイトが公開される前に削除されます。現在、Webサイトを開発中ですのでしばらくお待ちください。
-          </a>
-        </li>
-        <li class="news__item">
-          <div class="news__information">
-            <span class="news__date">
-              2022.04.01
-            </span>
-          </div>
-          <a href="#" class="news__text">
-            テスト投稿です。Webサイトのテストを実施しています。この投稿は、Webサイトが公開される前に削除されます。現在、Webサイトを開発中ですのでしばらくお待ちください。
-          </a>
-        </li>
-      </ul>
-    </section>
-
     <!-- メニューパネル -->
     <section class="panel container">
       <ul class="panel__list">
@@ -63,7 +21,7 @@
             <h4 class="panel__lead">{{ menu.leadText }}</h4>
           </div>
           <div class="panel__button">
-            <button-link label="view more" :link="'#'" position="right-bottom"/>
+            <button-link label="view more" :link="menu.link" position="right-bottom"/>
           </div>
         </li>
       </ul>
@@ -84,13 +42,13 @@
     <section class="sponsor">
       <ul class="sponsor__list">
         <li class="sponsor__item">
-          <nuxt-link class="sponsor__link" to="#" target="_blank">
-            <img src="@/assets/images/sponsor/yonex.png" alt="ヨネックス" class="sponsor__image">
+          <nuxt-link class="sponsor__link" :to="constants.link.yonex" target="_blank" :external="true">
+            <img src="@/assets/images/sponsor/yonex.png" alt="ヨネックス株式会社" class="sponsor__image">
           </nuxt-link>
         </li>
         <li class="sponsor__item">
-          <nuxt-link class="sponsor__link" to="#" target="_blank">
-            <img src="@/assets/images/sponsor/mizuno.png" alt="ミズノ" class="sponsor__image">
+          <nuxt-link class="sponsor__link" :to="constants.link.mizuno" target="_blank" :external="true">
+            <img src="@/assets/images/sponsor/mizuno.png" alt="美津濃株式会社" class="sponsor__image">
           </nuxt-link>
         </li>
       </ul>
@@ -99,7 +57,12 @@
 </template>
 
 <script setup lang="ts">
-import contents from "@/assets/json/contents.json";
+// TODO:meta情報
+useHead({
+  title: 'ホーム',
+})
+
+const { contents, constants } = useJson();
 </script>
 
 <style ${2|scoped,|} lang="scss">
@@ -128,53 +91,9 @@ import contents from "@/assets/json/contents.json";
     }
   }
 
-  // ニュースレイアウト
-  .news {
-    background-color: color(lightgray);
-    transform: translateY(- interval(8));
-    max-width: pixel(150);
-    margin: 0 auto;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    border-radius: radius(normal);
-
-    &__list {
-      margin: interval(2);
-    }
-
-    &__item {
-      padding: interval(2.5) 0;
-      border-top: 1px solid darken($color: color(lightgray), $amount: 10%);
-    }
-
-    &__information {
-      @include flex(row nowrap, space-between, center);
-    }
-
-    &__label {
-      color: color(danger);
-      font: bold 1rem Arial;
-    }
-
-    &__date {
-      font: bold 1rem Arial;
-      color: color(darkblue);
-    }
-
-    &__text {
-      font: .9rem Arial;
-      color: color(darkblue);
-      text-decoration: none;
-      margin-top: interval(1);
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 3; /* 制限したい行数が3の場合 */
-      overflow: hidden;
-    }
-  }
-
   // パネルレイアウト
   .panel {
-    $this: &;
+    margin-top: interval(10);
 
     @include mq(md) {
       padding: 0 5vw;
