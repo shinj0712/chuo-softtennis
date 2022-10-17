@@ -62,6 +62,7 @@ useHead({
   title: 'ホーム',
 })
 
+// JSON定数を取得
 const { contents, constants } = useJson();
 </script>
 

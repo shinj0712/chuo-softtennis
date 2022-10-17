@@ -6,6 +6,11 @@ export default defineNuxtConfig({
 	target: 'static',
 	typescript: { strict: true },
 
+	build: {
+		transpile: ['swiper'],
+		cssSourceMap: false,
+	},
+
 	css: [
 		// TODO:sourcemapエラーを修正する
 		'@/assets/css/reset.css',
@@ -19,9 +24,6 @@ export default defineNuxtConfig({
 					additionalData: '@use "@/assets/sass/main.scss" as *;',
 				},
 			},
-		},
-		build: {
-			sourcemap: false,
 		},
 		plugins: [
 			svgLoader({

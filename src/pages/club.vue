@@ -108,7 +108,7 @@
 
       <!-- スライダー or ロード -->
       <div class="member__slider">
-        <div class="member__load" v-if="players.pending.value">
+        <div class="member__load" v-if="players.length === 0">
           <Load color="white"/>
         </div>
         <swiper
@@ -120,7 +120,7 @@
           navigation
           :pagination="swiperOptions.dynamicPagination"
         >
-          <swiper-slide v-for="player in highestPlayers(players.data.value)">
+          <swiper-slide v-for="player in highestPlayers(players)">
             <card-user :user="player"/>
           </swiper-slide>
         </swiper>
@@ -178,17 +178,17 @@ const getSvg = (name: 'dining' | 'bath' | 'hotel' | 'laundry') => {
 }
 
 // 選手情報を取得
-const { players } = useMemberStore();
+const { players } = useFilteredMembers();
 
 // 取得した選手情報から学年毎の人数を算出
 const playersCountTable: ComputedRef<Table> = computed(() => {
   return {
     title: '部員数',
     body: [
-      { key: '1年生', value: (players.value.pending.value) ? 0 : `${players.value.data.value.filter(e => e.grade == 1).length}名` },
-      { key: '2年生', value: (players.value.pending.value) ? 0 : `${players.value.data.value.filter(e => e.grade == 2).length}名` },
-      { key: '3年生', value: (players.value.pending.value) ? 0 : `${players.value.data.value.filter(e => e.grade == 3).length}名` },
-      { key: '4年生', value: (players.value.pending.value) ? 0 : `${players.value.data.value.filter(e => e.grade == 4).length}名` },
+      { key: '1年生', value: (players.value.length) ? 0 : `${players.value.filter(e => e.grade == 1).length}名` },
+      { key: '2年生', value: (players.value.length) ? 0 : `${players.value.filter(e => e.grade == 2).length}名` },
+      { key: '3年生', value: (players.value.length) ? 0 : `${players.value.filter(e => e.grade == 3).length}名` },
+      { key: '4年生', value: (players.value.length) ? 0 : `${players.value.filter(e => e.grade == 4).length}名` },
     ],
   }
 });
