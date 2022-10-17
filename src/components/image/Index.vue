@@ -67,6 +67,7 @@ const radiusClass = computed<string | null>(() => (radius) ? `image__img--${radi
 
 // imgのエラーハンドリング
 const handleError = (e: any): void => {
+  e.error = null;
   e.target.src = '/_nuxt/assets/images/noimage.png';
 }
 </script>

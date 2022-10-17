@@ -15,12 +15,12 @@
       <!-- title -->
       <title-primary :title="title.players"/>
       <!-- loading -->
-      <div class="users__load" v-if="players.pending.value">
+      <div class="users__load" v-if="players.length === 0">
         <Load color="navy"/>
       </div>
       <!-- tickets -->
       <div class="users__tickets" v-else>
-        <div class="users__ticket" v-for="(player, i) in players.data.value" :key="i">
+        <div class="users__ticket" v-for="(player, i) in players" :key="i">
           <ticket-user :user="parse(player)"/>
         </div>
       </div>
@@ -30,12 +30,12 @@
       <!-- title -->
       <title-primary :title="title.staff"/>
       <!-- loading -->
-      <div class="users__load" v-if="staff.pending.value">
+      <div class="users__load" v-if="staff.length === 0">
         <Load color="navy"/>
       </div>
       <!-- tickets -->
       <div class="users__tickets" v-else>
-        <div class="users__ticket" v-for="(staffItem, i) in staff.data.value" :key="i">
+        <div class="users__ticket" v-for="(staffItem, i) in staff" :key="i">
           <ticket-user :user="parse(staffItem)"/>
         </div>
       </div>
@@ -45,12 +45,12 @@
       <!-- title -->
       <title-primary :title="title.ob"/>
       <!-- loading -->
-      <div class="users__load" v-if="staff.pending.value">
+      <div class="users__load" v-if="staff.length === 0">
         <Load color="navy"/>
       </div>
       <!-- tickets -->
       <div class="users__tickets" v-else>
-        <div class="users__ticket" v-for="(ob, i) in filteringOfficer(oldBoys.data.value)" :key="i">
+        <div class="users__ticket" v-for="(ob, i) in filteringOfficer(oldBoys)" :key="i">
           <!-- ticket -->
           <ticket-user :user="parse(ob)"/>
         </div>
@@ -69,7 +69,7 @@ import ChuoLogoSvg from "@/assets/svg/chuo-logo.svg?component";
 // json取得
 const { title, constants } = useJson();
 // メンバー情報を取得
-const { players, staff, oldBoys } = useMemberStore();
+const { players, staff, oldBoys } = useFilteredMembers();
 
 useHead({
   title: '白門会',
