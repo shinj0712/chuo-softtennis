@@ -1,4 +1,4 @@
-import { Ref } from "vue";
+import { Ref, onMounted, onUnmounted } from "vue";
 
 interface Breakpoints {
   sm: number;
@@ -16,15 +16,15 @@ export const useWindow = () => {
     wd: 1920,
   };
 
-  // 表示幅によってデバイスの名前を返す関数です
+  // 表示幅によってデバイスの名前を返す
   const getDeviceName = (width: number): string => {
     return (width < breakpoints.md) ? 'sp' : (width >= breakpoints.lg) ? 'pc' : (width >= breakpoints.md) ? 'tablet' : '';
   }
 
-  // リアクティブ変数の定義
-  const windowWidth: Ref<number> = ref(window.innerWidth);
-  const windowHeight: Ref<number> = ref(window.innerHeight);
-  const responsiveDevice: Ref<string> = ref(getDeviceName(window.innerWidth));
+  // リアクティブ変数の定義：DOM作成前なので0を指定
+  const windowWidth: Ref<number> = ref(0);
+  const windowHeight: Ref<number> = ref(0);
+  const responsiveDevice: Ref<string> = ref(getDeviceName(0));
 
   let timer: number = 0;
   const update = (event: any) => {
@@ -38,7 +38,15 @@ export const useWindow = () => {
     }, 200);
   };
 
-  onMounted(() => window.addEventListener('resize', update));
+  onMounted(() => {
+    // DOMがレンダリングされてからwindowオブジェクトを使用する
+    windowWidth.value      = window.innerWidth;
+    windowHeight.value     = window.innerHeight;
+    responsiveDevice.value = getDeviceName(windowWidth.value);
+
+    // イベント登録
+    window.addEventListener('resize', update);
+  });
   onUnmounted(() => window.addEventListener('resize', update));
 
   return {
