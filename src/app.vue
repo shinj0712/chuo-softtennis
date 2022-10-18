@@ -99,7 +99,7 @@ useHead({
     },
   ],
   link: [
-    { rel: 'icon', type: 'image/png', href: '/favicon.png' },
+    { rel: 'icon', type: 'image/png', href: '/assets/favicon.png' },
   ],
   script: [
     { src: 'https://platform.twitter.com/widgets.js', charset: 'utf-8', async: '' }
