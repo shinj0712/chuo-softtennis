@@ -67,25 +67,26 @@
         寮生活を経験することは、社会人で基本となる「自由」と「責任」を体感し、自立心を育む手助けにもなります。<br>
         南平寮では部活動と学業に専念できる生活環境が整っており、思い出に残る充実した大学生活を送ることができます。
       </p>
-      <card :items="contents.dormitory" :column="dormitoryTicketColumn">
-        <template v-slot:content="dormitory">
-          <!-- アイコン -->
-          <div class="dormitory__ticket-icon">
-            <nuxt-svg :svg="getSvg(dormitory.item.icon)" color="darkblue"/>
-          </div>
-          <!-- テキスト -->
-          <div class="dormitory__ticket-text-container">
-            <p class="dormitory__ticket-text">
-              {{ dormitory.item.text }}
-            </p>
-            <div class="dormitory__ticket-complement-container" v-if="dormitory.item.complements.length !== 0">
-              <span class="dormitory__ticket-complement" v-for="complement in dormitory.item.complements">
-                {{ complement }}
-              </span>
-            </div>
-          </div>
-        </template>
-      </card>
+      <!-- アコーディオン -->
+      <ul class="dormitory__accordion">
+        <li class="dormitory__accordion-item" v-for="dormitory in contents.dormitory">
+          <Accordion color="darkblue" :init-open="false">
+            <template v-slot:title>
+              {{ dormitory.title }}
+            </template>
+            <template v-slot:contents>
+              <p class="dormitory__accordion-text">
+                {{ dormitory.text }}
+              </p>
+              <div class="dormitory__accordion-complements" v-if="dormitory.complements.length > 0">
+                <span class="dormitory__accordion-complement" v-for="complement in dormitory.complements">
+                  {{ complement }}
+                </span>
+              </div>
+            </template>
+          </Accordion>
+        </li>
+      </ul>
       <div class="dormitory__images">
         <swiper
           :modules="[Navigation, Pagination]"
@@ -151,6 +152,7 @@ import Dining from "@/assets/svg/dining.svg?component";
 import Bath from "@/assets/svg/bath.svg?component";
 import Hotel from "@/assets/svg/hotel.svg?component";
 import Laundry from "@/assets/svg/laundry.svg?component";
+import Accordion from '~~/components/accordion/Index.vue';
 
 // json data
 const { table, image, contents, title, swiper: swiperOptions } = useJson();
@@ -185,10 +187,10 @@ const playersCountTable: ComputedRef<Table> = computed(() => {
   return {
     title: '部員数',
     body: [
-      { key: '1年生', value: (players.value.length) ? 0 : `${players.value.filter(e => e.grade == 1).length}名` },
-      { key: '2年生', value: (players.value.length) ? 0 : `${players.value.filter(e => e.grade == 2).length}名` },
-      { key: '3年生', value: (players.value.length) ? 0 : `${players.value.filter(e => e.grade == 3).length}名` },
-      { key: '4年生', value: (players.value.length) ? 0 : `${players.value.filter(e => e.grade == 4).length}名` },
+      { key: '1年生', value: (players.value.length) ? `${players.value.filter(e => e.grade == 1).length}名` : 0 },
+      { key: '2年生', value: (players.value.length) ? `${players.value.filter(e => e.grade == 2).length}名` : 0 },
+      { key: '3年生', value: (players.value.length) ? `${players.value.filter(e => e.grade == 3).length}名` : 0 },
+      { key: '4年生', value: (players.value.length) ? `${players.value.filter(e => e.grade == 4).length}名` : 0 },
     ],
   }
 });
@@ -206,6 +208,11 @@ const highestPlayers = (data: Member[]): Member[] => {
 
 <style ${2|scoped,|} lang="scss">
 .club {
+
+  // スワイパーの固有クラスを適用
+  @include swiper-pagination;
+  @include swiper-navigation;
+
   .slider {
     $this: &;
     height: 100vh;
@@ -474,34 +481,30 @@ const highestPlayers = (data: Member[]): Member[] => {
       }
     }
 
-    &__ticket {
-      &-icon {
-        width: 5rem;
-        margin: interval(1) auto;
-      }
+    &__accordion {
+      &-item {
+        margin-bottom: interval(.5);
 
-      &-text-container {
-        padding: interval(1);
+        &:last-of-type {
+          margin-bottom: 0;
+        }
       }
 
       &-text {
-        color: color(darkblue);
         margin: 0;
-        max-width: 50rem;
       }
 
-      &-complement-container {
+      &-complements {
         @include flex(row wrap, flex-start, center, interval(1));
-        padding: interval(1) 0;
+        margin-top: interval(2);
       }
 
       &-complement {
-        padding: interval(1) interval(1);
-        background-color: color(lightgray);
-        color: color(darkblue);
-        border-radius: 1000px;
-        border: 1px solid color(darkblue);
-        font: bold .8rem/1 arial;
+        padding: interval(1) interval(2);
+        color: color(white);
+        background-color: color(navy);
+        border-radius: radius(normal);
+        font: bold 1rem/1.2 arial;
       }
     }
 
