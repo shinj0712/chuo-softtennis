@@ -1,7 +1,7 @@
 <template>
   <div class="thumbnail" :class="coloring">
     <picture class="thumbnail__picture">
-      <img class="thumbnail__img" :src="`/_nuxt/assets/images/users/${img.src}`" :alt="img.alt" @error="handleError">
+      <img class="thumbnail__img" :src="`assets/images/users/${img.src}`" :alt="img.alt" @error="handleError">
     </picture>
   </div>
 </template>
@@ -23,7 +23,8 @@ const coloring = computed<string>(() => `thumbnail--${color}`);
 
 // イメージが見つからない場合の処理
 const handleError = (e: any): void => {
-  e.target.src = '/_nuxt/assets/images/noimage.png';
+  e.error = null;
+  e.target.src = 'assets/images/noimage.png';
 }
 </script>
 

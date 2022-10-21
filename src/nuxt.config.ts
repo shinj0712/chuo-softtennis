@@ -4,11 +4,11 @@ import svgLoader from 'vite-svg-loader'
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
 	target: 'static',
-	typescript: { strict: true },
 
 	build: {
 		transpile: ['swiper'],
 		cssSourceMap: false,
+		analyze: true,
 	},
 
 	css: [
@@ -37,6 +37,6 @@ export default defineNuxtConfig({
 		public: {
 			appName: '中央大学ソフトテニス部白門会',
 			baseUrl: 'https://chuo-st.com',
-		}
-	}
+		},
+	},
 });

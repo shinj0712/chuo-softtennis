@@ -6,7 +6,7 @@
         <source
           class="image__img"
           :media="`(min-width: ${breakpoints.lg}px)`"
-          :srcset="`/_nuxt/assets/images/${src.lg}`"
+          :srcset="`assets/images/${src.lg}`"
           @error="handleError"
         >
       </template>
@@ -16,7 +16,7 @@
         <source
           class="image__img"
           :media="`(min-width: ${breakpoints.md}px)`"
-          :srcset="`/_nuxt/assets/images/${src.md}`"
+          :srcset="`assets/images/${src.md}`"
           @error="handleError"
         >
       </template>
@@ -26,14 +26,14 @@
         <source
           class="image__img"
           :media="`(min-width: ${breakpoints.sm}px)`"
-          :srcset="`/_nuxt/assets/images/${src.sm}`"
+          :srcset="`assets/images/${src.sm}`"
           @error="handleError"
         >
       </template>
 
       <!-- Default -->
       <img
-        :src="`/_nuxt/assets/images/${src.default}`"
+        :src="`assets/images/${src.default}`"
         :alt="alt"
         class="image__img"
         :class="radiusClass"
@@ -68,7 +68,7 @@ const radiusClass = computed<string | null>(() => (radius) ? `image__img--${radi
 // imgのエラーハンドリング
 const handleError = (e: any): void => {
   e.error = null;
-  e.target.src = '/_nuxt/assets/images/noimage.png';
+  e.target.src = 'assets/images/noimage.png';
 }
 </script>
 

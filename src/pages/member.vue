@@ -6,9 +6,15 @@
       <h1 class="main-visual__title">
         MEMBERS
       </h1>
+      <!-- 以下だと SSGの際にブラウザ側で Warning が出るのでスクロールしないが aタグを使う -->
+      <!--
       <NuxtLink to="#players" class="main-visual__button">
         <nuxt-svg :svg="DoubleArrowSvg" class="main-visual__button-logo"/>
       </NuxtLink>
+      -->
+      <a href="#players" class="main-visual__button">
+        <nuxt-svg :svg="DoubleArrowSvg" class="main-visual__button-logo"/>
+      </a>
     </section>
 
     <section class="users" id="players">
