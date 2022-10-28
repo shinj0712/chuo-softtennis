@@ -8,9 +8,8 @@ import type {
 // 型情報
 import { Position, Member, Category, Params } from "@/types/members";
 
-// 環境変数と認証情報
-import { private_key, client_email } from "@/credential/service_account.json";
-const env: any = useRuntimeConfig();
+// 環境変数
+const env = useRuntimeConfig();
 
 /**
  * スプレッドシートのリポジトリ
@@ -38,7 +37,7 @@ export class SheetRepository extends SpreadsheetService implements SheetReposito
   }
 
   private constructor() {
-    super(env.googleSheetsId, private_key, client_email);
+    super(env.googleSheetsId, env.sheetsApiPrivateKey, env.sheetsApiClientEmail);
   }
 
   /**
