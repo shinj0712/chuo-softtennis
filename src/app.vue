@@ -56,6 +56,7 @@ const config = useRuntimeConfig();
 
 const siteDescription = '中央大学ソフトテニス部白門会の公式ホームページです。選手紹介やクラブ紹介をコンテンツとして公開しています。';
 
+// SEO
 useHead({
   titleTemplate: (title: string) => {
     return title ? `${title} - ${config.public.appName}` : config.public.appName;
@@ -108,8 +109,9 @@ useHead({
 
 const { constants } = useJson();
 
+// ツイッター周辺処理
 const showTwitter = ref(false);
-const toggleTwitter = (): void => {
+const toggleTwitter = (el: MouseEvent) => {
   showTwitter.value = !showTwitter.value;
 }
 </script>

@@ -1,4 +1,3 @@
-import { defineNuxtConfig } from 'nuxt'
 import svgLoader from 'vite-svg-loader'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
@@ -33,7 +32,12 @@ export default defineNuxtConfig({
 	},
 
 	runtimeConfig: {
-		GoogleSheetsId: process.env.SHEETS_ID,
+		// 非公開
+		googleSheetsId : '',
+		microCmsApiKey : '',
+		microCmsBaseUrl: '',
+
+		// 公開
 		public: {
 			appName: '中央大学ソフトテニス部白門会',
 			baseUrl: 'https://chuo-st.com',

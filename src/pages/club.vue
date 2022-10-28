@@ -109,11 +109,7 @@
 
       <!-- スライダー or ロード -->
       <div class="member__slider">
-        <div class="member__load" v-if="players.length === 0">
-          <Load color="white"/>
-        </div>
         <swiper
-          v-else
           :modules="[Navigation, Pagination]"
           :slides-per-view="1"
           :breakpoints="swiperOptions.breakpoint.memberCard"
@@ -138,21 +134,16 @@
 // Swiper import
 import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from "swiper/vue";
-import "swiper/css";
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 
 // type
 import { Member } from "@/types/members";
 import { Table } from "@/types/utility";
 import { ComputedRef } from 'vue';
 
-// svg
-import Dining from "@/assets/svg/dining.svg?component";
-import Bath from "@/assets/svg/bath.svg?component";
-import Hotel from "@/assets/svg/hotel.svg?component";
-import Laundry from "@/assets/svg/laundry.svg?component";
-import Accordion from '~~/components/accordion/Index.vue';
+// swiper module style import
+import "swiper/css";
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 // json data
 const { table, image, contents, title, swiper: swiperOptions } = useJson();
@@ -167,20 +158,8 @@ const tabChange = (id: number): void => {
   TabComponent.value.change(id);
 }
 
-// 寮カードのカラム数
-const { responsiveDevice } = useWindow();
-const dormitoryTicketColumn: number = (responsiveDevice.value === 'pc') ? 2 : 1;
-
-// アイコンコンポーネントを返します
-const getSvg = (name: 'dining' | 'bath' | 'hotel' | 'laundry') => {
-  if (name === 'dining') return Dining;
-  if (name === 'bath') return Bath;
-  if (name === 'hotel') return Hotel;
-  if (name === 'laundry') return Laundry;
-}
-
 // 選手情報を取得
-const { players } = useFilteredMembers();
+const players = usePlayers();
 
 // 取得した選手情報から学年毎の人数を算出
 const playersCountTable: ComputedRef<Table> = computed(() => {
@@ -208,8 +187,7 @@ const highestPlayers = (data: Member[]): Member[] => {
 
 <style ${2|scoped,|} lang="scss">
 .club {
-
-  // スワイパーの固有クラスを適用
+  // Swiper custom css
   @include swiper-pagination;
   @include swiper-navigation;
 

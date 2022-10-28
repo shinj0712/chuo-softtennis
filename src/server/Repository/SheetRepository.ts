@@ -38,7 +38,7 @@ export class SheetRepository extends SpreadsheetService implements SheetReposito
   }
 
   private constructor() {
-    super(env.GoogleSheetsId, private_key, client_email);
+    super(env.googleSheetsId, private_key, client_email);
   }
 
   /**
