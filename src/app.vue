@@ -52,11 +52,6 @@
 import TwitterLogo from "@/assets/svg/twitter.svg?component";
 import closeIcon from "@/assets/svg/close.svg?component";
 
-// swiper module style import
-import "swiper/css";
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-
 const config = useRuntimeConfig();
 
 const siteDescription = '中央大学ソフトテニス部白門会の公式ホームページです。選手紹介やクラブ紹介をコンテンツとして公開しています。';
@@ -114,8 +109,8 @@ useHead({
 
 const { constants } = useJson();
 
+// ツイッター周辺処理
 const showTwitter = ref(false);
-
 const toggleTwitter = (el: MouseEvent) => {
   showTwitter.value = !showTwitter.value;
 }
@@ -278,100 +273,6 @@ body {
     }
   }
 }
-
-// Swiper カスタムクラス
-.swiper {
-  padding-bottom: interval(10);
-
-  // ページネーション
-  &-pagination {
-    $this: &;
-    counter-reset: num;
-    bottom: 0;
-
-    &-bullet {
-      $size: 3rem;
-      counter-increment: num;
-      width: $size;
-      height: $size;
-      // swiperデフォルトのCSSによって上書きされてしまうのでimportantをつける
-      margin: interval(1) !important;
-      background-color: color(white);
-      box-shadow: inset -.15rem -.15rem .7rem color(darkShadow);
-      border-radius: radius(circle);
-      position: relative;
-      opacity: .5;
-      transition: transform .3s ease-out, opacity .3s ease-out;
-
-      &::before {
-        display: block;
-        content: '';
-        position: absolute;
-        top: calc(#{$size} / 4);
-        left: 50%;
-        transform: translateX(-50%);
-        width: calc(#{$size} / 22);
-        height: calc(#{$size} / 22);
-        background-color: darken($color: blue, $amount: 10%);
-        border-radius: radius(circle);
-      }
-
-      &::after {
-        display: block;
-        content: counter(num);
-        font: bold .8rem/1 arial;
-        white-space: pre;
-        color: darken($color: red, $amount: .4);
-        text-align: center;
-        @include position(absolute, $t: 50%, $l: 50%);
-        transform: translate(-50%, -50%);
-      }
-    }
-
-    &-bullet-active {
-      opacity: 1;
-      transform: scale(1.1);
-      animation: rotate-scale 3s linear normal infinite;
-    }
-
-    &-bullets-dynamic {
-      #{$this}-bullet-active {
-        animation: rotate-scale-small 3s linear normal infinite;
-      }
-    }
-  }
-
-  // ナビゲーション
-  &-button {
-    $this: &;
-    $size: 2.5rem;
-
-    &-next, &-prev {
-      width: $size;
-      height: $size;
-      border-radius: radius(circle);
-      outline: none;
-      transform: translateY(- 1.25rem);
-
-      &::after {
-        content: '';
-      }
-    }
-
-    &-next {
-      right: .5rem;
-    }
-
-    &-prev {
-      left: .5rem;
-    }
-
-    &-disabled {
-      opacity: 0;
-    }
-  }
-}
-
 
 // Vueトランジションクラス
 .fade-x {
