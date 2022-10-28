@@ -33,7 +33,9 @@ export default defineNuxtConfig({
 
 	runtimeConfig: {
 		// 非公開
-		googleSheetsId : '',
+		googleSheetsId: '',
+		sheetsApiPrivateKey: '',
+		sheetsApiClientEmail: '',
 		microCmsApiKey : '',
 		microCmsBaseUrl: '',
 
