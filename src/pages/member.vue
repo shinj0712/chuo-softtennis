@@ -63,9 +63,9 @@ import ChuoLogoSvg from "@/assets/svg/chuo-logo.svg?component";
 // json取得
 const { title, constants } = useJson();
 // メンバー情報を取得
-const players = usePlayers();
-const staff   = useStaff();
-const oldBoys = useOldBoys();
+const { data: players } = usePlayers();
+const { data: staff }   = useStaff();
+const { data: oldBoys } = useOldBoys();
 
 useHead({
   title: '白門会',

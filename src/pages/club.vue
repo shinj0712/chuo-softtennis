@@ -159,7 +159,7 @@ const tabChange = (id: number): void => {
 }
 
 // 選手情報を取得
-const players = usePlayers();
+const { data: players } = usePlayers();
 
 // 取得した選手情報から学年毎の人数を算出
 const playersCountTable: ComputedRef<Table> = computed(() => {
