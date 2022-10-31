@@ -53,9 +53,9 @@ export class SpreadsheetService implements SpreadsheetServiceInterface {
       });
       // load
       await this.doc.loadInfo();
-      console.log('##### 初期化成功 #####  ワークシートを取得しました');
+      console.log('##### 【 Info 】 #####  スプレッドシートサービスクラスの初期化に成功し、ワークシートを取得しました');
     } catch (error) {
-      console.error('###  初期化 失敗  ###  => ', error);
+      console.error('##### 【 Error 】 #####  スプレッドシートサービスクラスの初期化に失敗しました  => ', error);
     }
   }
 

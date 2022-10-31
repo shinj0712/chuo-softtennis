@@ -2,9 +2,10 @@
  * members API interface & types
  */
 
+export type CategoryJa = '部員' | 'スタッフ' | 'OB';
+
 // ポジション
 export interface Position {
-  id      : number;
   name_ja : string;
   name_en : string;
   color   : string;

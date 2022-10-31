@@ -57,11 +57,11 @@
 </template>
 
 <script setup lang="ts">
-// TODO:meta情報
 useHead({
   title: 'ホーム',
 })
 
+// JSON定数を取得
 const { contents, constants } = useJson();
 </script>
 

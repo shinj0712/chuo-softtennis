@@ -1,10 +1,14 @@
-import { defineNuxtConfig } from 'nuxt'
 import svgLoader from 'vite-svg-loader'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
 	target: 'static',
-	typescript: { strict: true },
+
+	build: {
+		transpile: ['swiper'],
+		cssSourceMap: false,
+		analyze: true,
+	},
 
 	css: [
 		// TODO:sourcemapエラーを修正する
@@ -20,9 +24,6 @@ export default defineNuxtConfig({
 				},
 			},
 		},
-		build: {
-			sourcemap: false,
-		},
 		plugins: [
 			svgLoader({
 				defaultImport: 'component',
@@ -31,10 +32,17 @@ export default defineNuxtConfig({
 	},
 
 	runtimeConfig: {
-		GoogleSheetsId: process.env.SHEETS_ID,
+		// 非公開
+		googleSheetsId: '',
+		sheetsApiPrivateKey: '',
+		sheetsApiClientEmail: '',
+		microCmsApiKey : '',
+		microCmsBaseUrl: '',
+
+		// 公開
 		public: {
 			appName: '中央大学ソフトテニス部白門会',
 			baseUrl: 'https://chuo-st.com',
-		}
-	}
+		},
+	},
 });

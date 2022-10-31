@@ -19,7 +19,6 @@
 
 <script lang="ts" setup>
 import { computed, ref } from '@vue/reactivity';
-import { useWindow } from '../../composables/window';
 
 // ウィンドウ共通情報
 const { responsiveDevice } = useWindow();

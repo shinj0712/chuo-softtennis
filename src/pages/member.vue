@@ -6,21 +6,23 @@
       <h1 class="main-visual__title">
         MEMBERS
       </h1>
+      <!-- 以下だと SSGの際にブラウザ側で Warning が出るのでスクロールしないが aタグを使う -->
+      <!--
       <NuxtLink to="#players" class="main-visual__button">
         <nuxt-svg :svg="DoubleArrowSvg" class="main-visual__button-logo"/>
       </NuxtLink>
+      -->
+      <a href="#players" class="main-visual__button">
+        <nuxt-svg :svg="DoubleArrowSvg" class="main-visual__button-logo"/>
+      </a>
     </section>
 
     <section class="users" id="players">
       <!-- title -->
       <title-primary :title="title.players"/>
-      <!-- loading -->
-      <div class="users__load" v-if="players.pending.value">
-        <Load color="navy"/>
-      </div>
       <!-- tickets -->
-      <div class="users__tickets" v-else>
-        <div class="users__ticket" v-for="(player, i) in players.data.value" :key="i">
+      <div class="users__tickets">
+        <div class="users__ticket" v-for="(player, i) in players" :key="i">
           <ticket-user :user="parse(player)"/>
         </div>
       </div>
@@ -29,13 +31,9 @@
     <section class="users" id="staff">
       <!-- title -->
       <title-primary :title="title.staff"/>
-      <!-- loading -->
-      <div class="users__load" v-if="staff.pending.value">
-        <Load color="navy"/>
-      </div>
       <!-- tickets -->
-      <div class="users__tickets" v-else>
-        <div class="users__ticket" v-for="(staffItem, i) in staff.data.value" :key="i">
+      <div class="users__tickets">
+        <div class="users__ticket" v-for="(staffItem, i) in staff" :key="i">
           <ticket-user :user="parse(staffItem)"/>
         </div>
       </div>
@@ -44,13 +42,9 @@
     <section class="users" id="ob">
       <!-- title -->
       <title-primary :title="title.ob"/>
-      <!-- loading -->
-      <div class="users__load" v-if="staff.pending.value">
-        <Load color="navy"/>
-      </div>
       <!-- tickets -->
-      <div class="users__tickets" v-else>
-        <div class="users__ticket" v-for="(ob, i) in filteringOfficer(oldBoys.data.value)" :key="i">
+      <div class="users__tickets">
+        <div class="users__ticket" v-for="(ob, i) in filteringOfficer(oldBoys)" :key="i">
           <!-- ticket -->
           <ticket-user :user="parse(ob)"/>
         </div>
@@ -69,7 +63,9 @@ import ChuoLogoSvg from "@/assets/svg/chuo-logo.svg?component";
 // json取得
 const { title, constants } = useJson();
 // メンバー情報を取得
-const { players, staff, oldBoys } = useMemberStore();
+const { data: players } = usePlayers();
+const { data: staff }   = useStaff();
+const { data: oldBoys } = useOldBoys();
 
 useHead({
   title: '白門会',
@@ -80,7 +76,7 @@ useHead({
  *
  * @param {Member[]} data メンバー配列
  */
-const filteringOfficer = (data: Member[] | null) => {
+const filteringOfficer = (data: Member[]) => {
   const officers = constants.officers;
   // 役員で絞り込み
   const ob = data?.filter(e => e.tags.some(c => officers.includes(c)));

@@ -67,25 +67,26 @@
         寮生活を経験することは、社会人で基本となる「自由」と「責任」を体感し、自立心を育む手助けにもなります。<br>
         南平寮では部活動と学業に専念できる生活環境が整っており、思い出に残る充実した大学生活を送ることができます。
       </p>
-      <card :items="contents.dormitory" :column="dormitoryTicketColumn">
-        <template v-slot:content="dormitory">
-          <!-- アイコン -->
-          <div class="dormitory__ticket-icon">
-            <nuxt-svg :svg="getSvg(dormitory.item.icon)" color="darkblue"/>
-          </div>
-          <!-- テキスト -->
-          <div class="dormitory__ticket-text-container">
-            <p class="dormitory__ticket-text">
-              {{ dormitory.item.text }}
-            </p>
-            <div class="dormitory__ticket-complement-container" v-if="dormitory.item.complements.length !== 0">
-              <span class="dormitory__ticket-complement" v-for="complement in dormitory.item.complements">
-                {{ complement }}
-              </span>
-            </div>
-          </div>
-        </template>
-      </card>
+      <!-- アコーディオン -->
+      <ul class="dormitory__accordion">
+        <li class="dormitory__accordion-item" v-for="dormitory in contents.dormitory">
+          <Accordion color="darkblue" :init-open="false">
+            <template v-slot:title>
+              {{ dormitory.title }}
+            </template>
+            <template v-slot:contents>
+              <p class="dormitory__accordion-text">
+                {{ dormitory.text }}
+              </p>
+              <div class="dormitory__accordion-complements" v-if="dormitory.complements.length > 0">
+                <span class="dormitory__accordion-complement" v-for="complement in dormitory.complements">
+                  {{ complement }}
+                </span>
+              </div>
+            </template>
+          </Accordion>
+        </li>
+      </ul>
       <div class="dormitory__images">
         <swiper
           :modules="[Navigation, Pagination]"
@@ -108,11 +109,7 @@
 
       <!-- スライダー or ロード -->
       <div class="member__slider">
-        <div class="member__load" v-if="players.pending.value">
-          <Load color="white"/>
-        </div>
         <swiper
-          v-else
           :modules="[Navigation, Pagination]"
           :slides-per-view="1"
           :breakpoints="swiperOptions.breakpoint.memberCard"
@@ -120,7 +117,7 @@
           navigation
           :pagination="swiperOptions.dynamicPagination"
         >
-          <swiper-slide v-for="player in highestPlayers(players.data.value)">
+          <swiper-slide v-for="player in highestPlayers(players)">
             <card-user :user="player"/>
           </swiper-slide>
         </swiper>
@@ -137,20 +134,16 @@
 // Swiper import
 import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from "swiper/vue";
-import "swiper/css";
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 
 // type
 import { Member } from "@/types/members";
 import { Table } from "@/types/utility";
 import { ComputedRef } from 'vue';
 
-// svg
-import Dining from "@/assets/svg/dining.svg?component";
-import Bath from "@/assets/svg/bath.svg?component";
-import Hotel from "@/assets/svg/hotel.svg?component";
-import Laundry from "@/assets/svg/laundry.svg?component";
+// swiper module style import
+import "swiper/css";
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 // json data
 const { table, image, contents, title, swiper: swiperOptions } = useJson();
@@ -165,30 +158,18 @@ const tabChange = (id: number): void => {
   TabComponent.value.change(id);
 }
 
-// 寮カードのカラム数
-const { responsiveDevice } = useWindow();
-const dormitoryTicketColumn: number = (responsiveDevice.value === 'pc') ? 2 : 1;
-
-// アイコンコンポーネントを返します
-const getSvg = (name: 'dining' | 'bath' | 'hotel' | 'laundry') => {
-  if (name === 'dining') return Dining;
-  if (name === 'bath') return Bath;
-  if (name === 'hotel') return Hotel;
-  if (name === 'laundry') return Laundry;
-}
-
 // 選手情報を取得
-const { players } = useMemberStore();
+const { data: players } = usePlayers();
 
 // 取得した選手情報から学年毎の人数を算出
 const playersCountTable: ComputedRef<Table> = computed(() => {
   return {
     title: '部員数',
     body: [
-      { key: '1年生', value: (players.value.pending.value) ? 0 : `${players.value.data.value.filter(e => e.grade == 1).length}名` },
-      { key: '2年生', value: (players.value.pending.value) ? 0 : `${players.value.data.value.filter(e => e.grade == 2).length}名` },
-      { key: '3年生', value: (players.value.pending.value) ? 0 : `${players.value.data.value.filter(e => e.grade == 3).length}名` },
-      { key: '4年生', value: (players.value.pending.value) ? 0 : `${players.value.data.value.filter(e => e.grade == 4).length}名` },
+      { key: '1年生', value: (players.value.length) ? `${players.value.filter(e => e.grade == 1).length}名` : 0 },
+      { key: '2年生', value: (players.value.length) ? `${players.value.filter(e => e.grade == 2).length}名` : 0 },
+      { key: '3年生', value: (players.value.length) ? `${players.value.filter(e => e.grade == 3).length}名` : 0 },
+      { key: '4年生', value: (players.value.length) ? `${players.value.filter(e => e.grade == 4).length}名` : 0 },
     ],
   }
 });
@@ -206,6 +187,10 @@ const highestPlayers = (data: Member[]): Member[] => {
 
 <style ${2|scoped,|} lang="scss">
 .club {
+  // Swiper custom css
+  @include swiper-pagination;
+  @include swiper-navigation;
+
   .slider {
     $this: &;
     height: 100vh;
@@ -474,34 +459,30 @@ const highestPlayers = (data: Member[]): Member[] => {
       }
     }
 
-    &__ticket {
-      &-icon {
-        width: 5rem;
-        margin: interval(1) auto;
-      }
+    &__accordion {
+      &-item {
+        margin-bottom: interval(.5);
 
-      &-text-container {
-        padding: interval(1);
+        &:last-of-type {
+          margin-bottom: 0;
+        }
       }
 
       &-text {
-        color: color(darkblue);
         margin: 0;
-        max-width: 50rem;
       }
 
-      &-complement-container {
+      &-complements {
         @include flex(row wrap, flex-start, center, interval(1));
-        padding: interval(1) 0;
+        margin-top: interval(2);
       }
 
       &-complement {
-        padding: interval(1) interval(1);
-        background-color: color(lightgray);
-        color: color(darkblue);
-        border-radius: 1000px;
-        border: 1px solid color(darkblue);
-        font: bold .8rem/1 arial;
+        padding: interval(1) interval(2);
+        color: color(white);
+        background-color: color(navy);
+        border-radius: radius(normal);
+        font: bold 1rem/1.2 arial;
       }
     }
 

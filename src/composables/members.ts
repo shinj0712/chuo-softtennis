@@ -1,41 +1,50 @@
-
-import { Member } from "@/types/members";
+import { Member, CategoryJa } from "@/types/members";
 
 /**
- * メンバー情報を取得してストアに格納
+ * メンバー情報をカテゴリーで絞り込みます
+ *
+ * @param members  メンバー配列
+ * @param category カテゴリー文字列
  */
-export const useMemberStore = () => {
-  const members = useState('members', () => {
-    return useFetch<Member[]>('api/members', {
-      method: 'GET',
-    })
-  })
+const categoryFilter = (members: Member[], category: CategoryJa): Member[] => {
+  return members.filter(member => member.category.includes(category));
+}
 
-  const players = useState('players', () => {
-    return useFetch<Member[]>('api/members', {
-      method: 'GET',
-      params: { category: 'players' },
-    })
-  })
+/**
+ * 全メンバー情報
+ */
+export const useMembers = () => {
+  return useFetch<Member[]>('/api/members', {
+    method: 'GET',
+  });
+}
 
-  const staff = useState('staff', () => {
-    return useFetch<Member[]>('api/members', {
-      method: 'GET',
-      params: { category: 'staff' },
-    })
-  })
+/**
+ * 選手
+ */
+export const usePlayers = () => {
+  return useFetch<Member[]>('/api/members', {
+    method: 'GET',
+    params: { category: 'players' },
+  });
+}
 
-  const oldBoys = useState('oldBoys', () => {
-    return useFetch<Member[]>('api/members', {
-      method: 'GET',
-      params: { category: 'ob' },
-    })
-  })
+/**
+ * スタッフ
+ */
+export const useStaff = () => {
+  return useFetch<Member[]>('/api/members', {
+    method: 'GET',
+    params: { category: 'staff' },
+  });
+}
 
-  return {
-    members: members,
-    players: players,
-    staff: staff,
-    oldBoys: oldBoys,
-  }
+/**
+ * OB
+ */
+export const useOldBoys = () => {
+  return useFetch<Member[]>('/api/members', {
+    method: 'GET',
+    params: { category: 'ob' },
+  });
 }
