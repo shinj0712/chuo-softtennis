@@ -2,7 +2,6 @@
   <div class="home">
     <!-- メインビジュアル -->
     <section class="main-visual container">
-      <div class="main-visual__circle"/>
       <h1 class="main-visual__title">
         CHUO<br>
         UNIVERSITY<br>
@@ -69,17 +68,20 @@ const { contents, constants } = useJson();
 .home {
   // メインビジュアルレイアウト
   .main-visual {
-    height: 100vh;
+    min-height: 100vh;
+    min-height: 100svh;
     position: relative;
-    @include gradient(color(navy), color(darkblue));
+    @include gradient(color(navy), color(darkblue), horizontal);
     display: grid;
     place-items: center;
 
-    &__circle {
-      width: pixel(30);
-      height: pixel(30);
+    &::before {
+      content: '';
+      width: 100%;
+      height: 100%;
       background: radial-gradient(circle, color(lightgray), rgba(color(navy), 0));
-      filter: blur(pixel(20));
+      filter: blur(50px);
+      opacity: .2;
       @include position(absolute, $t: 50%);
       transform: translateY(- 50%);
     }
