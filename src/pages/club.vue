@@ -194,6 +194,7 @@ const highestPlayers = (data: Member[]): Member[] => {
   .slider {
     $this: &;
     height: 100vh;
+    height: 100svh;
     position: relative;
     overflow: hidden;
 

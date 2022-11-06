@@ -75,9 +75,15 @@ const navToggle = (): void => {
 // サイトマップモーダル
 const { isShowRef, closeModal, openModal } = useModal();
 
+/**
+ * ナビリンクを押下した際の処理
+ * @param path ルートパス
+ */
 const next = (path: string): void => {
   // モーダルを閉じる
   closeModal();
+  // ナビメニューを閉じる
+  navToggle();
   // ページ遷移
   router.push(path);
 }
