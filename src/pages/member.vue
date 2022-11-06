@@ -163,7 +163,7 @@ const parse = (data: any) => {
       width: var(--width);
       cursor: pointer;
       @include position(absolute, $b: 5%, $l: calc(50% - (var(--width) / 2)));
-      animation: float-up-down 3s linear infinite normal;
+      animation: float-up-down 3s linear 0s infinite normal;
 
       @include hover {
         & svg {
