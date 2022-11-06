@@ -1,7 +1,6 @@
 <template>
   <div class="member">
     <section class="main-visual container">
-      <div class="main-visual__circle"/>
       <nuxt-svg :svg="ChuoLogoSvg" class="main-visual__logo"/>
       <h1 class="main-visual__title">
         MEMBERS
@@ -116,7 +115,8 @@ const parse = (data: any) => {
 }
 .member {
   .main-visual {
-    height: 100vh;
+    min-height: 100vh;
+    min-height: 100svh;
     position: relative;
     @include gradient(color(navy), color(darkblue));
     display: grid;
@@ -125,12 +125,15 @@ const parse = (data: any) => {
     // ボールサイズ
     --ball-size: 7rem;
 
-    &__circle {
-      width: pixel(30);
-      height: pixel(30);
+    &::before {
+      content: '';
+      width: 100%;
+      height: 100%;
       background: radial-gradient(circle, color(lightgray), rgba(color(navy), 0));
-      filter: blur(pixel(20));
-      @include position(absolute, $t: 30%, $l: 25%);
+      filter: blur(50px);
+      opacity: .2;
+      @include position(absolute, $t: 50%);
+      transform: translateY(- 50%);
     }
 
     &__logo {
@@ -160,7 +163,7 @@ const parse = (data: any) => {
       width: var(--width);
       cursor: pointer;
       @include position(absolute, $b: 5%, $l: calc(50% - (var(--width) / 2)));
-      animation: float-up-down 3s linear infinite normal;
+      animation: float-up-down 3s linear 0s infinite normal;
 
       @include hover {
         & svg {

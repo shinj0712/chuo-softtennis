@@ -396,12 +396,12 @@ $arrow-left-darkblue: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="3 3 18 1
     &-bullet-active {
       opacity: 1;
       transform: scale(1.1);
-      animation: rotate-scale 3s linear normal infinite;
+      animation: rotate-scale 3s linear 0s normal infinite;
     }
 
     &-bullets-dynamic {
       #{$this}-bullet-active {
-        animation: rotate-scale-small 3s linear normal infinite;
+        animation: rotate-scale-small 3s linear 0s normal infinite;
       }
     }
   }
